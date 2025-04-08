@@ -1,8 +1,8 @@
-🧭 **Rota Inclusiva**  
+🧭 **Mapeamento com Acessibilidade para Atividade Comunitária**  
 É Uma [plataforma](https://github.com/unb-mds/2025-1-Squad01) colaborativa de mapeamento criada para apoiar atividades comunitárias com foco em acessibilidade. A ideia é permitir que qualquer pessoa possa cadastrar e encontrar lugares acessíveis para pessoas com deficiência ou mobilidade reduzida — como centros culturais, feiras, praças e outros espaços públicos.
 
 🏗️ **Objetivo**  
-O Rota Inclusiva busca facilitar o dia a dia de quem precisa de informações sobre acessibilidade e também incentivar a participação ativa da comunidade. Com a plataforma, queremos:
+O projeto busca facilitar o dia a dia de quem precisa de informações sobre acessibilidade e também incentivar a participação ativa da comunidade. Com a plataforma, queremos:
 
 - Construir um mapa interativo de locais acessíveis  
 - Permitir que a comunidade colabore com informações, comentários e avaliações  
