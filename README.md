@@ -32,11 +32,11 @@ Este projeto está sendo desenvolvido por estudantes universitários com apoio d
 Este projeto está sob a licença MIT. Consulte o arquivo [LICENSE](https://github.com/unb-mds/2025-1-Squad01?tab=MIT-1-ov-file) para mais informações.
 
 👨‍👩‍👦 **Equipe**  
-[Alberto Côrtes Cavalcante](https://www.linkedin.com/in/albertoccavalcante/)  
-[Anderson Fernandes da Silva](https://www.linkedin.com/)
-[Caio Rocha de Oliveira](https://www.linkedin.com/)
-[Caio Soares de Andrade](https://www.linkedin.com/)
-[Lucas Machado Peres Ricarte](https://www.linkedin.com/)
-[Maria Laura Regis Cabral Dias](https://www.linkedin.com/)
-[Samuel Rodrigues Viana Lobo](https://www.linkedin.com/)
+- [Alberto Côrtes Cavalcante](https://www.linkedin.com/in/albertoccavalcante/)  
+- [Anderson Fernandes da Silva](https://www.linkedin.com/)
+- [Caio Rocha de Oliveira](https://www.linkedin.com/)
+- [Caio Soares de Andrade](https://www.linkedin.com/)
+- [Lucas Machado Peres Ricarte](https://www.linkedin.com/)
+- [Maria Laura Regis Cabral Dias](https://www.linkedin.com/)
+- [Samuel Rodrigues Viana Lobo](https://www.linkedin.com/)
 
