@@ -11,7 +11,7 @@
 - Samuel Rodrigues Viana Lobo  
 
 ## Pauta  
-- Alinhamento sobre o progresso da Sprint 2  
+- Alinhamento sobre o progresso da Sprint 1 
 - Definição dos próximos passos e distribuição de tarefas  
 - Avaliação do andamento da engenharia de requisitos  
 
