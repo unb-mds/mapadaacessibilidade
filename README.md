@@ -1,5 +1,5 @@
 🧭 **Mapeamento com Acessibilidade para Atividade Comunitária**  
-É Uma [plataforma](https://github.com/unb-mds/2025-1-Squad01) colaborativa de mapeamento criada para apoiar atividades comunitárias com foco em acessibilidade. A ideia é permitir que qualquer pessoa possa cadastrar e encontrar lugares acessíveis para pessoas com deficiência ou mobilidade reduzida — como centros culturais, feiras, praças e outros espaços públicos.
+É Uma [plataforma](https://github.com/unb-mds/mapadaacessibilidade) colaborativa de mapeamento criada para apoiar atividades comunitárias com foco em acessibilidade. A ideia é permitir que qualquer pessoa possa cadastrar e encontrar lugares acessíveis para pessoas com deficiência ou mobilidade reduzida — como centros culturais, feiras, praças e outros espaços públicos.
 
 ---
 
@@ -14,7 +14,7 @@ O projeto busca facilitar o dia a dia de quem precisa de informações sobre ace
 ---
 
 🌀 **Motivação**  
-A falta de informação sobre acessibilidade em espaços públicos ainda é um grande desafio. Muitas vezes, as pessoas com deficiência só descobrem que um lugar não é acessível quando já estão lá. Com o Rota Inclusiva, queremos mudar isso — oferecendo uma ferramenta simples, feita por universitários e para a comunidade em geral.
+A falta de informação sobre acessibilidade em espaços públicos ainda é um grande desafio. Muitas vezes, as pessoas com deficiência só descobrem que um lugar não é acessível quando já estão lá. Com o Mapa da Acessibilidade, queremos mudar isso — oferecendo uma ferramenta simples, feita por universitários e para a comunidade em geral.
 
 🔧 **Funcionalidades**  
 - 📍 Mapa colaborativo com pontos acessíveis  
@@ -26,7 +26,7 @@ A falta de informação sobre acessibilidade em espaços públicos ainda é um g
 ---
 
 🏘️ **Contexto**  
-Este projeto está sendo desenvolvido por estudantes universitários com apoio de mentoria, e pode ser utilizado tanto por ONGs, quanto por moradores locais que desejam contribuir para tornar o projeto mais inclusiva.
+Este projeto está sendo desenvolvido por estudantes universitários com apoio de monitores, e pode ser utilizado tanto por ONGs, quanto por moradores locais que desejam contribuir para tornar o projeto mais inclusiva.
 
 ---
 
