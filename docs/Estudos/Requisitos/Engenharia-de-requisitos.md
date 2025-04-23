@@ -14,7 +14,7 @@ A ideia é que moradores, voluntários e organizações possam cadastrar e consu
 A plataforma contempla um conjunto de **requisitos funcionais** e **não funcionais**, definidos com base nas necessidades dos usuários e boas práticas de usabilidade e acessibilidade digital.  
 
 > 📄 Acesse a documentação completa dos requisitos aqui:  
-👉 [Escopo de Funcionalidades no Canva](https://www.canva.com/design/DAGkYxAhKD0/LE9oN8qZj4ZcYcdV5lw_3Q/edit?utm_content=DAGkYxAhKD0&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+👉 [Escopo de Funcionalidades no Canva](https://www.canva.com/design/DAGkRnxFbno/UzQqYdR57qFCH5p5HUuFVw/edit?utm_content=DAGkRnxFbno&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 
 ---
 
