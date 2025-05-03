@@ -13,15 +13,15 @@ function App() {
         avaliacao: 'all'
     });
 
+    const [menuOpen, setMenuOpen] = useState(false);
+
     useEffect(() => {
-        // Inicializa o mapa Leaflet
         const map = L.map('map').setView([-23.5505, -46.6333], 13);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
-        // Adiciona marcadores de exemplo
         const locations = [
             { coords: [-23.5505, -46.6333], title: "Shopping Center", type: "rampa" },
             { coords: [-23.5515, -46.6343], title: "Parque Municipal", type: "banheiro" }
@@ -46,14 +46,22 @@ function App() {
                     <h1>Mapa da Acessibilidade</h1>
                     <p>Mobilidade sem Barreiras</p>
                 </div>
-                <nav className="nav-links">
+
+                <button
+                    className="mobile-menu"
+                    onClick={() => setMenuOpen(!menuOpen)}
+                    aria-label="Menu"
+                >
+                    ☰
+                </button>
+
+                <nav className={`nav-links ${menuOpen ? 'active' : ''}`}>
                     <a href="#"><span className="icon">📄</span> Sobre</a>
                     <a href="#"><span className="icon">📝</span> Cadastro</a>
                     <a href="#"><span className="icon">🔑</span> Login</a>
                     <a href="#"><span className="icon">✉️</span> Contato</a>
                     <a href="#"><span className="icon">📅</span> Eventos</a>
                 </nav>
-                <button className="mobile-menu">☰</button>
             </header>
 
             {/* Conteúdo Principal */}
