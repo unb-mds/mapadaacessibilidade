@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aa99c700-f69f-42cc-96f5-b6b40d279797" name="Changes" comment="ajeitei algumas coisas no texto que estavam faltando" />
+    <list default="true" id="aa99c700-f69f-42cc-96f5-b6b40d279797" name="Changes" comment="ajeitei algumas coisas no texto que estavam faltando">
+      <change afterPath="$PROJECT_DIR$/my-app2/Htmls exportados/TODOs.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/my-app/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/my-app2/Htmls exportados/index.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -24,12 +28,12 @@
     &quot;assignee&quot;: &quot;Dexmachi&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/unb-mds/mapadaacessibilidade.git",
-    "accountId": "9e9b0edb-d469-4d0c-b021-652290abe903"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/unb-mds/mapadaacessibilidade.git&quot;,
+    &quot;accountId&quot;: &quot;9e9b0edb-d469-4d0c-b021-652290abe903&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
 }</component>
@@ -47,9 +51,10 @@
     "Node.js.App.js.executor": "Debug",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "dev-frontend",
     "ignore_missing_gitignore": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "E:/Projetos/mapadaacessibilidade",
+    "last_opened_file_path": "E:/Projetos/mapadaacessibilidade/my-app2",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -64,6 +69,8 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\Projetos\mapadaacessibilidade\my-app2" />
+      <recent name="E:\Projetos\mapadaacessibilidade\my-app\Htmls exportados" />
       <recent name="E:\Projetos\2025-1-Squad01\Cadernos" />
       <recent name="E:\Projetos\2025-1-Squad01\Imagens" />
       <recent name="E:\Projetos\2025-1-Squad01" />
@@ -125,7 +132,11 @@
       <option name="presentableId" value="Default" />
       <updated>1743264513020</updated>
       <workItem from="1743264514314" duration="4973000" />
-      <workItem from="1746213469649" duration="593000" />
+      <workItem from="1746213469649" duration="942000" />
+      <workItem from="1746214445860" duration="2829000" />
+      <workItem from="1746233638651" duration="493000" />
+      <workItem from="1746278244847" duration="111000" />
+      <workItem from="1746279266659" duration="283000" />
     </task>
     <task id="LOCAL-00001" summary="ajeitei algumas coisas no texto que estavam faltando">
       <option name="closed" value="true" />
