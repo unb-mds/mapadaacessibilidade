@@ -1,4 +1,9 @@
 <div align="center">
+<img src="https://github.com/user-attachments/assets/da33dec0-288a-41da-b8d6-f7b4e27d513d" height="50px" width="50px">
+</div>
+
+
+<div align="center">
 <h1>Estrutura do Banco de Dados</h1>
 </div>
 
