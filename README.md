@@ -40,9 +40,9 @@ Este projeto está sendo desenvolvido por estudantes universitários com apoio d
 
 ## 🧰 Tecnologias Utilizadas
 
-- Frontend: React.js com TypeScript
+- Frontend: React.js 
 - Backend: Node.js com Express
-- Banco de Dados: MongoDB
+- Banco de Dados: POSTgreSQL
 - Mapa: Leaflet API
 - Design: Figma
 - Quadro de Overview: [Canva](https://www.canva.com/design/DAGkRnxFbno/UzQqYdR57qFCH5p5HUuFVw/view)
