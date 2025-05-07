@@ -61,6 +61,18 @@ Este projeto está sob a licença MIT. Consulte o arquivo [LICENSE](https://gith
 
 ---
 
+## 📂 Documentação
+
+Consulte a documentação por mei deste [LINK](https://github.com/oalbertocavalcante/documentacao-mapa-daacessibilidade).
+
+---
+
+## 📦 Protótipo de Alta Fidelidade
+
+Consulte o protótipo por mei deste [LINK](https://www.figma.com/design/U82vOCZATE5oDqYSW0ryXg/Prot%C3%B3tipo---Mapa-da-Acessibilidade?node-id=147-1780&p=f&t=z4fKl5GBkRsN53tY-0).
+
+---
+
 ## 👨‍👩‍👦 Equipe
 
 - [Alberto Côrtes Cavalcante](https://www.linkedin.com/in/albertoccavalcante/)  
