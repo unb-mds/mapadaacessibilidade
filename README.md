@@ -2,7 +2,7 @@
 
 É Uma [plataforma](https://github.com/unb-mds/mapadaacessibilidade) colaborativa de mapeamento criada para apoiar atividades comunitárias com foco em acessibilidade. A ideia é permitir que qualquer pessoa possa cadastrar e encontrar lugares acessíveis para pessoas com deficiência ou mobilidade reduzida — como centros culturais, feiras, praças e outros espaços públicos.
 
-Nossas decisões de arquitetura podem ser acessadas aqui: [Quadro de Overview no Canva]([https://www.canva.com/design/DAGkRnxFbno/UzQqYdR57qFCH5p5HUuFVw/view](https://www.canva.com/design/DAGkRnxFbno/UzQqYdR57qFCH5p5HUuFVw/edit?utm_content=DAGkRnxFbno&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton))
+Nossas decisões de arquitetura podem ser acessadas aqui: [Quadro de Overview no Canva](https://www.canva.com/design/DAGkRnxFbno/UzQqYdR57qFCH5p5HUuFVw/edit?utm_content=DAGkRnxFbno&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 
 Este é um projeto open source e contribuições são bem-vindas!
 
@@ -45,7 +45,8 @@ Este projeto está sendo desenvolvido por estudantes universitários com apoio d
 - Banco de Dados: POSTgreSQL
 - Mapa: Leaflet API
 - Design: Figma
-- Quadro de Overview: [Canva](https://www.canva.com/design/DAGkRnxFbno/UzQqYdR57qFCH5p5HUuFVw/view)
+- Quadro de Overview: [Canva](https://www.canva.com/design/DAGkRnxFbno/UzQqYdR57qFCH5p5HUuFVw/edit?utm_content=DAGkRnxFbno&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+
 
 ---
 
@@ -69,7 +70,7 @@ Consulte a documentação por meio deste [LINK](https://oalbertocavalcante.githu
 
 ## 📦 Protótipo de Alta Fidelidade
 
-Consulte o protótipo por meio deste [LINK](https://www.figma.com/design/U82vOCZATE5oDqYSW0ryXg/Prot%C3%B3tipo---Mapa-da-Acessibilidade?node-id=147-1780&p=f&t=z4fKl5GBkRsN53tY-0).
+Consulte o protótipo por meio deste [LINK](https://www.figma.com/proto/U82vOCZATE5oDqYSW0ryXg/Prot%C3%B3tipo---Mapa-da-Acessibilidade?node-id=147-1780&t=UqjOjyWSicU9v32G-1).
 
 ---
 
