@@ -18,6 +18,7 @@ O projeto busca facilitar o dia a dia de quem precisa de informações sobre ace
 
 ---
 
+
 ## 🌀 Motivação
 
 A falta de informação sobre acessibilidade em espaços públicos ainda é um grande desafio. Muitas vezes, as pessoas com deficiência só descobrem que um lugar não é acessível quando já estão lá. Com o Mapa da Acessibilidade, queremos mudar isso — oferecendo uma ferramenta simples, feita por universitários e para a comunidade em geral.
