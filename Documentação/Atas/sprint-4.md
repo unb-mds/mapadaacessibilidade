@@ -37,7 +37,7 @@
 - Criado script de verificação de senha com o PostgreSQL.  
 - Comunicação entre frontend e backend para recebimento de dados do usuário iniciada.  
 - A stack será composta por **Express.js** e **NodeCP** para consumo de APIs.  
-- As rotas básicas e endpoints de leitura de obras públicas já foram iniciados.  
+- As rotas básicas e endpoints de leitura já foram iniciados.  
 
 ### Documentação & Infraestrutura
 - Modelagem do banco PostgreSQL quase finalizada, composta por **12 tabelas**.  
