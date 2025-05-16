@@ -1,4 +1,3 @@
-
 <div align="center">
 <img src="https://github.com/user-attachments/assets/da33dec0-288a-41da-b8d6-f7b4e27d513d" height="50px" width="50px">
 </div>
@@ -56,7 +55,7 @@ backend/
 
 ## 🔐 Sistema de Autenticação
 
-#### Modelo de Usuário
+### Modelo de Usuário
 ```javascript
 // models/User.js
 class User {
@@ -67,7 +66,7 @@ class User {
       INSERT INTO users (name, email, password) 
       VALUES ($1, $2, $3) 
       RETURNING id, name, email`;
-    // ... 
+    // ...
   }
 }
 ```
@@ -82,6 +81,7 @@ Armazena no PostgreSQL
 Retorna dados sem informações sensíveis
 
 #### Controller de Autenticação
+
 ```javascript
 // controllers/auth.js
 exports.login = async (req, res) => {
@@ -119,7 +119,7 @@ ST_SetSRID: Define sistema de coordenadas (WGS84)
 
 ST_DWithin: Filtra por raio de distância
 
-Controller de Localização
+#### Controller de Localização
 ```javascript
 // controllers/locations.js
 exports.getNearby = async (req, res) => {
@@ -134,13 +134,20 @@ exports.getNearby = async (req, res) => {
   res.json({ locations });
 };
 ```
-## 🔗 Rotas da API
-Método	Endpoint	Descrição	Autenticação
-POST	/api/auth/register	Registro de novo usuário	Não
-POST	/api/auth/login	Login e obtenção de token JWT	Não
-GET	/api/locations	Listar locais próximos	Opcional
-POST	/api/locations	Criar novo local	Sim (JWT)
-###🛡️ Middleware de Autenticação
+### 🔗 Rotas da API
+
+#### Método	Endpoint	Descrição	Autenticação
+
+POST	/api/auth/register -	Registro de novo usuário	
+
+POST	/api/auth/login	- Login e obtenção de token JWT	
+
+GET	/api/locations	- Listar locais próximos	
+
+POST	/api/locations	- Criar novo local	
+
+## 🛡️ Middleware de Autenticação
+
 ```javascript
 // middlewares/auth.js
 exports.protect = async (req, res, next) => {
@@ -160,6 +167,7 @@ exports.protect = async (req, res, next) => {
 };
 ```
 ## 🌐 Integração com Frontend
+
 #### Fluxo típico:
 
 Frontend envia credenciais para /auth/login
@@ -170,6 +178,13 @@ Frontend armazena token e envia em cabeçalhos subsequentes
 
 Middleware valida token antes de acessar rotas protegidas
 
+## 🚀 Como Executar
 
+Configure variáveis de ambiente
+bash
+npm install
+Inicie o servidor:
+bash
+node app.js
+<div align="center"> <footer> &copy; 2023 Mapa da Acessibilidade - Todos os direitos reservados </footer> </div> 
 
-<div align="center"> <footer> &copy; 2023 Mapa da Acessibilidade - Todos os direitos reservados </footer> </div>
