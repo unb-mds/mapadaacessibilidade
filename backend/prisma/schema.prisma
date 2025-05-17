@@ -1,0 +1,181 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model acessibilidade {
+  id                  String                @id @db.Uuid
+  nome                String                @db.VarChar(50)
+  descricao           String?
+  localacessibilidade localacessibilidade[]
+  voto                voto[]
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model avaliacao {
+  id            String   @id @db.Uuid
+  nota          Int      @db.SmallInt
+  comentario    String?
+  created_at    DateTime @default(now()) @db.Timestamp(6)
+  fk_usuario_id String   @db.Uuid
+  fk_local_id   String   @db.Uuid
+  local         local    @relation(fields: [fk_local_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_av_loc")
+  usuario       usuario  @relation(fields: [fk_usuario_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_av_usr")
+
+  @@unique([fk_usuario_id, fk_local_id], map: "uq_avaliacao")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model evento {
+  id          String    @id @db.Uuid
+  nome        String    @db.VarChar(150)
+  descricao   String?
+  data_inicio DateTime? @db.Timestamp(6)
+  data_fim    DateTime? @db.Timestamp(6)
+  status      String    @db.VarChar(20)
+  url_externa String?   @db.VarChar(255)
+  created_at  DateTime  @default(now()) @db.Timestamp(6)
+  fk_local_id String?   @db.Uuid
+  local       local?    @relation(fields: [fk_local_id], references: [id], onUpdate: NoAction, map: "fk_evt_loc")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model foto {
+  id            String   @id @db.Uuid
+  url           String   @db.VarChar(255)
+  status        String   @db.VarChar(20)
+  uploaded_at   DateTime @default(now()) @db.Timestamp(6)
+  fk_usuario_id String   @db.Uuid
+  fk_local_id   String   @db.Uuid
+  local         local    @relation(fields: [fk_local_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_foto_local")
+  usuario       usuario  @relation(fields: [fk_usuario_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_foto_usuario")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model local {
+  id                  String                   @id @db.Uuid
+  nome                String                   @db.VarChar(150)
+  descricao           String?
+  tipo                String?                  @db.VarChar(30)
+  endereco            String?                  @db.VarChar(200)
+  cidade              String?                  @db.VarChar(100)
+  bairro              String?                  @db.VarChar(100)
+  estado              String?                  @db.VarChar(100)
+  latitude            Decimal?                 @db.Decimal(10, 8)
+  longitude           Decimal?                 @db.Decimal(11, 8)
+  geolocalizacao      Unsupported("geometry")?
+  status              String                   @db.VarChar(20)
+  criado_por          String                   @db.Uuid
+  created_at          DateTime                 @default(now()) @db.Timestamp(6)
+  updated_at          DateTime                 @default(now()) @db.Timestamp(6)
+  avaliacao           avaliacao[]
+  evento              evento[]
+  foto                foto[]
+  usuario             usuario                  @relation(fields: [criado_por], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_local_usuario")
+  localacessibilidade localacessibilidade[]
+  localhistory        localhistory[]
+  topicodiscussao     topicodiscussao[]
+  voto                voto[]
+
+  @@index([geolocalizacao], map: "idx_local_geolocalizacao", type: Gist)
+}
+
+model localacessibilidade {
+  local_id          String         @db.Uuid
+  acessibilidade_id String         @db.Uuid
+  presente          Boolean        @default(true)
+  data_inclusao     DateTime       @default(now()) @db.Timestamp(6)
+  acessibilidade    acessibilidade @relation(fields: [acessibilidade_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_la_acessibilidade")
+  local             local          @relation(fields: [local_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_la_local")
+
+  @@id([local_id, acessibilidade_id])
+}
+
+model localhistory {
+  history_id String   @id @db.Uuid
+  local_id   String   @db.Uuid
+  usuario_id String   @db.Uuid
+  acao       String   @db.VarChar(50)
+  timestamp  DateTime @default(now()) @db.Timestamp(6)
+  local      local    @relation(fields: [local_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_lh_loc")
+  usuario    usuario  @relation(fields: [usuario_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_lh_usr")
+}
+
+model mensagemdiscussao {
+  id                     String          @id @db.Uuid
+  mensagem               String
+  created_at             DateTime        @default(now()) @db.Timestamp(6)
+  fk_usuario_id          String          @db.Uuid
+  fk_topico_discussao_id String          @db.Uuid
+  topicodiscussao        topicodiscussao @relation(fields: [fk_topico_discussao_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_md_top")
+  usuario                usuario         @relation(fields: [fk_usuario_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_md_usr")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model spatial_ref_sys {
+  srid      Int     @id
+  auth_name String? @db.VarChar(256)
+  auth_srid Int?
+  srtext    String? @db.VarChar(2048)
+  proj4text String? @db.VarChar(2048)
+}
+
+model tokenredefinicao {
+  usuario_id String    @id @db.Uuid
+  token      String    @db.VarChar(255)
+  expires_at DateTime? @db.Timestamp(6)
+  used_at    DateTime? @db.Timestamp(6)
+  created_at DateTime  @default(now()) @db.Timestamp(6)
+  usuario    usuario   @relation(fields: [usuario_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_tr_usr")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model topicodiscussao {
+  id                String              @id @db.Uuid
+  titulo            String              @db.VarChar(200)
+  categoria         String?             @db.VarChar(30)
+  status            String              @db.VarChar(20)
+  created_at        DateTime            @default(now()) @db.Timestamp(6)
+  updated_at        DateTime            @default(now()) @db.Timestamp(6)
+  fk_usuario_id     String              @db.Uuid
+  fk_local_id       String              @db.Uuid
+  mensagemdiscussao mensagemdiscussao[]
+  local             local               @relation(fields: [fk_local_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_td_loc")
+  usuario           usuario             @relation(fields: [fk_usuario_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_td_usr")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model usuario {
+  id                String              @id @db.Uuid
+  nome              String              @db.VarChar(100)
+  email             String              @unique @db.VarChar(100)
+  senha_hash        String              @db.VarChar(255)
+  papel             String              @db.VarChar(20)
+  created_at        DateTime            @default(now()) @db.Timestamp(6)
+  updated_at        DateTime            @default(now()) @db.Timestamp(6)
+  avaliacao         avaliacao[]
+  foto              foto[]
+  local             local[]
+  localhistory      localhistory[]
+  mensagemdiscussao mensagemdiscussao[]
+  tokenredefinicao  tokenredefinicao?
+  topicodiscussao   topicodiscussao[]
+  voto              voto[]
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model voto {
+  id                   String         @id @db.Uuid
+  prioridade           String         @db.VarChar(20)
+  created_at           DateTime       @default(now()) @db.Timestamp(6)
+  fk_usuario_id        String         @db.Uuid
+  fk_local_id          String         @db.Uuid
+  fk_acessibilidade_id String         @db.Uuid
+  acessibilidade       acessibilidade @relation(fields: [fk_acessibilidade_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_voto_acc")
+  local                local          @relation(fields: [fk_local_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_voto_loc")
+  usuario              usuario        @relation(fields: [fk_usuario_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_voto_usr")
+}
