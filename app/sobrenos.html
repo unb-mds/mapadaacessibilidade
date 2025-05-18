@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sobre Nós | Mapa da Acessibilidade</title>
+    <title>Sobre Nós</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
@@ -42,17 +42,34 @@
             <div class="flex items-center space-x-2">
                 <i class="fas fa-wheelchair text-blue-600 text-2xl"></i>
                 <div>
+                    <a href="index.html">
                     <h1 class="text-xl font-bold text-blue-600">Mapa da Acessibilidade</h1>
                     <p class="text-xs text-gray-500">Mobilidade sem Barreiras</p>
+                </a>
                 </div>
             </div>
             <nav class="hidden md:flex space-x-6">
-                <a href="#" class="text-blue-600 font-medium">Sobre Nós</a>
-                <a href="#" class="text-gray-700 hover:text-blue-600 transition">Cadastro</a>
-                <a href="#" class="text-gray-700 hover:text-blue-600 transition">Login</a>
-                <a href="#" class="text-gray-700 hover:text-blue-600 transition">Contato</a>
-                <a href="#" class="text-gray-700 hover:text-blue-600 transition">FAQ</a>
-                <a href="#" class="text-gray-700 hover:text-blue-600 transition">Eventos</a>
+                <a href="sobrenos.html" class="text-gray-700 hover:text-blue-600 transition flex items-center">
+                    <i class="fas fa-info-circle mr-1"></i> Sobre Nós
+                </a>
+                <a href="cadastro.html" id="open-signup-modal" class="text-gray-700 hover:text-blue-600 transition flex items-center">
+                    <i class="fas fa-user-plus mr-1"></i> Cadastro
+                </a>
+                <a href="login.html" class="text-gray-700 hover:text-blue-600 transition flex items-center">
+                    <i class="fas fa-sign-in-alt mr-1"></i> Login
+                </a>
+                <a href="contato.html" class="text-gray-700 hover:text-blue-600 transition flex items-center">
+                    <i class="fas fa-envelope mr-1"></i> Contato
+                </a>
+                <a href="faq.html" class="text-gray-700 hover:text-blue-600 transition flex items-center">
+                    <i class="fas fa-question-circle mr-1"></i> FAQ
+                </a>
+                <a href="eventos.html" class="text-gray-700 hover:text-blue-600 transition flex items-center">
+                    <i class="fas fa-calendar-alt mr-1"></i> Eventos
+                </a>
+                <a href="adicionarlocal.html" class="text-gray-700 hover:text-blue-600 transition flex items-center">
+                    <i class="fas fa-map-marker-alt mr-1"></i> Adicionar Local
+                </a>
             </nav>
             <button class="md:hidden text-gray-700" id="mobile-menu-button">
                 <i class="fas fa-bars text-xl"></i>
@@ -60,12 +77,27 @@
         </div>
         <!-- Mobile Menu -->
         <div class="hidden md:hidden bg-white py-2 px-4 shadow-lg" id="mobile-menu">
-            <a href="#" class="block py-2 text-blue-600 font-medium">Sobre Nós</a>
-            <a href="#" class="block py-2 text-gray-700 hover:text-blue-600">Cadastro</a>
-            <a href="#" class="block py-2 text-gray-700 hover:text-blue-600">Login</a>
-            <a href="#" class="block py-2 text-gray-700 hover:text-blue-600">Contato</a>
-            <a href="#" class="block py-2 text-gray-700 hover:text-blue-600">FAQ</a>
-            <a href="#" class="block py-2 text-gray-700 hover:text-blue-600">Eventos</a>
+            <a href="sobrenos.html" class="block py-2 text-gray-700 hover:text-blue-600 flex items-center">
+                <i class="fas fa-info-circle mr-3 w-5 text-center"></i> Sobre Nós
+            </a>
+            <a href="cadastro.html" id="open-signup-modal-mobile" class="block py-2 text-gray-700 hover:text-blue-600 flex items-center">
+                <i class="fas fa-user-plus mr-3 w-5 text-center"></i> Cadastro
+            </a>
+            <a href="login.html" class="block py-2 text-gray-700 hover:text-blue-600 flex items-center">
+                <i class="fas fa-sign-in-alt mr-3 w-5 text-center"></i> Login
+            </a>
+            <a href="contato.html" class="block py-2 text-gray-700 hover:text-blue-600 flex items-center">
+                <i class="fas fa-envelope mr-3 w-5 text-center"></i> Contato
+            </a>
+            <a href="eventos.html" class="block py-2 text-gray-700 hover:text-blue-600 flex items-center">
+                <i class="fas fa-calendar-alt mr-3 w-5 text-center"></i> Eventos
+            </a>
+            <a href="faq.html" class="text-gray-700 hover:text-blue-600 transition flex items-center">
+                <i class="fas fa-question-circle mr-3 w-5 text-center"></i> FAQ
+            </a>
+            <a href="adicionarlocal.html" class="text-gray-700 hover:text-blue-600 transition flex items-center">
+                <i class="fas fa-map-marker-alt mr-3 w-5 text-center"></i> Adicionar Local
+            </a>
         </div>
     </header>
 
@@ -190,7 +222,7 @@
                     <div class="team-card bg-white rounded-lg shadow-md overflow-hidden relative">
                         <div class="p-4">
                             <div class="flex justify-center mb-4">
-                                <img src="lucas.webp" 
+                                <img src="images/lucas.webp" 
                                      alt="Lucas Ricarte" 
                                      class="w-32 h-32 rounded-full object-cover border-4 border-blue-100">
                             </div>
@@ -216,7 +248,7 @@
                     <div class="team-card bg-white rounded-lg shadow-md overflow-hidden relative">
                         <div class="p-4">
                             <div class="flex justify-center mb-4">
-                                <img src="alberto.webp" 
+                                <img src="images/alberto.webp" 
                                      alt="Alberto Côrtes" 
                                      class="w-32 h-32 rounded-full object-cover border-4 border-blue-100">
                             </div>
@@ -242,7 +274,7 @@
                     <div class="team-card bg-white rounded-lg shadow-md overflow-hidden relative">
                         <div class="p-4">
                             <div class="flex justify-center mb-4">
-                                <img src="Caio.webp" 
+                                <img src="images/Caio.webp" 
                                      alt="Caio Rocha" 
                                      class="w-32 h-32 rounded-full object-cover border-4 border-blue-100">
                             </div>
@@ -268,7 +300,7 @@
                     <div class="team-card bg-white rounded-lg shadow-md overflow-hidden relative">
                         <div class="p-4">
                             <div class="flex justify-center mb-4">
-                                <img src="samuel.webp" 
+                                <img src="images/samuel.webp" 
                                      alt="Samuel Rodrigues" 
                                      class="w-32 h-32 rounded-full object-cover border-4 border-blue-100">
                             </div>
@@ -294,7 +326,7 @@
                     <div class="team-card bg-white rounded-lg shadow-md overflow-hidden relative">
                         <div class="p-4">
                             <div class="flex justify-center mb-4">
-                                <img src="maria.webp" 
+                                <img src="images/maria.webp" 
                                      alt="Maria Laura" 
                                      class="w-32 h-32 rounded-full object-cover border-4 border-blue-100">
                             </div>
@@ -320,7 +352,7 @@
                     <div class="team-card bg-white rounded-lg shadow-md overflow-hidden relative">
                         <div class="p-4">
                             <div class="flex justify-center mb-4">
-                                <img src="caio.webp" 
+                                <img src="images/caio.webp" 
                                      alt="Caio Andrade" 
                                      class="w-32 h-32 rounded-full object-cover border-4 border-blue-100">
                             </div>
@@ -346,7 +378,7 @@
                     <div class="team-card bg-white rounded-lg shadow-md overflow-hidden relative">
                         <div class="p-4">
                             <div class="flex justify-center mb-4">
-                                <img src="anderson.webp" 
+                                <img src="images/anderson.webp" 
                                      alt="Anderson Silva" 
                                      class="w-32 h-32 rounded-full object-cover border-4 border-blue-100">
                             </div>
@@ -381,7 +413,7 @@
                         Explore nossa arquitetura, APIs e guias de contribuição para entender como a plataforma funciona 
                         e como você pode contribuir para o projeto.
                     </p>
-                    <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition flex items-center">
+                    <a href="https://oalbertocavalcante.github.io/documentacao-mapa-daacessibilidade/" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition flex items-center">
                         <i class="fas fa-code mr-2"></i> Acessar Documentação Técnica
                     </a>
                 </div>
@@ -403,7 +435,7 @@
                     <h3 class="text-lg font-semibold mb-4">Links Úteis</h3>
                     <ul class="space-y-2">
                         <li><a href="#" class="text-gray-300 hover:text-white text-sm">Sobre o projeto</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-white text-sm">Como contribuir</a></li>
+                        <li><a href="https://oalbertocavalcante.github.io/documentacao-mapa-daacessibilidade/" class="text-gray-300 hover:text-white text-sm">Como contribuir</a></li>
                         <li><a href="#" class="text-gray-300 hover:text-white text-sm">Termos de uso</a></li>
                         <li><a href="#" class="text-gray-300 hover:text-white text-sm">Política de privacidade</a></li>
                     </ul>
