@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mapa da Acessibilidade | Mobilidade sem Barreiras</title>
+    <title>Mapa da Acessibilidade</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        #map { height: calc(100vh - 120px); }
+        #map { height: calc(105vh - 10px); }
         .skeleton { 
             background-color: #e2e8f0; 
             animation: pulse 2s infinite; 
@@ -125,60 +125,73 @@
     </style>
 </head>
 <body class="font-sans bg-gray-50 text-gray-800">
-    <!-- Header -->
+    <!-- Cabeçalho -->
     <header class="sticky top-0 z-50 bg-white shadow-md">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center space-x-2">
                 <i class="fas fa-wheelchair text-blue-600 text-2xl"></i>
                 <div>
+                    <a href="index.html">
                     <h1 class="text-xl font-bold text-blue-600">Mapa da Acessibilidade</h1>
                     <p class="text-xs text-gray-500">Mobilidade sem Barreiras</p>
                 </div>
             </div>
             <nav class="hidden md:flex space-x-6">
                 <a href="sobrenos.html" class="text-gray-700 hover:text-blue-600 transition flex items-center">
-                    <i class="fas fa-info-circle mr-1"></i> Sobre
+                    <i class="fas fa-info-circle mr-1"></i> Sobre Nós
                 </a>
-                <a href="#" id="open-signup-modal" class="text-gray-700 hover:text-blue-600 transition flex items-center">
+                <a href="cadastro.html" class="text-gray-700 hover:text-blue-600 transition flex items-center">
                     <i class="fas fa-user-plus mr-1"></i> Cadastro
                 </a>
-                <a href="#" class="text-gray-700 hover:text-blue-600 transition flex items-center">
+                <a href="login.html" class="text-gray-700 hover:text-blue-600 transition flex items-center">
                     <i class="fas fa-sign-in-alt mr-1"></i> Login
                 </a>
-                <a href="#" class="text-gray-700 hover:text-blue-600 transition flex items-center">
+                <a href="contato.html" class="text-gray-700 hover:text-blue-600 transition flex items-center">
                     <i class="fas fa-envelope mr-1"></i> Contato
                 </a>
-                <a href="#" class="text-gray-700 hover:text-blue-600 transition flex items-center">
+                <a href="faq.html" class="text-gray-700 hover:text-blue-600 transition flex items-center">
+                    <i class="fas fa-question-circle mr-1"></i> FAQ
+                </a>
+                <a href="eventos.html" class="text-gray-700 hover:text-blue-600 transition flex items-center">
                     <i class="fas fa-calendar-alt mr-1"></i> Eventos
+                </a>
+                <a href="adicionarlocal.html" class="text-gray-700 hover:text-blue-600 transition flex items-center">
+                    <i class="fas fa-map-marker-alt mr-1"></i> Adicionar Local
                 </a>
             </nav>
             <button class="md:hidden text-gray-700" id="mobile-menu-button" aria-label="Abrir menu">
                 <i class="fas fa-bars text-xl"></i>
             </button>
         </div>
-        <!-- Mobile Menu -->
+        <!-- Menu Móvel -->
         <div class="hidden md:hidden bg-white py-2 px-4 shadow-lg" id="mobile-menu">
             <a href="sobrenos.html" class="block py-2 text-gray-700 hover:text-blue-600 flex items-center">
-                <i class="fas fa-info-circle mr-3 w-5 text-center"></i> Sobre
+                <i class="fas fa-info-circle mr-3 w-5 text-center"></i> Sobre Nós
             </a>
-            <a href="#" id="open-signup-modal-mobile" class="block py-2 text-gray-700 hover:text-blue-600 flex items-center">
+            <a href="cadastro.html" class="block py-2 text-gray-700 hover:text-blue-600 flex items-center">
                 <i class="fas fa-user-plus mr-3 w-5 text-center"></i> Cadastro
             </a>
-            <a href="#" class="block py-2 text-gray-700 hover:text-blue-600 flex items-center">
+            <a href="login.html" class="block py-2 text-gray-700 hover:text-blue-600 flex items-center">
                 <i class="fas fa-sign-in-alt mr-3 w-5 text-center"></i> Login
             </a>
-            <a href="#" class="block py-2 text-gray-700 hover:text-blue-600 flex items-center">
+            <a href="contato.html" class="block py-2 text-gray-700 hover:text-blue-600 flex items-center">
                 <i class="fas fa-envelope mr-3 w-5 text-center"></i> Contato
             </a>
-            <a href="#" class="block py-2 text-gray-700 hover:text-blue-600 flex items-center">
+            <a href="eventos.html" class="block py-2 text-gray-700 hover:text-blue-600 flex items-center">
                 <i class="fas fa-calendar-alt mr-3 w-5 text-center"></i> Eventos
+            </a>
+            <a href="faq.html" class="text-gray-700 hover:text-blue-600 transition flex items-center">
+                <i class="fas fa-question-circle mr-3 w-5 text-center"></i> FAQ
+            </a>
+            <a href="adicionarlocal.html" class="text-gray-700 hover:text-blue-600 transition flex items-center">
+                <i class="fas fa-map-marker-alt mr-3 w-5 text-center"></i> Adicionar Local
             </a>
         </div>
     </header>
 
-    <!-- Main Content -->
+    <!-- Conteúdo principal -->
     <main class="flex flex-col md:flex-row">
-        <!-- Filters Sidebar -->
+        <!-- Barra lateral de filtros -->
         <aside class="w-full md:w-64 bg-white shadow-md p-4 md:h-screen md:sticky md:top-16">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-lg font-semibold text-blue-600">Filtrar Locais</h2>
@@ -279,11 +292,11 @@
             </div>
         </aside>
 
-        <!-- Map Container -->
+        <!-- Contêiner de Mapas -->
         <div class="flex-1 relative">
             <div id="map" class="skeleton"></div>
 
-            <!-- Search Bar -->
+            <!-- Barra de pesquisa -->
             <div class="absolute top-4 left-4 right-4 md:right-auto md:left-64 md:right-4 z-10">
                 <div class="relative">
                     <input type="text" placeholder="Buscar locais..." class="w-full p-3 pl-10 pr-4 rounded-lg border border-gray-300 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
@@ -294,13 +307,13 @@
                 </div>
             </div>
 
-            <!-- Floating Action Button -->
+            <!-- Botão de ação flutuante -->
             <button id="add-location-btn" class="hidden absolute bottom-8 right-8 bg-blue-600 text-white w-14 h-14 rounded-full shadow-lg hover:bg-blue-700 transition transform hover:scale-110 flex items-center justify-center z-10">
                 <i class="fas fa-plus text-xl"></i>
                 <span class="sr-only">Adicionar Local</span>
             </button>
 
-            <!-- Location Details Drawer -->
+            <!-- Gaveta de detalhes de localização -->
             <div id="location-drawer" class="drawer closed fixed md:absolute top-0 right-0 bottom-0 w-full md:w-96 bg-white shadow-xl z-40 overflow-y-auto">
                 <div class="p-6">
                     <div class="flex justify-between items-start mb-4">
@@ -422,7 +435,7 @@
         </div>
     </main>
 
-    <!-- Footer -->
+    <!-- Rodape -->
     <footer class="bg-gray-800 text-white py-8">
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -481,100 +494,9 @@
         </div>
     </footer>
 
-    <!-- Login Modal -->
-    <div id="login-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-        <div class="bg-white rounded-lg shadow-xl w-full max-w-md fade-in">
-            <div class="p-6">
-                <div class="flex justify-between items-start mb-6">
-                    <h3 class="text-2xl font-bold text-blue-600">Acesse sua conta</h3>
-                    <button id="close-login-modal" class="text-gray-500 hover:text-gray-700">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-
-                <form id="login-form">
-                    <div class="mb-4">
-                        <label for="email" class="block text-gray-700 mb-2">E-mail</label>
-                        <input type="email" id="email" class="w-full p-3 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
-                    </div>
-
-                    <div class="mb-6">
-                        <label for="password" class="block text-gray-700 mb-2">Senha</label>
-                        <input type="password" id="password" class="w-full p-3 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
-                    </div>
-
-                    <button type="submit" class="w-full bg-blue-600 text-white py-3 px-4 rounded hover:bg-blue-700 transition mb-4">
-                        Entrar
-                    </button>
-
-                    <div class="text-center">
-                        <a href="#" class="text-blue-600 hover:underline">Esqueceu sua senha?</a>
-                    </div>
-                </form>
-
-                <div class="mt-6 pt-4 border-t border-gray-200">
-                    <p class="text-gray-600 text-center">Não tem uma conta? <a href="#" id="open-signup-modal-from-login" class="text-blue-600 hover:underline">Cadastre-se</a></p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Signup Modal -->
-    <div id="signup-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-        <div class="bg-white rounded-lg shadow-xl w-full max-w-md fade-in">
-            <div class="p-6">
-                <div class="flex justify-between items-start mb-6">
-                    <h3 class="text-2xl font-bold text-blue-600">Criar Conta</h3>
-                    <button id="close-signup-modal" class="text-gray-500 hover:text-gray-700">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-
-                <form id="signup-form">
-                    <div class="mb-4">
-                        <label for="fullname" class="block text-gray-700 mb-2">Nome Completo</label>
-                        <input type="text" id="fullname" class="w-full p-3 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="signup-email" class="block text-gray-700 mb-2">E-mail</label>
-                        <input type="email" id="signup-email" class="w-full p-3 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
-                        <p id="email-error" class="text-red-500 text-sm mt-1 hidden">
-                            <i class="fas fa-exclamation-circle mr-1"></i>Por favor, insira um e-mail válido
-                        </p>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="signup-password" class="block text-gray-700 mb-2">Senha</label>
-                        <input type="password" id="signup-password" class="w-full p-3 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required minlength="8">
-                        <p id="password-length-error" class="text-red-500 text-sm mt-1 hidden">
-                            <i class="fas fa-exclamation-circle mr-1"></i>A senha deve ter pelo menos 8 caracteres
-                        </p>
-                    </div>
-
-                    <div class="mb-6">
-                        <label for="confirm-password" class="block text-gray-700 mb-2">Confirmar Senha</label>
-                        <input type="password" id="confirm-password" class="w-full p-3 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
-                        <p id="password-error" class="text-red-500 text-sm mt-1 hidden">
-                            <i class="fas fa-exclamation-circle mr-1"></i>As senhas não coincidem!
-                        </p>
-                    </div>
-
-                    <button type="submit" class="w-full bg-blue-600 text-white py-3 px-4 rounded hover:bg-blue-700 transition">
-                        Cadastrar
-                    </button>
-                </form>
-
-                <div class="mt-6 pt-4 border-t border-gray-200">
-                    <p class="text-gray-600 text-center">Já tem uma conta? <a href="#" id="open-login-modal-from-signup" class="text-blue-600 hover:underline">Faça login</a></p>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-        // Mobile Menu Toggle
+        // Alternar filtros no celular
         document.getElementById('mobile-menu-button').addEventListener('click', function() {
             const menu = document.getElementById('mobile-menu');
             menu.classList.toggle('hidden');
@@ -586,163 +508,25 @@
             filters.classList.toggle('hidden');
         });
 
-        // Login Modal Toggle
-        const loginLinks = document.querySelectorAll('a[href="#"]');
-        loginLinks.forEach(link => {
-            if (link.textContent.includes('Login') || link.querySelector('.fa-sign-in-alt')) {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    document.getElementById('login-modal').classList.remove('hidden');
-                });
-            }
-        });
-
-        document.getElementById('close-login-modal').addEventListener('click', function() {
-            document.getElementById('login-modal').classList.add('hidden');
-        });
-
-        // Login Form Submission
-        document.getElementById('login-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            // Mock login - in a real app, you would authenticate with a backend
-            document.getElementById('login-modal').classList.add('hidden');
-            document.getElementById('add-location-btn').classList.remove('hidden');
-
-            // Show success message
-            showToast('Login realizado com sucesso! Agora você pode adicionar novos locais.', 'success');
-        });
-
-        // Signup Modal Toggle
-        document.querySelectorAll('[href="#"], #open-signup-modal, #open-signup-modal-mobile, #open-signup-modal-from-login').forEach(link => {
-            if (link.textContent.includes('Cadastro') || link.id === 'open-signup-modal' || 
-                link.id === 'open-signup-modal-mobile' || link.id === 'open-signup-modal-from-login') {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    document.getElementById('signup-modal').classList.remove('hidden');
-                    document.getElementById('login-modal').classList.add('hidden');
-                });
-            }
-        });
-
-        document.getElementById('close-signup-modal').addEventListener('click', () => {
-            document.getElementById('signup-modal').classList.add('hidden');
-        });
-
-        // Open login modal from signup modal
-        document.getElementById('open-login-modal-from-signup').addEventListener('click', (e) => {
-            e.preventDefault();
-            document.getElementById('signup-modal').classList.add('hidden');
-            document.getElementById('login-modal').classList.remove('hidden');
-        });
-
-        // Email validation
-        document.getElementById('signup-email').addEventListener('input', function() {
-            const email = this.value;
-            const emailError = document.getElementById('email-error');
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-            if (!emailRegex.test(email)) {
-                emailError.classList.remove('hidden');
-            } else {
-                emailError.classList.add('hidden');
-            }
-        });
-
-        // Password length validation
-        document.getElementById('signup-password').addEventListener('input', function() {
-            const password = this.value;
-            const passwordLengthError = document.getElementById('password-length-error');
-
-            if (password.length < 8) {
-                passwordLengthError.classList.remove('hidden');
-            } else {
-                passwordLengthError.classList.add('hidden');
-            }
-        });
-
-        // Password confirmation validation
-        document.getElementById('confirm-password').addEventListener('input', function() {
-            const password = document.getElementById('signup-password').value;
-            const confirmPassword = this.value;
-            const errorElement = document.getElementById('password-error');
-
-            if (password !== confirmPassword) {
-                errorElement.classList.remove('hidden');
-            } else {
-                errorElement.classList.add('hidden');
-            }
-        });
-
-        // Signup Form Submission
-        document.getElementById('signup-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            // Get form values
-            const fullname = document.getElementById('fullname').value;
-            const email = document.getElementById('signup-email').value;
-            const password = document.getElementById('signup-password').value;
-            const confirmPassword = document.getElementById('confirm-password').value;
-
-            // Validate form
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            const emailError = document.getElementById('email-error');
-            const passwordLengthError = document.getElementById('password-length-error');
-            const passwordError = document.getElementById('password-error');
-
-            let isValid = true;
-
-            if (!fullname) {
-                isValid = false;
-                showToast('Por favor, insira seu nome completo', 'error');
-                return;
-            }
-
-            if (!emailRegex.test(email)) {
-                emailError.classList.remove('hidden');
-                isValid = false;
-            }
-
-            if (password.length < 8) {
-                passwordLengthError.classList.remove('hidden');
-                isValid = false;
-            }
-
-            if (password !== confirmPassword) {
-                passwordError.classList.remove('hidden');
-                isValid = false;
-            }
-
-            if (!isValid) return;
-
-            // Mock signup - in a real app, you would send this to a backend
-            document.getElementById('signup-modal').classList.add('hidden');
-            showToast("Cadastro realizado com sucesso! Faça login para continuar.", 'success');
-            document.getElementById('login-modal').classList.remove('hidden');
-
-            // Pre-fill login form with new credentials
-            document.getElementById('email').value = email;
-            document.getElementById('password').value = password;
-        });
-
-        // Initialize Map
+        // Inicializar mapa
         document.addEventListener('DOMContentLoaded', function() {
-            // Simulate loading delay
+            // Simular atraso de carregamento
             setTimeout(() => {
                 const mapContainer = document.getElementById('map');
                 mapContainer.classList.remove('skeleton');
 
-                // Initialize map centered on São Paulo
-                const map = L.map('map').setView([-23.5505, -46.6333], 13);
+                // Adicionar blocos do OpenStreetMap
+                const map = L.map('map').setView([-15.7942, -47.8822], 13); 
 
                 // Add OpenStreetMap tiles
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 }).addTo(map);
 
-                // Add sample markers
+                // Adicionar marcadores de amostra
                 const markers = [
                     {
-                        coords: [-23.5515, -46.6333],
+                        coords: [-15.7915, -47.8833],
                         title: "Shopping Center",
                         type: "ramp",
                         description: "Rampa de acesso na entrada principal",
@@ -751,7 +535,7 @@
                         accessibility: 9
                     },
                     {
-                        coords: [-23.5525, -46.6343],
+                        coords: [-15.7925, -47.8843],
                         title: "Parque Municipal",
                         type: "bathroom",
                         description: "Banheiros adaptados disponíveis",
@@ -760,7 +544,7 @@
                         accessibility: 8
                     },
                     {
-                        coords: [-23.5495, -46.6323],
+                        coords: [-15.7935, -47.8853],
                         title: "Estação de Metrô",
                         type: "tactile",
                         description: "Piso tátil em toda a estação",
@@ -769,7 +553,7 @@
                         accessibility: 7
                     },
                     {
-                        coords: [-23.5505, -46.6353],
+                        coords: [-15.7945, -47.8853],
                         title: "Evento Cultural",
                         type: "event",
                         description: "Evento com acessibilidade garantida",
@@ -817,7 +601,7 @@
                         drawer.classList.remove('closed');
                         drawer.classList.add('open');
                         
-                        // Update drawer content based on clicked marker
+                        // Atualizar o conteúdo da gaveta com base no marcador clicado
                         const title = drawer.querySelector('h3');
                         const ratingStars = drawer.querySelector('.rating-stars .filled');
                         const ratingText = drawer.querySelector('.rating-stars + span');
@@ -830,22 +614,22 @@
                     });
                 });
 
-                // Close drawer
+                // Fechar gaveta
                 document.getElementById('close-drawer').addEventListener('click', function() {
                     const drawer = document.getElementById('location-drawer');
                     drawer.classList.remove('open');
                     drawer.classList.add('closed');
                 });
 
-                // Add location button functionality
+                // Adicionar funcionalidade de botão de localização
                 document.getElementById('add-location-btn').addEventListener('click', function() {
                     showToast('Funcionalidade de adicionar local será implementada aqui!', 'info');
                 });
 
-            }, 1000); // Simulate 1 second loading time
+            }, 1000); // Simule um tempo de carregamento de 1 segundo
         });
 
-        // Show toast notification
+        // Mostrar notificação do sistema
         function showToast(message, type) {
             const toast = document.createElement('div');
             toast.className = `fixed bottom-4 right-4 px-6 py-3 rounded-lg shadow-lg text-white ${
