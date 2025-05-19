@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aa99c700-f69f-42cc-96f5-b6b40d279797" name="Changes" comment="ajeitei algumas coisas no texto que estavam faltando">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-    </list>
+    <list default="true" id="aa99c700-f69f-42cc-96f5-b6b40d279797" name="Changes" comment="ajeitei algumas coisas no texto que estavam faltando" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -80,7 +77,7 @@
       <option name="presentableId" value="Default" />
       <updated>1743264513020</updated>
       <workItem from="1743264514314" duration="4973000" />
-      <workItem from="1747659738173" duration="734000" />
+      <workItem from="1747659738173" duration="1111000" />
     </task>
     <task id="LOCAL-00001" summary="ajeitei algumas coisas no texto que estavam faltando">
       <option name="closed" value="true" />
