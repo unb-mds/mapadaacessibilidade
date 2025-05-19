@@ -516,21 +516,14 @@
                 mapContainer.classList.remove('skeleton');
 
                 // Initialize map centered on Brasília
-                var worldBound = L.latLngBounds(L.latLng(-85, -180), L.latLng(85, 180));
-                const map = L.map('map',
-                    {
-                        maxBounds: worldBound,
-                        maxBoundsViscosity: 1.0,
-                        minZoom: 2,
-                        maxZoom: 19
-                    }).setView([-15.7942, -47.8822], 13);
-
+                const map = L.map('map').setView([-15.7942, -47.8822], 13);
+                var worldBound = [[-90,-180], [90,180]];
                 map.setMaxBounds(worldBound);
+                map.options.minZoom = 2;
 
                 // Add OpenStreetMap tiles
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                    noWrap: true
                 }).addTo(map);
 
                 // Add sample markers
