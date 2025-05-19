@@ -516,7 +516,9 @@
                 mapContainer.classList.remove('skeleton');
 
                 // Initialize map centered on Brasília
-                const map = L.map('map').setView([-15.7942, -47.8822], 13); 
+                const map = L.map('map').setView([-15.7942, -47.8822], 13);
+                var worldBound = [[-90,-180], [90,180]];
+                map.setMaxBounds(worldBound);
 
                 // Add OpenStreetMap tiles
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
