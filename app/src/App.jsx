@@ -4,6 +4,7 @@ import './App.css'
 import { Marker } from 'react-leaflet'   
 import { Icon } from 'leaflet' //importa o icone do leaflet, que é a biblioteca que a gente ta usando pra fazer o mapa
 import icone from './img/pin.png' 
+import { useState } from 'react';
 
 
 // ok, pelo que eu entendi, para usar o css e o tailwind, a gente vai precisar jogar TUDO no INDEX.CSS, funciona bonitinho confia no pai
@@ -40,20 +41,31 @@ function App() {
       
   })
 
+  const header = () => 
+    {
+      return (
+        <div className="header">
+          <h1 className="text-2xl font-bold">Mapa Interativo</h1>
+          <p className="text-lg">Clique nos marcadores para mais informações</p>
+        </div>
+      )
+    }
+
 
   
 
   return (
-    <MapContainer center={[-15.7942, -47.8822]} zoom={13}> //inicializa o mapa com a latitude e longitude de Brasília, e o zoom inicial
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' //essa url é só pra poder usar o mapa, não precisa se preocupar
-        url='https://tile.openstreetmap.org/{z}/{x}/{y}.png' 
-      />
-      {markers.map(marker => (
-        <Marker position={marker.geocode} icon={iconeCustom}></Marker>
-      ))}
-    </MapContainer>
-      
+    <div className="grid">
+      <MapContainer center={[-15.7942, -47.8822]} zoom={13} className="w-200 flex-auto h-1 col-span-2 z-1">
+        <TileLayer
+          attribution='Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012' //essa url é só pra poder usar o mapa, não precisa se preocupar
+          url='https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}' 
+        />
+        {markers.map(marker => (
+          <Marker position={marker.geocode} icon={iconeCustom}></Marker>
+        ))}
+      </MapContainer>
+    </div>
      
   )
 }
