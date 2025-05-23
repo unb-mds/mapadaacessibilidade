@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+* 
+{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+#root
+{
+  height: 100vh;
+  background-color: #c3dbff;
+}
+
+/* tamanho do mapcontainer */
+
+.leaflet-container {
+  height: 100vh;
+}
