@@ -22,3 +22,15 @@
 .leaflet-container {
   height: 100vh;
 }
+
+/* treco de popUp */
+
+.leaflet-popup-content {
+  margin: 12px;
+  min-width: 200px;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 8px;
+}
+
