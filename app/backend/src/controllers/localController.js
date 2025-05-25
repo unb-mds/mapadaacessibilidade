@@ -16,12 +16,10 @@ const createLocal = async (req, res) => {
             latitude
         } = req.body;
 
-        // Validação dos campos obrigatórios
         if (!nome) {
             return res.status(400).json({ error: "Nome é obrigatório" });
         }
 
-        // Criação do local
         const novoLocal = await prisma.local.create({
             data: {
                 id: uuidv4(),
@@ -32,19 +30,26 @@ const createLocal = async (req, res) => {
                 cidade,
                 bairro,
                 estado,
-                longitude: longitude ? parseFloat(longitude) : null,
-                latitude: latitude ? parseFloat(latitude) : null,
-                status: 'ativo', // Status padrão conforme schema
-                criado_por: req.user.id, // Assumindo que você tem middleware de autenticação
-                created_at: new Date(),
-                updated_at: new Date()
+                longitude,
+                latitude,
+                status: 'ativo',
+                criado_por: 'Caio',
+                created_at: new Date('2025-05-25T20:09:29Z'),
+                updated_at: new Date('2025-05-25T20:09:29Z')
             }
         });
 
-        return res.status(201).json(novoLocal);
+        return res.status(201).json({
+            message: 'Local criado com sucesso',
+            local: novoLocal
+        });
+
     } catch (error) {
         console.error('Erro ao criar local:', error);
-        return res.status(500).json({ error: 'Erro interno ao criar local' });
+        return res.status(500).json({
+            error: 'Erro interno ao criar local',
+            details: error.message
+        });
     }
 };
 
