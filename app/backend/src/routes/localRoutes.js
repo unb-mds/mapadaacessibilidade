@@ -1,4 +1,5 @@
 import express from 'express'
+
 import { createLocal } from '../controllers/localController.js'
 import { validateLocal } from '../middlewares/LocalMiddleware.js'
 

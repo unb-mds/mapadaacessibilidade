@@ -1,3 +1,4 @@
+
 const express = require('express')
 const { PrismaClient } = require('@prisma/client')
 const localRoutes = require('./routes/localRoutes')
@@ -8,8 +9,16 @@ const prisma = new PrismaClient()
 const app = express()
 const port = 3000;
 
-// Middleware para processar JSON
+
+
+
+
+
 app.use(express.json())
+app.use(localRoutes)
+app.use('/usuarios', usuariosRoutes)
+
+
 
 // Rotas
 app.use(localRoutes)
@@ -20,6 +29,8 @@ app.get('/usuarios', async(req, res) => {
   const users = await prisma.usuario.findMany()
   res.status(200).json(users)
 })
+
+
 
 
 app.get('/locais', async (req, res) => {
@@ -96,7 +107,12 @@ function calcularDistancia(lat1, lon1, lat2, lon2) {
   return R * c;
 }
 
-r
+
+
+
+
+
 app.listen(port, () => {
   console.log(`Servidor funcionando http://localhost:${port}`)
 })
+
