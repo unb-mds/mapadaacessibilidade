@@ -1,84 +1,63 @@
-import express from 'express'
 
-import { PrismaClient } from '@prisma/client'
-import crypto from 'crypto'
-import { v4 as uuidv4 } from 'uuid'
-
+const express = require('express')
+const { PrismaClient } = require('@prisma/client')
+const localRoutes = require('./routes/localRoutes')
+const usuariosRoutes = require('./routes/usuariosRoutes')
+const { validateLocal } = require('./middlewares/localMiddleware')
 
 const prisma = new PrismaClient()
-
- 
 const app = express()
+const port = 3000;
+
+
+
+
+
+
 app.use(express.json())
+app.use(localRoutes)
+app.use('/usuarios', usuariosRoutes)
+
+
+
+// Rotas
+app.use(localRoutes)
+app.use('/usuarios', usuariosRoutes)
 
 
 app.get('/usuarios', async(req, res) => {
   const users = await prisma.usuario.findMany()
-
   res.status(200).json(users)
-
 })
 
-app.post('/usuarios', async (req, res) => {
-  const { nome, email, senha, papel } = req.body;
 
-  if (!nome || !email || !senha || !papel) {
-    return res.status(400).json({ error: 'Todos os campos são obrigatórios.' });
-  }
-
-  const senhaHash = crypto.createHash('sha256').update(senha).digest('hex');
-
-  try {
-    const novoUsuario = await prisma.usuario.create({
-      data: {
-        id: uuidv4(), // gera o ID manualmente
-        nome,
-        email,
-        senha_hash: senhaHash,
-        papel
-      }
-    });
-
-    res.status(201).json(novoUsuario);
-  } catch (error) {
-    console.error(error);
-    if (error.code === 'P2002') {
-      return res.status(400).json({ error: 'Email já cadastrado.' });
-    }
-    res.status(500).json({ error: 'Erro ao cadastrar usuário.' });
-  }
-});
 
 
 app.get('/locais', async (req, res) => {
   const { nome, cidade, tipo, raio, latitude, longitude } = req.query;
 
   try {
-    
     const where = {};
-    
+
     if (nome) {
       where.nome = { contains: nome, mode: 'insensitive' };
     }
-    
+
     if (cidade) {
       where.cidade = { equals: cidade, mode: 'insensitive' };
     }
-    
+
     if (tipo) {
       where.tipo = { equals: tipo, mode: 'insensitive' };
     }
 
-    
     if (raio && latitude && longitude) {
       const radiusInMeters = parseFloat(raio);
       const lat = parseFloat(latitude);
       const lng = parseFloat(longitude);
 
-      
       where.geolocalizacao = {
         not: null,
-        
       };
     }
 
@@ -89,21 +68,19 @@ app.get('/locais', async (req, res) => {
         avaliacoes: true
       },
       orderBy: {
-        nome: 'asc' 
+        nome: 'asc'
       }
     });
 
-    
     if (raio && latitude && longitude) {
       const locaisComDistancia = locais.map(local => {
-
         const distancia = calcularDistancia(
-          lat, lng,
-          local.latitude, local.longitude
+            lat, lng,
+            local.latitude, local.longitude
         );
         return { ...local, distancia };
       }).filter(local => local.distancia <= radiusInMeters)
-        .sort((a, b) => a.distancia - b.distancia);
+          .sort((a, b) => a.distancia - b.distancia);
 
       return res.status(200).json(locaisComDistancia);
     }
@@ -116,19 +93,18 @@ app.get('/locais', async (req, res) => {
 });
 
 function calcularDistancia(lat1, lon1, lat2, lon2) {
-  
-  const R = 6371e3; 
+  const R = 6371e3;
   const φ1 = lat1 * Math.PI/180;
   const φ2 = lat2 * Math.PI/180;
   const Δφ = (lat2-lat1) * Math.PI/180;
   const Δλ = (lon2-lon1) * Math.PI/180;
 
   const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
-            Math.cos(φ1) * Math.cos(φ2) *
-            Math.sin(Δλ/2) * Math.sin(Δλ/2);
+      Math.cos(φ1) * Math.cos(φ2) *
+      Math.sin(Δλ/2) * Math.sin(Δλ/2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 
-  return R * c; 
+  return R * c;
 }
 
 
@@ -136,6 +112,7 @@ function calcularDistancia(lat1, lon1, lat2, lon2) {
 
 
 
-app.listen(3000, () => {
-  console.log('Servidor funcionando http://localhost:3000')
+app.listen(port, () => {
+  console.log(`Servidor funcionando http://localhost:${port}`)
 })
+
