@@ -1,11 +1,11 @@
 import express from 'express'
+import { PrismaClient } from '@prisma/client'
+import { v4 as uuidv4 } from 'uuid'
 
-import { createLocal } from '../controllers/localController.js'
-import { validateLocal } from '../middlewares/LocalMiddleware.js'
-
+const prisma = new PrismaClient()
 const router = express.Router()
 
-// Adiciona o middleware validateLocal antes do controller
-router.post('/locais', validateLocal, createLocal)
+//  Rota para criar um local
+
 
 export default router
