@@ -46,7 +46,7 @@ assignees: CaioSoandrd, Dexmachi, oalbertocavalcante
 (O que precisa estar pronto ANTES de começar a issue?)  
 - [ ] 
 
---
+---
 
 ## 🚧 Possíveis Riscos  
 (Antecipe obstáculos!)  
