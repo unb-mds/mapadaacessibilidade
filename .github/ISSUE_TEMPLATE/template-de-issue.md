@@ -26,7 +26,7 @@ assignees: CaioSoandrd, Dexmachi, oalbertocavalcante
 ---
 
 ## 🎯 DoD (Critérios de Aceitação)  
-(O que **garante* que a tarefa está concluída e aceitável)*  
+(O que **garante** que a tarefa está concluída e aceitável)*  
 - [ ] 
 - [ ]  
 - [ ]  
