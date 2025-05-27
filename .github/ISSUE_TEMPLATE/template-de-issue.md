@@ -1,7 +1,7 @@
 ---
 name: Template de Issue
 about: Template base para criação de issue
-title: "# [Título da Issue]"
+title: "[Título da Issue]"
 labels: documentation
 assignees: CaioSoandrd, Dexmachi, oalbertocavalcante
 
