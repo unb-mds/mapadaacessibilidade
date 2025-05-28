@@ -6,8 +6,6 @@ import { Icon } from 'leaflet'
 import icone from './img/pin.png' 
 import { useState, useEffect } from 'react';
 import { 
-  TbLayoutSidebarLeftExpand, 
-  TbLayoutSidebarLeftCollapse, 
   TbX,
   TbStarFilled,
   TbClock,
