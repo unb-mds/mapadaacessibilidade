@@ -24,8 +24,8 @@ Ex.:
 ## 🔧 Variáveis de Ambiente
 Crie um arquivo `.env` baseado no `.env.example`:
 ```
-DATABASE_URL="postgresql://usuario:senha@localhost:5432/nome_banco?schema=public"
-PORT=3000
+DATABASE_URL="postgresql://USUARIO:SENHA@aws-0-sa-east-1.pooler.supabase.com:6543/DATABASE?pgbouncer=true"
+DIRECT_URL="postgresql://USUARIO:SENHA@aws-0-sa-east-1.pooler.supabase.com:5432/DATABASE”
 ```
 
 ## 🛠 Comandos Úteis
