@@ -209,25 +209,235 @@ function App() {
     );
   };
 
+  function FiltersSidebar({ isMobile, open, toggleFilters }) {
+  return (
+    <aside className={`${open ? "block" : "hidden"} w-full md:w-64 bg-white shadow-md p-4 md:h-screen md:sticky md:top-16`}>
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-lg font-semibold text-blue-600">Filtrar Locais</h2>
+        <button 
+          onClick={toggleFilters}
+          className="md:hidden text-gray-500 hover:text-blue-600"
+        >
+          <i className="fas fa-sliders-h"></i>
+        </button>
+      </div>
+      
+      <div id="filters-content">
+        <div className="space-y-3">
+          <div className="flex items-center">
+            <input 
+              type="checkbox" 
+              id="filter-ramp" 
+              className="mr-2 h-5 w-5 text-blue-600 rounded" 
+              defaultChecked
+            />
+            <label htmlFor="filter-ramp" className="flex items-center">
+              <span className="w-4 h-4 rounded-full bg-blue-500 mr-2"></span>
+              Rampas
+            </label>
+          </div>
+          <div className="flex items-center">
+            <input 
+              type="checkbox" 
+              id="filter-bathroom" 
+              className="mr-2 h-5 w-5 text-green-500 rounded" 
+              defaultChecked
+            />
+            <label htmlFor="filter-bathroom" className="flex items-center">
+              <span className="w-4 h-4 rounded-full bg-green-500 mr-2"></span>
+              Banheiros Adaptados
+            </label>
+          </div>
+          <div className="flex items-center">
+            <input 
+              type="checkbox" 
+              id="filter-tactile" 
+              className="mr-2 h-5 w-5 text-yellow-500 rounded" 
+              defaultChecked
+            />
+            <label htmlFor="filter-tactile" className="flex items-center">
+              <span className="w-4 h-4 rounded-full bg-yellow-500 mr-2"></span>
+              Pisos Táteis
+            </label>
+          </div>
+          <div className="flex items-center">
+            <input 
+              type="checkbox" 
+              id="filter-events" 
+              className="mr-2 h-5 w-5 text-purple-500 rounded" 
+              defaultChecked
+            />
+            <label htmlFor="filter-events" className="flex items-center">
+              <span className="w-4 h-4 rounded-full bg-purple-500 mr-2"></span>
+              Eventos Acessíveis
+            </label>
+          </div>
+        </div>
+
+        <div className="mt-6">
+          <div className="relative border border-gray-300 rounded p-3">
+            <span className="floating-label">Distância</span>
+            <div className="mt-2">
+              <input 
+                type="range" 
+                min="1" 
+                max="10" 
+                defaultValue="5" 
+                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" 
+              />
+            </div>
+            <div className="flex justify-between text-xs text-gray-500 mt-1">
+              <span>1 km</span>
+              <span>5 km</span>
+              <span>10 km</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-6">
+          <div className="relative border border-gray-300 rounded p-3">
+            <span className="floating-label">Avaliação</span>
+            <div className="mt-3">
+              <div className="flex items-center mb-1">
+                <input 
+                  type="radio" 
+                  id="rating-all" 
+                  name="rating" 
+                  value="all" 
+                  className="mr-2" 
+                  defaultChecked
+                />
+                <label htmlFor="rating-all">Todas avaliações</label>
+              </div>
+              <div className="flex items-center mb-1">
+                <input 
+                  type="radio" 
+                  id="rating-4" 
+                  name="rating" 
+                  value="4" 
+                  className="mr-2" 
+                />
+                <label htmlFor="rating-4" className="flex items-center">
+                  <div className="flex text-yellow-400 mr-1">
+                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star text-gray-300"></i>
+                  </div>
+                  Acima de 4
+                </label>
+              </div>
+              <div className="flex items-center">
+                <input 
+                  type="radio" 
+                  id="rating-3" 
+                  name="rating" 
+                  value="3" 
+                  className="mr-2" 
+                />
+                <label htmlFor="rating-3" className="flex items-center">
+                  <div className="flex text-yellow-400 mr-1">
+                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star text-gray-300"></i>
+                    <i className="fas fa-star text-gray-300"></i>
+                  </div>
+                  Acima de 3
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-6">
+          <button className="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition flex items-center justify-center">
+            <i className="fas fa-sync-alt mr-2"></i> Aplicar Filtros
+          </button>
+        </div>
+      </div>
+    </aside>
+  );
+}
+const [filtersOpen, setFiltersOpen] = useState(true);
+const toggleFilters = () => {
+  setFiltersOpen(!filtersOpen);
+};
+
+function Footer() {
+  return (
+    <footer className="bg-gray-800 text-white py-8">
+      <div className="container mx-auto px-4">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div>
+            <h3 className="text-lg font-semibold mb-4">Mapa da Acessibilidade</h3>
+            <p className="text-gray-300 text-sm">
+              Nosso objetivo é mapear e compartilhar informações sobre locais acessíveis para pessoas com mobilidade reduzida.
+            </p>
+          </div>
+          <div>
+            <h3 className="text-lg font-semibold mb-4">Links Úteis</h3>
+            <ul className="space-y-2">
+              <li><a href="sobrenos.html" className="text-gray-300 hover:text-white text-sm">Sobre o projeto</a></li>
+              <li><a href="#" className="text-gray-300 hover:text-white text-sm">Como contribuir</a></li>
+              <li><a href="#" className="text-gray-300 hover:text-white text-sm">Termos de uso</a></li>
+              <li><a href="#" className="text-gray-300 hover:text-white text-sm">Política de privacidade</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 className="text-lg font-semibold mb-4">Contato</h3>
+            <ul className="space-y-2">
+              <li className="flex items-center text-gray-300 text-sm">
+                <i className="fas fa-envelope mr-2"></i> contato@acessibilidade.com
+              </li>
+              <li className="flex items-center text-gray-300 text-sm">
+                <i className="fas fa-phone-alt mr-2"></i> (11) 1234-5678
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 className="text-lg font-semibold mb-4">Redes Sociais</h3>
+            <div className="flex space-x-4">
+              <a href="#" className="text-gray-300 hover:text-white">
+                <i className="fab fa-facebook-f"></i>
+              </a>
+              <a href="#" className="text-gray-300 hover:text-white">
+                <i className="fab fa-twitter"></i>
+              </a>
+              <a href="#" className="text-gray-300 hover:text-white">
+                <i className="fab fa-instagram"></i>
+              </a>
+              <a href="#" className="text-gray-300 hover:text-white">
+                <i className="fab fa-youtube"></i>
+              </a>
+            </div>
+            <div className="mt-4">
+              <button className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition text-sm">
+                <i className="fas fa-download mr-2"></i> Baixar App
+              </button>
+            </div>
+          </div>
+        </div>
+        <div className="border-t border-gray-700 mt-8 pt-6 text-center text-gray-400 text-sm">
+          <p>Mapa da Acessibilidade © 2025. Todos os direitos reservados.</p>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
   return (
     <div className="flex flex-col h-screen">
       <Header isMobile={isMobile} open={open} toggleMenu={toggleMenu} />
 
       
       <div className="flex flex-1 overflow-hidden relative">
-        {/* Sidebar Menu */}
-        <div className={`${open ? "w-64" : "w-0"} z-[998] bg-white h-full shadow-md transition-all duration-300 ease-in-out flex flex-col 
-          ${isMobile ? 'fixed inset-y-0 z-[1002]' : 'relative'}`}>
-          <div className="p-4 flex items-center justify-between">
-            {open && <h2 className="text-xl font-bold">Menu</h2>}
-            <button 
-              onClick={() => setOpen(!open)}
-              className="p-2 rounded-full hover:bg-gray-100"
-            >
-              {open ? <TbLayoutSidebarLeftCollapse size={24} /> : <TbLayoutSidebarLeftExpand size={24} />}
-            </button>
-          </div>
-        </div>
+        <FiltersSidebar 
+          isMobile={isMobile} 
+          open={filtersOpen} 
+          toggleFilters={toggleFilters} 
+        />
 
         {/* Mapa Principal */}
         <div className={`flex-1 relative transition-all duration-300 ${open && !isMobile ? 'md:ml-64' : ''}`}>
@@ -384,7 +594,9 @@ function App() {
           </div>
         )}
       </div>
+      <Footer />
     </div>
+    
   );
 }
 
