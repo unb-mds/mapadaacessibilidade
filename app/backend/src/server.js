@@ -1,6 +1,6 @@
 import express from 'express'
 import { PrismaClient } from '@prisma/client'
-import  localRoutes from './routes/localRoutes.js'
+import  locaisRoutes from './routes/locaisRouter.js'
 import usuariosRoutes from './routes/usuariosRoutes.js'
 
 
@@ -12,8 +12,9 @@ const port = 3000;
 
 
 app.use(express.json())
-app.use(localRoutes)
+app.use('/locais', locaisRoutes)
 app.use('/usuarios', usuariosRoutes)
+
 
 
 
@@ -60,11 +61,11 @@ app.get('/locais', async (req, res) => {
     }
 
     const locais = await prisma.local.findMany({
-      where,
-      include: {
+      /*where,
+        include: {
         acessibilidades: true,
         avaliacoes: true
-      },
+      },*/
       orderBy: {
         nome: 'asc' 
       }

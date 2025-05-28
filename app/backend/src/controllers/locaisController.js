@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client'
+import { v4 as uuidv4 } from 'uuid'
 const prisma = new PrismaClient()
 
 export const buscarLocais = async (req, res) => {
@@ -50,3 +51,50 @@ function calcularDistancia(lat1, lon1, lat2, lon2) {
     // Implementação do cálculo de distância
     // ... (mesma implementação anterior)
 }
+
+export const createLocal = async (req, res) => {
+    try {
+        const {
+            nome,
+            descricao,
+            tipo,
+            endereco,
+            cidade,
+            bairro,
+            estado,
+            longitude, 
+            latitude,   // já é um número 
+            criado_por
+        } = req.body;
+
+        const novoLocal = await prisma.local.create({
+            data: {
+                id: uuidv4(), // id gerado automaticamente
+                nome,
+                descricao,
+                tipo,
+                endereco,
+                cidade,
+                bairro,
+                estado,
+                longitude,
+                latitude,
+                status: 'aprovado',
+                criado_por 
+            }
+        });
+
+        return res.status(201).json({
+            message: 'Local criado com sucesso',
+            local: novoLocal
+        });
+
+    } catch (error) {
+       
+        console.error('erro ao criar local:', error);
+        return res.status(500).json({
+            error: 'erro interno ao criar local',
+            details: error.message
+        });
+    }
+};
