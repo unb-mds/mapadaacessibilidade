@@ -71,7 +71,7 @@ Consulte a documentação por meio deste [LINK](https://oalbertocavalcante.githu
 
 ## 📦 Protótipo de Alta Fidelidade
 
-Consulte o protótipo por meio deste [LINK](unb-mds.github.io/mapadaacessibilidade/).
+Consulte o protótipo por meio deste [LINK](unb-mds.github.io/mapadaacessibilidade).
 
 ---
 
