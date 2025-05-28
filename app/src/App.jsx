@@ -10,7 +10,6 @@ import {
   TbLayoutSidebarLeftCollapse, 
   TbX,
   TbStarFilled,
-  TbMapPin,
   TbClock,
   TbPhone,
   TbArrowRight,
@@ -18,7 +17,15 @@ import {
   TbWheelchair,
   TbToiletPaper,
   TbBraille,
-  TbElevator
+  TbElevator,
+  TbInfoCircle,
+  TbUserPlus,
+  TbLogin,
+  TbMail,
+  TbHelpCircle,
+  TbCalendarEvent,
+  TbMapPin,
+  TbMenu2
 } from 'react-icons/tb'
 
 // Configurações dos marcadores
@@ -124,21 +131,75 @@ function App() {
     }
   };
 
-  const Header = () => {
-    return (
-      <header className='sticky top-0 z-[1000] bg-white shadow-md mx-auto flex w-full justify-between items-center'>
-        <div className="flex items-center">
-          {isMobile && (
-            <button onClick={toggleMenu} className="p-2">
-              {open ? <TbLayoutSidebarLeftCollapse size={24} /> : <TbLayoutSidebarLeftExpand size={24} />}
-            </button>
-          )}
-          <Logo />
-        </div>
-        <h1 className='text-xl font-bold p-4'>Mapa Interativo</h1>
-      </header>
-    );
+  function Header({ isMobile, open, toggleMenu }) {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
   };
+  
+  const navLinks = [
+    { href: "sobrenos.html", icon: <TbInfoCircle />, label: "Sobre Nós" },
+    { href: "cadastro.html", icon: <TbUserPlus />, label: "Cadastro" },
+    { href: "login.html", icon: <TbLogin />, label: "Login" },
+    { href: "contato.html", icon: <TbMail />, label: "Contato" },
+    { href: "faq.html", icon: <TbHelpCircle />, label: "FAQ" },
+    { href: "eventos.html", icon: <TbCalendarEvent />, label: "Eventos" },
+    { href: "adicionarlocal.html", icon: <TbMapPin />, label: "Adicionar Local" },
+  ];
+  return (
+    <header className="sticky top-0 z-[1000] bg-white shadow-md">
+      <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+        <div className="flex items-center space-x-2">
+          <i className="fas fa-wheelchair text-blue-600 text-3xl mt-1"></i>
+          <div className="leading-tight">
+            <a href="index.html">
+              <h1 className="text-xl font-bold text-blue-600 leading-tight">Mapa da Acessibilidade</h1>
+              <p className="text-xs text-gray-500 mt-0.5">Mobilidade sem Barreiras</p>
+            </a>
+          </div>
+        </div>
+
+        {/* Desktop nav */}
+        <nav className="hidden md:flex gap-6 items-center">
+          {navLinks.map(({ href, icon, label }) => (
+            <a
+              key={href}
+              href={href}
+              className="text-gray-700 hover:text-blue-600 transition flex items-center"
+            >
+              <span className="flex items-center gap-2">{icon} {label}</span>
+            </a>
+          ))}
+        </nav>
+
+        {/* Mobile Menu Toggle Button */}
+        <button
+          className="md:hidden text-gray-700"
+          onClick={toggleMobileMenu}
+          aria-label="Abrir menu"
+        >
+          <TbMenu2 className="text-xl" />
+        </button>
+      </div>
+
+      {/* Mobile nav */}
+      {mobileMenuOpen && (
+        <div className="md:hidden bg-white py-2 px-4 shadow-lg">
+          {navLinks.map(({ href, icon, label }) => (
+            <a
+              key={href}
+              href={href}
+              className="block py-2 text-gray-700 hover:text-blue-600 flex items-center"
+            >
+              <span className="mr-3 w-5 text-center">{icon}</span> {label}
+            </a>
+          ))}
+        </div>
+      )}
+    </header>
+  );
+}
 
   const Logo = () => {
     return (
@@ -150,7 +211,8 @@ function App() {
 
   return (
     <div className="flex flex-col h-screen">
-      <Header />
+      <Header isMobile={isMobile} open={open} toggleMenu={toggleMenu} />
+
       
       <div className="flex flex-1 overflow-hidden relative">
         {/* Sidebar Menu */}
