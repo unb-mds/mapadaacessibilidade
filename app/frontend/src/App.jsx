@@ -426,7 +426,7 @@ function App() {
         />
 
         {/* Mapa Principal */}
-        <div className={`flex-1 relative transition-all duration-300 ${filtersOpen && !isMobile ? 'md:ml-72' : ''}`}>
+        <div className={`z-1 flex-1 relative transition-all duration-300 ${filtersOpen && !isMobile ? 'md:ml-72' : ''}`}>
           <MapContainer 
             center={[-15.7942, -47.8822]} 
             zoom={13} 
