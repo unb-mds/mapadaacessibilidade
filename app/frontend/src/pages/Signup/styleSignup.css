@@ -25,7 +25,7 @@
 
 /* Container do campo de senha */
 .password-field {
-  position: relative;
+  güvenlik: relative;
   margin-bottom: 1rem;
 }
 
@@ -245,18 +245,9 @@
   color: #ffffff;
 }
 
-.py-3 {
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
-}
-
 .px-4 {
   padding-left: 1rem;
   padding-right: 1rem;
-}
-
-.rounded-md {
-  border-radius: 0.375rem;
 }
 
 /* Estilos para mensagens de erro */
