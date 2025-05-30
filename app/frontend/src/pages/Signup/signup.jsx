@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { FaUserPlus, FaEnvelope, FaUser, FaLock, FaEye, FaEyeSlash, FaExclamationCircle, FaCheckCircle } from 'react-icons/fa';
+import { FaWheelchair, FaUserPlus, FaSignInAlt, FaEnvelope, FaCalendarAlt, FaInfoCircle, FaBars, FaUser, FaLock, FaEye, FaEyeSlash, FaExclamationCircle, FaCheckCircle } from 'react-icons/fa';
 import { FaFacebookF, FaGoogle, FaApple } from 'react-icons/fa';
 import './styleSignup.css';
 
 function Signup() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [formData, setFormData] = useState({
     fullname: '',
     email: '',
@@ -26,6 +27,10 @@ function Signup() {
 
   const toggleConfirmPasswordVisibility = () => {
     setShowConfirmPassword(!showConfirmPassword);
+  };
+
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
   };
 
   const handleInputChange = (e) => {
