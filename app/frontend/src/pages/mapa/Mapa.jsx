@@ -1,9 +1,9 @@
 import { MapContainer, TileLayer } from 'react-leaflet'
 import "leaflet/dist/leaflet.css"
-import './App.css'
+import '../../index.css'
 import { Marker } from 'react-leaflet'   
 import { Icon } from 'leaflet'
-import icone from './img/pin.png' 
+import icone from '../../img/pin.png' 
 import { useState, useEffect } from 'react';
 import { 
   TbX,
@@ -25,6 +25,7 @@ import {
   TbMapPin,
   TbMenu2
 } from 'react-icons/tb'
+import { Link } from 'react-router-dom';
 
 // Configurações dos marcadores
 const markers = [
@@ -133,13 +134,13 @@ function App() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     
     const navLinks = [
-      { href: "sobrenos.html", icon: <TbInfoCircle size={20} />, label: "Sobre Nós" },
-      { href: "cadastro.html", icon: <TbUserPlus size={20} />, label: "Cadastro" },
-      { href: "login.html", icon: <TbLogin size={20} />, label: "Login" },
-      { href: "contato.html", icon: <TbMail size={20} />, label: "Contato" },
-      { href: "faq.html", icon: <TbHelpCircle size={20} />, label: "FAQ" },
-      { href: "eventos.html", icon: <TbCalendarEvent size={20} />, label: "Eventos" },
-      { href: "adicionarlocal.html", icon: <TbMapPin size={20} />, label: "Adicionar Local" },
+      { href: "/", icon: <TbInfoCircle size={20} />, label: "Sobre Nós" },
+      { href: "/cadastro", icon: <TbUserPlus size={20} />, label: "Cadastro" },
+      { href: "/login", icon: <TbLogin size={20} />, label: "Login" },
+      { href: "/contato.html", icon: <TbMail size={20} />, label: "Contato" },
+      { href: "/faq.html", icon: <TbHelpCircle size={20} />, label: "FAQ" },
+      { href: "/eventos.html", icon: <TbCalendarEvent size={20} />, label: "Eventos" },
+      { href: "/adicionarlocal.html", icon: <TbMapPin size={20} />, label: "Adicionar Local" },
     ];
   
     return (
@@ -148,7 +149,7 @@ function App() {
           <div className="flex items-center space-x-3">
             <TbWheelchair className="text-blue-600 text-3xl" />
             <div>
-              <a href="index.html">
+              <a href="#">
                 <h1 className="text-2xl font-bold text-blue-600">Mapa da Acessibilidade</h1>
                 <p className="text-sm text-gray-500">Mobilidade sem Barreiras</p>
               </a>
@@ -157,14 +158,11 @@ function App() {
   
           <nav className="hidden md:flex space-x-8">
             {navLinks.map(({ href, icon, label }) => (
-              <a
-                key={href}
-                href={href}
-                className="text-gray-700 hover:text-blue-600 transition-colors flex items-center text-lg"
+              <Link key={href} to={href} className="text-gray-700 hover:text-blue-600 transition-colors flex items-center text-lg"
               >
                 <span className="mr-2">{icon}</span>
                 {label}
-              </a>
+              </Link>
             ))}
           </nav>
   
@@ -180,14 +178,14 @@ function App() {
         {mobileMenuOpen && (
           <div className="md:hidden bg-white py-3 px-4 shadow-lg border-t border-gray-100">
             {navLinks.map(({ href, icon, label }) => (
-              <a
+              <Link
                 key={href}
-                href={href}
+                to={href}
                 className="block py-3 text-gray-700 hover:text-blue-600 flex items-center text-lg"
               >
                 <span className="mr-4">{icon}</span>
                 {label}
-              </a>
+              </Link>
             ))}
           </div>
         )}

@@ -20,7 +20,7 @@ code {
 }
 
 /* Transições */
-.transition {
+.transitionS {
   transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
@@ -38,12 +38,12 @@ code {
   }
 }
 
-.toast {
+.toastS {
   animation: fadeIn 0.3s ease-out;
 }
 
 /* Classes utilitárias adicionais */
-.sr-only {
+.sr-onlyS {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -55,63 +55,63 @@ code {
   border-width: 0;
 }
 
-.absolute {
+.absoluteS {
   position: absolute;
 }
 
-.relative {
+.relativeS {
   position: relative;
 }
 
-.inset-0 {
+.inset-0S {
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
 }
 
-.inset-y-0 {
+.inset-y-0S {
   top: 0;
   bottom: 0;
 }
 
-.pl-3 {
+.pl-3S {
   padding-left: 0.75rem;
 }
 
-.pr-3 {
+.pr-3S {
   padding-right: 0.75rem;
 }
 
-.pointer-events-none {
+.pointer-events-noneS {
   pointer-events: none;
 }
 
-.flex-grow {
+.flex-growS {
   flex-grow: 1;
 }
 
-.items-center {
+.items-centerS {
   align-items: center;
 }
 
-.justify-center {
+.justify-centerS {
   justify-content: center;
 }
 
-.grid {
+.gridS {
   display: grid;
 }
 
-.inline-flex {
+.inline-flexS {
   display: inline-flex;
 }
 
 /* Estilos para o header */
-.text-gray-500 {
+.text-gray-500S {
   color: #6b7280;
 }
 
-.text-gray-700 {
+.text-gray-700S {
   color: #374151;
 }
