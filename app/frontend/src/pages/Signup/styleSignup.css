@@ -245,6 +245,11 @@
   color: #ffffff;
 }
 
+.py-3S {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
 .px-4S {
   padding-left: 1rem;
   padding-right: 1rem;
