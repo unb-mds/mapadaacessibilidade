@@ -2,6 +2,7 @@ import express from 'express'
 import { PrismaClient } from '@prisma/client'
 import  locaisRoutes from './routes/locaisRouter.js'
 import usuariosRoutes from './routes/usuariosRoutes.js'
+import acessibilidadeRouter from './routes/acessibilidadeRouter.js'
 
 
 
@@ -14,6 +15,7 @@ const port = 3000;
 app.use(express.json())
 app.use('/locais', locaisRoutes)
 app.use('/usuarios', usuariosRoutes)
+app.use('/', acessibilidadeRouter)
 
 
 
