@@ -52,6 +52,12 @@ A falta de informação sobre acessibilidade em espaços públicos ainda é um g
 
 ---
 
+<div align="center">
+    <img src="https://github.com/user-attachments/assets/b4ea76a2-fcfb-4a99-bf63-b8c8f2060196" alt="Streamlit Hello" width=500 href="none"></img>
+</div>
+
+---
+
 ## 🏘️ Contexto
 
 Este projeto está sendo desenvolvido por estudantes universitários com apoio de monitores, e pode ser utilizado tanto por ONGs, quanto por moradores locais que desejam contribuir para tornar o projeto mais inclusiva.
