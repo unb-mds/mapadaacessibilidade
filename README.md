@@ -1,3 +1,5 @@
+
+
 # 🧭 Mapeamento com Acessibilidade para Atividade Comunitária
 
 É Uma [plataforma](https://github.com/unb-mds/mapadaacessibilidade) colaborativa de mapeamento criada para apoiar atividades comunitárias com foco em acessibilidade. A ideia é permitir que qualquer pessoa possa cadastrar e encontrar lugares acessíveis para pessoas com deficiência ou mobilidade reduzida — como centros culturais, feiras, praças e outros espaços públicos.
