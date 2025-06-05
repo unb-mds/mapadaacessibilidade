@@ -1,23 +1,37 @@
-import { useState } from 'react';
-import { FaWheelchair, FaUserPlus, FaSignInAlt, FaEnvelope, FaCalendarAlt, FaInfoCircle, FaBars, FaUser, FaLock, FaEye, FaEyeSlash, FaExclamationCircle, FaCheckCircle } from 'react-icons/fa';
-import { FaFacebookF, FaGoogle, FaApple } from 'react-icons/fa';
-import './styleSignup.css';
+import { useState } from "react";
+import {
+  FaWheelchair,
+  FaUserPlus,
+  FaSignInAlt,
+  FaEnvelope,
+  FaCalendarAlt,
+  FaInfoCircle,
+  FaBars,
+  FaUser,
+  FaLock,
+  FaEye,
+  FaEyeSlash,
+  FaExclamationCircle,
+  FaCheckCircle,
+} from "react-icons/fa";
+import { FaFacebookF, FaGoogle, FaApple } from "react-icons/fa";
+import "./styleSignup.css";
 
 function Signup() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [formData, setFormData] = useState({
-    fullname: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    terms: false
+    fullname: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    terms: false,
   });
   const [errors, setErrors] = useState({
     email: false,
     passwordLength: false,
-    passwordMatch: false
+    passwordMatch: false,
   });
   const [toast, setToast] = useState(null);
 
@@ -37,30 +51,30 @@ function Signup() {
     const { name, value, type, checked } = e.target;
     setFormData({
       ...formData,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: type === "checkbox" ? checked : value,
     });
 
     // Validação em tempo real
-    if (name === 'email') {
+    if (name === "email") {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       setErrors({
         ...errors,
-        email: !emailRegex.test(value)
+        email: !emailRegex.test(value),
       });
     }
 
-    if (name === 'password') {
+    if (name === "password") {
       setErrors({
         ...errors,
         passwordLength: value.length < 8,
-        passwordMatch: value !== formData.confirmPassword
+        passwordMatch: value !== formData.confirmPassword,
       });
     }
 
-    if (name === 'confirmPassword') {
+    if (name === "confirmPassword") {
       setErrors({
         ...errors,
-        passwordMatch: value !== formData.password
+        passwordMatch: value !== formData.password,
       });
     }
   };
@@ -81,7 +95,7 @@ function Signup() {
 
     if (!formData.fullname) {
       isValid = false;
-      showToast('Por favor, insira seu nome completo', 'error');
+      showToast("Por favor, insira seu nome completo", "error");
       return;
     }
 
@@ -93,23 +107,29 @@ function Signup() {
 
     if (!formData.terms) {
       isValid = false;
-      showToast('Você deve aceitar os Termos de Serviço e Política de Privacidade', 'error');
+      showToast(
+        "Você deve aceitar os Termos de Serviço e Política de Privacidade",
+        "error"
+      );
       return;
     }
 
     setErrors(newErrors);
 
-    if (Object.values(newErrors).some(error => error)) {
+    if (Object.values(newErrors).some((error) => error)) {
       isValid = false;
     }
 
     if (!isValid) return;
 
     // Simular envio do formulário
-    showToast('Cadastro realizado com sucesso! Redirecionando para login...', 'success');
+    showToast(
+      "Cadastro realizado com sucesso! Redirecionando para login...",
+      "success"
+    );
     setTimeout(() => {
       // Redirecionar para login
-      window.location.href = '/login';
+      window.location.href = "/login";
     }, 1500);
   };
 
@@ -122,22 +142,31 @@ function Signup() {
             <div className="mx-auto h-20 w-20 rounded-full bg-blue-100 flex items-center justify-center mb-4">
               <FaUserPlus className="text-blue-600 text-xl" />
             </div>
-            <h2 className="signup-title">
-              Criar nova conta
-            </h2>
+            <h2 className="signup-title">Criar nova conta</h2>
             <p className="mt-2 text-sm text-gray-600">
-              Ou <a href="/login" className="font-medium text-blue-600 hover:text-blue-500">faça login agora</a>
+              Ou{" "}
+              <a
+                href="/login"
+                className="font-medium text-blue-600 hover:text-blue-500"
+              >
+                faça login agora
+              </a>
             </p>
           </div>
 
           <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
             <div className="rounded-md shadow-sm space-y-4">
-              <div className="mb-4"> {/* Adicione margin-bottom para espaçamento */}
-                <label htmlFor="fullname" className="sr-only">Nome Completo</label>
+              <div className="mb-4">
+                {" "}
+                {/* Adicione margin-bottom para espaçamento */}
+                <label htmlFor="fullname" className="sr-only">
+                  Nome Completo
+                </label>
                 <div className="relative">
                   {/* Ícone do usuário (cinza #9CA3AF) */}
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <FaUser className="password-icon-left" /> {/* Ícone cinza */}
+                    <FaUser className="password-icon-left" />{" "}
+                    {/* Ícone cinza */}
                   </div>
 
                   {/* Input com estilo idêntico ao campo de senha */}
@@ -158,7 +187,9 @@ function Signup() {
                 </div>
               </div>
               <div>
-                <label htmlFor="email" className="sr-only">E-mail</label>
+                <label htmlFor="email" className="sr-only">
+                  E-mail
+                </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                     <FaEnvelope className="password-icon-left" />
@@ -179,12 +210,15 @@ function Signup() {
                 </div>
                 {errors.email && (
                   <p className="text-red-500 text-sm mt-1">
-                    <FaExclamationCircle className="inline mr-1" />Por favor, insira um e-mail válido
+                    <FaExclamationCircle className="inline mr-1" />
+                    Por favor, insira um e-mail válido
                   </p>
                 )}
               </div>
               <div className="password-field">
-                <label htmlFor="password" className="sr-only">Senha</label>
+                <label htmlFor="password" className="sr-only">
+                  Senha
+                </label>
                 <div className="relative">
                   <FaLock className="password-icon-left" />
                   <input
@@ -209,13 +243,15 @@ function Signup() {
                 </div>
                 {errors.passwordLength && (
                   <p className="password-error">
-                    <FaExclamationCircle className="password-error-icon" />
-                    A senha deve ter pelo menos 8 caracteres
+                    <FaExclamationCircle className="password-error-icon" />A
+                    senha deve ter pelo menos 8 caracteres
                   </p>
                 )}
               </div>
               <div className="password-field">
-                <label htmlFor="confirmPassword" className="sr-only">Confirmar Senha</label>
+                <label htmlFor="confirmPassword" className="sr-only">
+                  Confirmar Senha
+                </label>
                 <div className="relative">
                   <FaLock className="password-icon-left" />
                   <input
@@ -256,8 +292,18 @@ function Signup() {
                 checked={formData.terms}
                 onChange={handleInputChange}
               />
-              <label htmlFor="terms" className="ml-2 block text-sm text-gray-700">
-                Eu concordo com os <a href="#" className="text-blue-600 hover:text-blue-500">Termos de Serviço</a> e <a href="#" className="text-blue-600 hover:text-blue-500">Política de Privacidade</a>
+              <label
+                htmlFor="terms"
+                className="ml-2 block text-sm text-gray-700"
+              >
+                Eu concordo com os{" "}
+                <a href="#" className="text-blue-600 hover:text-blue-500">
+                  Termos de Serviço
+                </a>{" "}
+                e{" "}
+                <a href="#" className="text-blue-600 hover:text-blue-500">
+                  Política de Privacidade
+                </a>
               </label>
             </div>
 
@@ -288,23 +334,32 @@ function Signup() {
 
             <div className="mt-6 grid grid-cols-3 gap-3">
               <div>
-                <a href="#" className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 
+                <a
+                  href="#"
+                  className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 
                                       rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 
-                                      hover:bg-gray-50 transition">
+                                      hover:bg-gray-50 transition"
+                >
                   <FaFacebookF className="text-blue-600" />
                 </a>
               </div>
               <div>
-                <a href="#" className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 
+                <a
+                  href="#"
+                  className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 
                                       rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 
-                                      hover:bg-gray-50 transition">
+                                      hover:bg-gray-50 transition"
+                >
                   <FaGoogle className="text-red-500" />
                 </a>
               </div>
               <div>
-                <a href="#" className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 
+                <a
+                  href="#"
+                  className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 
                                       rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 
-                                      hover:bg-gray-50 transition">
+                                      hover:bg-gray-50 transition"
+                >
                   <FaApple className="text-gray-800" />
                 </a>
               </div>
@@ -315,12 +370,17 @@ function Signup() {
 
       {/* Toast Notification */}
       {toast && (
-        <div className={`fixed bottom-4 right-4 px-6 py-3 rounded-lg shadow-lg text-white ${toast.type === 'success' ? 'bg-green-500' :
-          toast.type === 'error' ? 'bg-red-500' :
-            'bg-blue-500'
-          } z-50 toast`}>
+        <div
+          className={`fixed bottom-4 right-4 px-6 py-3 rounded-lg shadow-lg text-white ${
+            toast.type === "success"
+              ? "bg-green-500"
+              : toast.type === "error"
+              ? "bg-red-500"
+              : "bg-blue-500"
+          } z-50 toast`}
+        >
           <div className="flex items-center">
-            {toast.type === 'success' ? (
+            {toast.type === "success" ? (
               <FaCheckCircle className="mr-2" />
             ) : (
               <FaExclamationCircle className="mr-2" />
