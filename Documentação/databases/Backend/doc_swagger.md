@@ -140,6 +140,8 @@ Acesse a documentação Swagger no navegador:
 http://localhost:3000/api-docs
 ```
 
+## DIVISÃO DE TAREFAS
+
 ✅ Pessoa 1 – Configuração do Swagger e Estrutura
  Criar a pasta API-SERVER/) com os arquivos:
 
