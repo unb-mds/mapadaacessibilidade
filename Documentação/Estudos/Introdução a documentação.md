@@ -1,8 +1,8 @@
 # Estudando sobre documentação de software:
+
 Percebi que existem diversos tipos de documentação que se adeuqam a vários problemas diferentes, a pesquisa foi feita a partir dessas fontes:
 
-> **Fonte:**  [fonte](https://www.getguru.com/pt/reference/software-documentation) 
-> **Fonte:**  [fonte](https://www.dio.me/articles/a-importancia-da-documentacao-no-desenvolvimento-de-software-melhores-praticas-e-dicas-uteis).  
+> **Fonte:** [fonte](https://www.getguru.com/pt/reference/software-documentation) > **Fonte:** [fonte](https://www.dio.me/articles/a-importancia-da-documentacao-no-desenvolvimento-de-software-melhores-praticas-e-dicas-uteis).
 
 Além disso fiz um resumo das documentações que considerei mais importantes.
 
@@ -32,7 +32,7 @@ Utilize o símbolo `#` para definir títulos e subtítulos.
 
 ## 2. Ênfase
 
-- *Itálico:* Envolva o texto com um asterisco (`*texto*`) ou underline (`_texto_`).
+- _Itálico:_ Envolva o texto com um asterisco (`*texto*`) ou underline (`_texto_`).
 - **Negrito:** Use dois asteriscos (`**texto**`) ou underlines (`__texto__`).
 - ~~Riscado:~~ Utilize dois tils (`~~texto~~`).
 

@@ -30,13 +30,13 @@ Este é um projeto open source e contribuições são bem-vindas!
 ## 🏗️ Objetivo
 
 O projeto busca facilitar o dia a dia de quem precisa de informações sobre acessibilidade e também incentivar a participação ativa da comunidade. Com a plataforma, queremos:
-- Construir um mapa interativo de locais acessíveis  
-- Permitir que a comunidade colabore com informações, comentários e avaliações  
-- Incluir filtros como rampa de acesso, piso tátil, banheiro adaptado e mais  
-- Tornar a busca por espaços acessíveis mais fácil, por região ou tipo de atividade  
+
+- Construir um mapa interativo de locais acessíveis
+- Permitir que a comunidade colabore com informações, comentários e avaliações
+- Incluir filtros como rampa de acesso, piso tátil, banheiro adaptado e mais
+- Tornar a busca por espaços acessíveis mais fácil, por região ou tipo de atividade
 
 ---
-
 
 ## 🌀 Motivação
 
@@ -44,10 +44,10 @@ A falta de informação sobre acessibilidade em espaços públicos ainda é um g
 
 ## 🔧 Funcionalidades
 
-- 📍 Mapa colaborativo com pontos acessíveis  
-- 📝 Cadastro e avaliação de locais pela própria comunidade  
-- 🎛️ Filtros por tipo de acessibilidade  
-- 📌 Busca por nome, região ou tipo de atividade  
+- 📍 Mapa colaborativo com pontos acessíveis
+- 📝 Cadastro e avaliação de locais pela própria comunidade
+- 🎛️ Filtros por tipo de acessibilidade
+- 📌 Busca por nome, região ou tipo de atividade
 - 🗣️ Sistema de comentários e recomendações
 
 ---
@@ -66,13 +66,12 @@ Este projeto está sendo desenvolvido por estudantes universitários com apoio d
 
 ## 🧰 Tecnologias Utilizadas
 
-- Frontend: React.js 
+- Frontend: React.js
 - Backend: Node.js com Express
 - Banco de Dados: POSTgreSQL
 - Mapa: Leaflet API
 - Design: Figma
 - Quadro de Overview: [Canva](https://www.canva.com/design/DAGkRnxFbno/UzQqYdR57qFCH5p5HUuFVw/edit?utm_content=DAGkRnxFbno&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
-
 
 ---
 
@@ -150,11 +149,3 @@ Consulte o protótipo por meio deste [LINK](unb-mds.github.io/mapadaacessibilida
     </td>
     </tr>
 </table>
-
-
-
-
-
-
-
-

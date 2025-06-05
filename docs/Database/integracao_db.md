@@ -2,18 +2,15 @@
  <img src="https://github.com/user-attachments/assets/6737cb91-110e-4797-a21e-f045fa4b2daf">
 </div>
 
-
-
-
 # 📃 Documentação de Integração com Supabase (PostgreSQL)
 
 Este documento tem como objetivo instruir a equipe de backend a realizar testes de integração com um banco de dados PostgreSQL hospedado no Supabase usando o SDK oficial.
 
 ## ✅ Requisitos
 
-* Node.js ([https://nodejs.org](https://nodejs.org))
-* Editor de código (Visual Studio Code, por exemplo)
-* Conexão com a internet
+- Node.js ([https://nodejs.org](https://nodejs.org))
+- Editor de código (Visual Studio Code, por exemplo)
+- Conexão com a internet
 
 ## 🚶 Passos Iniciais
 
@@ -39,8 +36,8 @@ npm init -y
 npm install @supabase/supabase-js dotenv
 ```
 
-* `@supabase/supabase-js`: biblioteca oficial do Supabase para acessar o banco de dados, autenticação, storage, etc.
-* `dotenv`: para armazenar variáveis de ambiente (URL e API Key).
+- `@supabase/supabase-js`: biblioteca oficial do Supabase para acessar o banco de dados, autenticação, storage, etc.
+- `dotenv`: para armazenar variáveis de ambiente (URL e API Key).
 
 ### 3. Estrutura dos arquivos
 
@@ -65,16 +62,19 @@ SUPABASE_API_KEY=sua-api-key-publica-aqui
 ## 📄 index.js
 
 ```js
-import { createClient } from '@supabase/supabase-js';
-import dotenv from 'dotenv';
+import { createClient } from "@supabase/supabase-js";
+import dotenv from "dotenv";
 dotenv.config();
 
-const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_API_KEY);
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_API_KEY
+);
 
 async function testarConexao() {
   const { data, error } = await supabase
-    .from('Usuario')
-    .select('id, nome, email, papel');
+    .from("Usuario")
+    .select("id, nome, email, papel");
 
   if (error) {
     console.error("Erro ao conectar à API:", error.message);
@@ -94,8 +94,8 @@ testarConexao();
 Se estiver usando Node.js em versão anterior à 14 ou sem suporte a `import`, altere para `require()` e use `type: "module"` em `package.json` ou reescreva assim:
 
 ```js
-const { createClient } = require('@supabase/supabase-js');
-require('dotenv').config();
+const { createClient } = require("@supabase/supabase-js");
+require("dotenv").config();
 ```
 
 ## 🔧 Execução
@@ -118,7 +118,7 @@ Se houver dados, eles serão exibidos em formato de tabela.
 
 ## 🏆 Extras e Recomendações
 
-* Habilitar RLS no Supabase para a tabela `Usuario` e criar uma política de leitura:
+- Habilitar RLS no Supabase para a tabela `Usuario` e criar uma política de leitura:
 
 ```sql
 ALTER TABLE Usuario ENABLE ROW LEVEL SECURITY;
@@ -127,7 +127,7 @@ CREATE POLICY "Leitura anonima" ON Usuario
 FOR SELECT USING (true);
 ```
 
-* Recomendamos o uso de `PostgREST` do Supabase, pois ele transforma as tabelas em endpoints REST automaticamente.
+- Recomendamos o uso de `PostgREST` do Supabase, pois ele transforma as tabelas em endpoints REST automaticamente.
 
 ---
 

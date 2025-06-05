@@ -1,5 +1,6 @@
 # Modelo Físico MySQL
-/* Lógico_1_MAAC: */
+
+/_ Lógico_1_MAAC: _/
 
 CREATE TABLE Usuario_Foto (
 id VARCHAR(36) PRIMARY KEY,

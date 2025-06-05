@@ -1,11 +1,11 @@
-## O que é um Backlog do Produto?
+# O que é um Backlog do Produto?
 
-- O backlog do produto é uma lista priorizada de tarefas para a equipe de desenvolvimento, derivada do roadmap do produto e seus requisitos. 
-- Os itens mais importantes aparecem no topo, indicando à equipe o que deve ser entregue primeiro. 
+- O backlog do produto é uma lista priorizada de tarefas para a equipe de desenvolvimento, derivada do roadmap do produto e seus requisitos.
+- Os itens mais importantes aparecem no topo, indicando à equipe o que deve ser entregue primeiro.
 - A equipe de desenvolvimento puxa o trabalho do backlog conforme sua capacidade, seja continuamente (kanban) ou por iteração (scrum).
- lista dinâmica e ordenada de tudo que é necessário para melhorar o produto. 
-- É a única fonte de trabalho para a equipe Scrum. 
-- Ele evolui constantemente e é refinado com o tempo para tornar os itens mais claros, detalhados e prontos para serem selecionados nas reuniões de planejamento de Sprint. 
+  lista dinâmica e ordenada de tudo que é necessário para melhorar o produto.
+- É a única fonte de trabalho para a equipe Scrum.
+- Ele evolui constantemente e é refinado com o tempo para tornar os itens mais claros, detalhados e prontos para serem selecionados nas reuniões de planejamento de Sprint.
 - Esses itens prontos geralmente resultam das atividades de refino (refinement).
 
 ### Refino do Backlog (Product Backlog Refinement)
@@ -87,5 +87,5 @@ O **Sprint Goal** é o objetivo único da Sprint, dando foco e direção à equi
 
 Um backlog do produto bem gerenciado e priorizado é fundamental para o sucesso no desenvolvimento ágil. Ele assegura que a equipe trabalhe nas tarefas de maior valor, mantendo todos alinhados e focados nos objetivos comuns.
 
-*Fonte: [Atlassian - Backlog do Produto: Definição e Dicas de Priorização](https://www.atlassian.com/br/agile/scrum/backlogs)*
-*Fonte: [Scrum - What is a Product Backlog?](https://www.scrum.org/resources/what-is-a-product-backlog)*
+_Fonte: [Atlassian - Backlog do Produto: Definição e Dicas de Priorização](https://www.atlassian.com/br/agile/scrum/backlogs)_
+_Fonte: [Scrum - What is a Product Backlog?](https://www.scrum.org/resources/what-is-a-product-backlog)_

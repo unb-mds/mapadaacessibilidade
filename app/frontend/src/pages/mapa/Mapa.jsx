@@ -1,11 +1,11 @@
-import { MapContainer, TileLayer } from 'react-leaflet'
-import "leaflet/dist/leaflet.css"
-import '../../index.css'
-import { Marker } from 'react-leaflet'   
-import { Icon } from 'leaflet'
-import icone from '../../img/pin.png' 
-import { useState, useEffect } from 'react';
-import { 
+import { MapContainer, TileLayer } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import "../../index.css";
+import { Marker } from "react-leaflet";
+import { Icon } from "leaflet";
+import icone from "../../img/pin.png";
+import { useState, useEffect } from "react";
+import {
   TbX,
   TbStarFilled,
   TbClock,
@@ -23,41 +23,43 @@ import {
   TbHelpCircle,
   TbCalendarEvent,
   TbMapPin,
-  TbMenu2
-} from 'react-icons/tb'
-import { Link } from 'react-router-dom';
+  TbMenu2,
+} from "react-icons/tb";
+import { Link } from "react-router-dom";
 
 // Configurações dos marcadores
 const markers = [
   {
     id: 1,
     geocode: [-15.7942, -47.8822],
-    name: 'Shopping Brasília',
-    description: 'Shopping Center',
-    popUp: 'Shopping com excelente acessibilidade, contando com rampas em todas as entradas, banheiros adaptados em todos os pisos, piso tátil em áreas comuns e elevadores com sinalização em braile.',
-    image: 'https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+    name: "Shopping Brasília",
+    description: "Shopping Center",
+    popUp:
+      "Shopping com excelente acessibilidade, contando com rampas em todas as entradas, banheiros adaptados em todos os pisos, piso tátil em áreas comuns e elevadores com sinalização em braile.",
+    image:
+      "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
     rating: 4.5,
     reviews: 23,
     accessibility: 9,
-    address: 'SHTN Trecho 1, Conjunto 1B - Asa Norte',
-    city: 'Brasília - DF',
+    address: "SHTN Trecho 1, Conjunto 1B - Asa Norte",
+    city: "Brasília - DF",
     hours: {
-      weekdays: '10h às 22h',
-      weekend: '11h às 21h'
+      weekdays: "10h às 22h",
+      weekend: "11h às 21h",
     },
     contact: {
-      phone: '(61) 1234-5678',
-      email: 'contato@shoppingbrasilia.com.br'
+      phone: "(61) 1234-5678",
+      email: "contato@shoppingbrasilia.com.br",
     },
-    features: ['ramp', 'bathroom', 'tactile', 'elevator'],
+    features: ["ramp", "bathroom", "tactile", "elevator"],
     photos: [
-      'https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
-      'https://images.unsplash.com/photo-1581092921461-39b2f2a85979?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
-      'https://images.unsplash.com/photo-1559839732-f8a0a1d2d8b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80'
-    ]
+      "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+      "https://images.unsplash.com/photo-1581092921461-39b2f2a85979?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+      "https://images.unsplash.com/photo-1559839732-f8a0a1d2d8b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+    ],
   },
   // ... outros marcadores
-]
+];
 
 // Ícone customizado
 const iconeCustom = new Icon({
@@ -80,8 +82,8 @@ function App() {
     };
 
     checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
   const handleMarkerClick = (marker) => {
@@ -101,48 +103,71 @@ function App() {
   };
 
   const getFeatureIcon = (feature) => {
-    switch(feature) {
-      case 'ramp': return <TbWheelchair className="mr-1 text-lg" />;
-      case 'bathroom': return <TbToiletPaper className="mr-1 text-lg" />;
-      case 'tactile': return <TbBraille className="mr-1 text-lg" />;
-      case 'elevator': return <TbElevator className="mr-1 text-lg" />;
-      default: return null;
+    switch (feature) {
+      case "ramp":
+        return <TbWheelchair className="mr-1 text-lg" />;
+      case "bathroom":
+        return <TbToiletPaper className="mr-1 text-lg" />;
+      case "tactile":
+        return <TbBraille className="mr-1 text-lg" />;
+      case "elevator":
+        return <TbElevator className="mr-1 text-lg" />;
+      default:
+        return null;
     }
   };
 
   const getFeatureClass = (feature) => {
-    switch(feature) {
-      case 'ramp': return 'bg-blue-100 text-blue-800';
-      case 'bathroom': return 'bg-green-100 text-green-800';
-      case 'tactile': return 'bg-yellow-100 text-yellow-800';
-      case 'elevator': return 'bg-purple-100 text-purple-800';
-      default: return 'bg-gray-100 text-gray-800';
+    switch (feature) {
+      case "ramp":
+        return "bg-blue-100 text-blue-800";
+      case "bathroom":
+        return "bg-green-100 text-green-800";
+      case "tactile":
+        return "bg-yellow-100 text-yellow-800";
+      case "elevator":
+        return "bg-purple-100 text-purple-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
   const getFeatureLabel = (feature) => {
-    switch(feature) {
-      case 'ramp': return 'Rampas';
-      case 'bathroom': return 'Banheiros';
-      case 'tactile': return 'Pisos táteis';
-      case 'elevator': return 'Elevadores';
-      default: return feature;
+    switch (feature) {
+      case "ramp":
+        return "Rampas";
+      case "bathroom":
+        return "Banheiros";
+      case "tactile":
+        return "Pisos táteis";
+      case "elevator":
+        return "Elevadores";
+      default:
+        return feature;
     }
   };
 
   function Header() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    
+
     const navLinks = [
       { href: "/", icon: <TbInfoCircle size={20} />, label: "Sobre Nós" },
       { href: "/cadastro", icon: <TbUserPlus size={20} />, label: "Cadastro" },
       { href: "/login", icon: <TbLogin size={20} />, label: "Login" },
       { href: "/contato.html", icon: <TbMail size={20} />, label: "Contato" },
       { href: "/faq.html", icon: <TbHelpCircle size={20} />, label: "FAQ" },
-      { href: "/eventos.html", icon: <TbCalendarEvent size={20} />, label: "Eventos" },
-      { href: "/adicionarlocal.html", icon: <TbMapPin size={20} />, label: "Adicionar Local" },
+      {
+        href: "/eventos.html",
+        icon: <TbCalendarEvent size={20} />,
+        label: "Eventos",
+      },
+      {
+        href: "/adicionarlocal.html",
+        icon: <TbMapPin size={20} />,
+        label: "Adicionar Local",
+      },
     ];
-  
+
     return (
       <header className="sticky top-0 z-[1000] bg-white shadow-md py-4">
         <div className="container mx-auto px-4 flex justify-between items-center">
@@ -150,22 +175,29 @@ function App() {
             <TbWheelchair className="text-blue-600 text-3xl" />
             <div>
               <a href="#">
-                <h1 className="text-2xl font-bold text-blue-600">Mapa da Acessibilidade</h1>
-                <p className="text-sm text-gray-500">Mobilidade sem Barreiras</p>
+                <h1 className="text-2xl font-bold text-blue-600">
+                  Mapa da Acessibilidade
+                </h1>
+                <p className="text-sm text-gray-500">
+                  Mobilidade sem Barreiras
+                </p>
               </a>
             </div>
           </div>
-  
+
           <nav className="hidden md:flex space-x-8">
             {navLinks.map(({ href, icon, label }) => (
-              <Link key={href} to={href} className="text-gray-700 hover:text-blue-600 transition-colors flex items-center text-lg"
+              <Link
+                key={href}
+                to={href}
+                className="text-gray-700 hover:text-blue-600 transition-colors flex items-center text-lg"
               >
                 <span className="mr-2">{icon}</span>
                 {label}
               </Link>
             ))}
           </nav>
-  
+
           <button
             className="md:hidden text-gray-700 hover:text-blue-600"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -174,7 +206,7 @@ function App() {
             <TbMenu2 size={28} />
           </button>
         </div>
-  
+
         {mobileMenuOpen && (
           <div className="md:hidden bg-white py-3 px-4 shadow-lg border-t border-gray-100">
             {navLinks.map(({ href, icon, label }) => (
@@ -195,24 +227,30 @@ function App() {
 
   function FiltersSidebar({ isMobile, open, toggleFilters }) {
     return (
-      <aside className={`${open ? "block" : "hidden"} w-full md:w-72 bg-white shadow-md p-5 md:h-screen md:sticky md:top-16`}>
+      <aside
+        className={`${
+          open ? "block" : "hidden"
+        } w-full md:w-72 bg-white shadow-md p-5 md:h-screen md:sticky md:top-16`}
+      >
         <div className="flex justify-between items-center mb-5">
-          <h2 className="text-xl font-semibold text-blue-600">Filtrar Locais</h2>
-          <button 
+          <h2 className="text-xl font-semibold text-blue-600">
+            Filtrar Locais
+          </h2>
+          <button
             onClick={toggleFilters}
             className="md:hidden text-gray-500 hover:text-blue-600"
           >
             <TbMenu2 size={24} />
           </button>
         </div>
-        
+
         <div id="filters-content">
           <div className="space-y-4">
             <div className="flex items-center">
-              <input 
-                type="checkbox" 
-                id="filter-ramp" 
-                className="mr-3 h-6 w-6 text-blue-600 rounded" 
+              <input
+                type="checkbox"
+                id="filter-ramp"
+                className="mr-3 h-6 w-6 text-blue-600 rounded"
                 defaultChecked
               />
               <label htmlFor="filter-ramp" className="flex items-center">
@@ -221,10 +259,10 @@ function App() {
               </label>
             </div>
             <div className="flex items-center">
-              <input 
-                type="checkbox" 
-                id="filter-bathroom" 
-                className="mr-3 h-6 w-6 text-green-500 rounded" 
+              <input
+                type="checkbox"
+                id="filter-bathroom"
+                className="mr-3 h-6 w-6 text-green-500 rounded"
                 defaultChecked
               />
               <label htmlFor="filter-bathroom" className="flex items-center">
@@ -233,10 +271,10 @@ function App() {
               </label>
             </div>
             <div className="flex items-center">
-              <input 
-                type="checkbox" 
-                id="filter-tactile" 
-                className="mr-3 h-6 w-6 text-yellow-500 rounded" 
+              <input
+                type="checkbox"
+                id="filter-tactile"
+                className="mr-3 h-6 w-6 text-yellow-500 rounded"
                 defaultChecked
               />
               <label htmlFor="filter-tactile" className="flex items-center">
@@ -245,10 +283,10 @@ function App() {
               </label>
             </div>
             <div className="flex items-center">
-              <input 
-                type="checkbox" 
-                id="filter-events" 
-                className="mr-3 h-6 w-6 text-purple-500 rounded" 
+              <input
+                type="checkbox"
+                id="filter-events"
+                className="mr-3 h-6 w-6 text-purple-500 rounded"
                 defaultChecked
               />
               <label htmlFor="filter-events" className="flex items-center">
@@ -257,17 +295,19 @@ function App() {
               </label>
             </div>
           </div>
-  
+
           <div className="mt-8">
             <div className="relative border border-gray-300 rounded p-4">
-              <span className="absolute -top-3 left-4 bg-white px-2 text-gray-600 text-sm">Distância</span>
+              <span className="absolute -top-3 left-4 bg-white px-2 text-gray-600 text-sm">
+                Distância
+              </span>
               <div className="mt-4">
-                <input 
-                  type="range" 
-                  min="1" 
-                  max="10" 
-                  defaultValue="5" 
-                  className="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer" 
+                <input
+                  type="range"
+                  min="1"
+                  max="10"
+                  defaultValue="5"
+                  className="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer"
                 />
               </div>
               <div className="flex justify-between text-sm text-gray-500 mt-2">
@@ -277,29 +317,33 @@ function App() {
               </div>
             </div>
           </div>
-  
+
           <div className="mt-8">
             <div className="relative border border-gray-300 rounded p-4">
-              <span className="absolute -top-3 left-4 bg-white px-2 text-gray-600 text-sm">Avaliação</span>
+              <span className="absolute -top-3 left-4 bg-white px-2 text-gray-600 text-sm">
+                Avaliação
+              </span>
               <div className="mt-4">
                 <div className="flex items-center mb-3">
-                  <input 
-                    type="radio" 
-                    id="rating-all" 
-                    name="rating" 
-                    value="all" 
-                    className="mr-3 h-5 w-5" 
+                  <input
+                    type="radio"
+                    id="rating-all"
+                    name="rating"
+                    value="all"
+                    className="mr-3 h-5 w-5"
                     defaultChecked
                   />
-                  <label htmlFor="rating-all" className="text-lg">Todas avaliações</label>
+                  <label htmlFor="rating-all" className="text-lg">
+                    Todas avaliações
+                  </label>
                 </div>
                 <div className="flex items-center mb-3">
-                  <input 
-                    type="radio" 
-                    id="rating-4" 
-                    name="rating" 
-                    value="4" 
-                    className="mr-3 h-5 w-5" 
+                  <input
+                    type="radio"
+                    id="rating-4"
+                    name="rating"
+                    value="4"
+                    className="mr-3 h-5 w-5"
                   />
                   <label htmlFor="rating-4" className="flex items-center">
                     <div className="flex text-yellow-400 mr-3">
@@ -313,12 +357,12 @@ function App() {
                   </label>
                 </div>
                 <div className="flex items-center">
-                  <input 
-                    type="radio" 
-                    id="rating-3" 
-                    name="rating" 
-                    value="3" 
-                    className="mr-3 h-5 w-5" 
+                  <input
+                    type="radio"
+                    id="rating-3"
+                    name="rating"
+                    value="3"
+                    className="mr-3 h-5 w-5"
                   />
                   <label htmlFor="rating-3" className="flex items-center">
                     <div className="flex text-yellow-400 mr-3">
@@ -334,7 +378,7 @@ function App() {
               </div>
             </div>
           </div>
-  
+
           <div className="mt-8">
             <button className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition flex items-center justify-center text-lg">
               <TbArrowRight className="mr-2" /> Aplicar Filtros
@@ -356,18 +400,49 @@ function App() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
             <div>
-              <h3 className="text-xl font-semibold mb-5">Mapa da Acessibilidade</h3>
+              <h3 className="text-xl font-semibold mb-5">
+                Mapa da Acessibilidade
+              </h3>
               <p className="text-gray-300 text-lg">
-                Nosso objetivo é mapear e compartilhar informações sobre locais acessíveis para pessoas com mobilidade reduzida.
+                Nosso objetivo é mapear e compartilhar informações sobre locais
+                acessíveis para pessoas com mobilidade reduzida.
               </p>
             </div>
             <div>
               <h3 className="text-xl font-semibold mb-5">Links Úteis</h3>
               <ul className="space-y-3">
-                <li><a href="sobrenos.html" className="text-gray-300 hover:text-white text-lg">Sobre o projeto</a></li>
-                <li><a href="#" className="text-gray-300 hover:text-white text-lg">Como contribuir</a></li>
-                <li><a href="#" className="text-gray-300 hover:text-white text-lg">Termos de uso</a></li>
-                <li><a href="#" className="text-gray-300 hover:text-white text-lg">Política de privacidade</a></li>
+                <li>
+                  <a
+                    href="sobrenos.html"
+                    className="text-gray-300 hover:text-white text-lg"
+                  >
+                    Sobre o projeto
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    className="text-gray-300 hover:text-white text-lg"
+                  >
+                    Como contribuir
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    className="text-gray-300 hover:text-white text-lg"
+                  >
+                    Termos de uso
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    className="text-gray-300 hover:text-white text-lg"
+                  >
+                    Política de privacidade
+                  </a>
+                </li>
               </ul>
             </div>
             <div>
@@ -415,30 +490,34 @@ function App() {
   return (
     <div className="flex flex-col min-h-screen text-lg">
       <Header />
-      
+
       <div className="flex flex-1 overflow-hidden relative">
-        <FiltersSidebar 
-          isMobile={isMobile} 
-          open={filtersOpen} 
-          toggleFilters={toggleFilters} 
+        <FiltersSidebar
+          isMobile={isMobile}
+          open={filtersOpen}
+          toggleFilters={toggleFilters}
         />
 
         {/* Mapa Principal */}
-        <div className={`z-1 flex-1 relative transition-all duration-300 ${filtersOpen && !isMobile ? 'md:ml-72' : ''}`}>
-          <MapContainer 
-            center={[-15.7942, -47.8822]} 
-            zoom={13} 
+        <div
+          className={`z-1 flex-1 relative transition-all duration-300 ${
+            filtersOpen && !isMobile ? "md:ml-72" : ""
+          }`}
+        >
+          <MapContainer
+            center={[-15.7942, -47.8822]}
+            zoom={13}
             className="h-full w-full"
           >
             <TileLayer
-              attribution='Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
-              url='https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}' 
+              attribution="Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012"
+              url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
             />
-            
+
             {markers.map((marker) => (
-              <Marker 
+              <Marker
                 key={marker.id}
-                position={marker.geocode} 
+                position={marker.geocode}
                 icon={iconeCustom}
                 eventHandlers={{
                   click: () => handleMarkerClick(marker),
@@ -450,13 +529,19 @@ function App() {
 
         {/* Novo Drawer de Informações */}
         {selectedMarker && (
-          <div className={`fixed top-0 right-0 bottom-0 w-full max-w-lg bg-white shadow-xl z-[1001] overflow-y-auto transition-transform duration-300 ease-in-out
-            ${drawerOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-            
+          <div
+            className={`fixed top-0 right-0 bottom-0 w-full max-w-lg bg-white shadow-xl z-[1001] overflow-y-auto transition-transform duration-300 ease-in-out
+            ${drawerOpen ? "translate-x-0" : "translate-x-full"}`}
+          >
             <div className="p-6">
               <div className="flex justify-between items-start mb-5">
-                <h3 className="text-2xl font-bold text-blue-600">{selectedMarker.name}</h3>
-                <button onClick={closeDrawer} className="text-gray-500 hover:text-gray-700">
+                <h3 className="text-2xl font-bold text-blue-600">
+                  {selectedMarker.name}
+                </h3>
+                <button
+                  onClick={closeDrawer}
+                  className="text-gray-500 hover:text-gray-700"
+                >
                   <TbX size={28} />
                 </button>
               </div>
@@ -470,7 +555,10 @@ function App() {
                     <TbStarFilled size={24} />
                     <TbStarFilled size={24} />
                   </div>
-                  <div className="absolute top-0 left-0 whitespace-nowrap overflow-hidden" style={{ width: `${(selectedMarker.rating / 5) * 100}%` }}>
+                  <div
+                    className="absolute top-0 left-0 whitespace-nowrap overflow-hidden"
+                    style={{ width: `${(selectedMarker.rating / 5) * 100}%` }}
+                  >
                     <div className="flex text-yellow-400">
                       <TbStarFilled size={24} />
                       <TbStarFilled size={24} />
@@ -480,17 +568,21 @@ function App() {
                     </div>
                   </div>
                 </div>
-                <span className="ml-3 text-gray-600 text-lg">{selectedMarker.rating} ({selectedMarker.reviews} avaliações)</span>
+                <span className="ml-3 text-gray-600 text-lg">
+                  {selectedMarker.rating} ({selectedMarker.reviews} avaliações)
+                </span>
               </div>
 
               <div className="mb-6">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-lg text-gray-600">Acessibilidade</span>
-                  <span className="text-lg font-medium">{selectedMarker.accessibility}/10</span>
+                  <span className="text-lg font-medium">
+                    {selectedMarker.accessibility}/10
+                  </span>
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-3">
-                  <div 
-                    className="bg-green-500 h-3 rounded-full" 
+                  <div
+                    className="bg-green-500 h-3 rounded-full"
                     style={{ width: `${selectedMarker.accessibility * 10}%` }}
                   ></div>
                 </div>
@@ -498,9 +590,11 @@ function App() {
 
               <div className="flex flex-wrap gap-3 mb-6">
                 {selectedMarker.features.map((feature, index) => (
-                  <span 
+                  <span
                     key={index}
-                    className={`${getFeatureClass(feature)} px-4 py-2 rounded-full text-lg flex items-center`}
+                    className={`${getFeatureClass(
+                      feature
+                    )} px-4 py-2 rounded-full text-lg flex items-center`}
                   >
                     {getFeatureIcon(feature)}
                     {getFeatureLabel(feature)}
@@ -516,7 +610,9 @@ function App() {
                     </div>
                   </div>
                   <div>
-                    <p className="font-medium text-lg">{selectedMarker.address}</p>
+                    <p className="font-medium text-lg">
+                      {selectedMarker.address}
+                    </p>
                     <p className="text-gray-500">{selectedMarker.city}</p>
                   </div>
                 </div>
@@ -528,9 +624,15 @@ function App() {
                     </div>
                   </div>
                   <div>
-                    <p className="font-medium text-lg">Horário de Funcionamento</p>
-                    <p className="text-gray-500">Segunda a Sábado: {selectedMarker.hours.weekdays}</p>
-                    <p className="text-gray-500">Domingo: {selectedMarker.hours.weekend}</p>
+                    <p className="font-medium text-lg">
+                      Horário de Funcionamento
+                    </p>
+                    <p className="text-gray-500">
+                      Segunda a Sábado: {selectedMarker.hours.weekdays}
+                    </p>
+                    <p className="text-gray-500">
+                      Domingo: {selectedMarker.hours.weekend}
+                    </p>
                   </div>
                 </div>
 
@@ -542,25 +644,34 @@ function App() {
                   </div>
                   <div>
                     <p className="font-medium text-lg">Contato</p>
-                    <p className="text-gray-500">{selectedMarker.contact.phone}</p>
-                    <p className="text-gray-500">{selectedMarker.contact.email}</p>
+                    <p className="text-gray-500">
+                      {selectedMarker.contact.phone}
+                    </p>
+                    <p className="text-gray-500">
+                      {selectedMarker.contact.email}
+                    </p>
                   </div>
                 </div>
               </div>
 
               <div className="mb-6">
                 <h4 className="font-medium text-lg mb-3">Descrição</h4>
-                <p className="text-gray-600">
-                  {selectedMarker.popUp}
-                </p>
+                <p className="text-gray-600">{selectedMarker.popUp}</p>
               </div>
 
               <div className="mb-6">
                 <h4 className="font-medium text-lg mb-3">Fotos</h4>
                 <div className="grid grid-cols-3 gap-3">
                   {selectedMarker.photos.map((photo, index) => (
-                    <div key={index} className="aspect-square bg-gray-200 rounded-lg overflow-hidden">
-                      <img src={photo} alt={`Foto ${index + 1} do ${selectedMarker.name}`} className="object-cover w-full h-full" />
+                    <div
+                      key={index}
+                      className="aspect-square bg-gray-200 rounded-lg overflow-hidden"
+                    >
+                      <img
+                        src={photo}
+                        alt={`Foto ${index + 1} do ${selectedMarker.name}`}
+                        className="object-cover w-full h-full"
+                      />
                     </div>
                   ))}
                 </div>

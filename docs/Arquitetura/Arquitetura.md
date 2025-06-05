@@ -4,25 +4,28 @@
 
 Este documento explica nossa decisão de adotar a arquitetura Model-View-Controller (MVC) expandida para o desenvolvimento do projeto Mapa da Acessibilidade. Nossa implementação segue uma abordagem moderna do MVC, com uma separação clara entre frontend e backend, onde o frontend em React se comunica com o backend Node.js + Express via API REST, e os dados são persistidos em um banco PostgreSQL. Esta escolha foi feita após análise cuidadosa das necessidades do projeto, dos recursos disponíveis e dos objetivos de longo prazo.
 
-
 ### Principais razões para escolha do MVC
 
 1. **Simplicidade**
+
    - O padrão MVC oferece uma estrutura clara e intuitiva que facilita o desenvolvimento
    - Permite que novos membros da equipe entendam rapidamente a organização do código
    - Reduz a complexidade em comparação com arquiteturas mais elaboradas como microserviços ou CQRS
 
 2. **Foco no produto e não na infraestrutura**
+
    - Como projeto universitário com prazo definido, precisamos entregar valor rapidamente
    - MVC nos permite concentrar esforços nas funcionalidades do produto
    - Evita overhead de arquiteturas mais complexas que exigiriam tempo adicional de configuração
 
 3. **Manutenção simplificada**
+
    - Separação clara de responsabilidades entre Model (dados), View (interface) e Controller (lógica)
    - Facilita a identificação e correção de bugs
    - Menor necessidade de gerenciar múltiplos repositórios ou serviços independentes
 
 4. **Adequação ao escopo do projeto**
+
    - Para um mapa colaborativo de acessibilidade, a arquitetura MVC atende perfeitamente às necessidades
    - O fluxo de dados é relativamente simples e direto
    - Não há necessidade imediata de escalabilidade massiva que justificaria arquiteturas distribuídas
@@ -35,18 +38,21 @@ Este documento explica nossa decisão de adotar a arquitetura Model-View-Control
 ## Implementação do MVC Expandido no nosso projeto
 
 ### Model
+
 - Responsável pelos dados e regras de negócio
 - Implementado com PostgreSQL para armazenamento das informações de locais acessíveis
 - Inclui schemas e validações para garantir a integridade dos dados
 - Oferece maior robustez e suporte a consultas geoespaciais
 
 ### View
+
 - Interface do usuário completamente separada e implementada com React
 - Foco em acessibilidade, usabilidade e responsividade
 - Comunicação com o backend via chamadas API
 - Design responsivo para funcionamento em diversos dispositivos
 
 ### Controller
+
 - Implementado com Node.js e Express
 - Gerencia as requisições do usuário
 - Orquestra a comunicação entre o Model e a View
@@ -56,10 +62,12 @@ Este documento explica nossa decisão de adotar a arquitetura Model-View-Control
 ## Benefícios adicionais da escolha
 
 1. **Facilidade de testes**
+
    - Cada componente pode ser testado de forma isolada
    - Maior cobertura de testes com menor esforço
 
 2. **Documentação abundante**
+
    - Por ser um padrão consolidado, há vasta documentação e recursos disponíveis
    - Facilita a resolução de problemas comuns
 
