@@ -36,3 +36,43 @@ export const cadastrarUsuario = async (req, res) => {
         await prisma.$disconnect()
     }
 }
+///rota de login de usuario
+export const loginUsuario = async (req, res) => {
+    const { email, senha } = req.body
+    
+    if(!email || !senha) {
+        return res.status(400).json({ error: "Email e senha são obrigatórios." })
+    }
+
+    try {
+        const usuario = await prisma.usuario.findUnique({
+            where: { email },
+            select: {
+                id: true,
+                nome: true,
+                email: true,
+                senha_hash: true,
+                papel: true,
+                created_at: true
+            }
+        })
+
+        const senhaHash = crypto.createHash("sha256").update(senha).digest("hex")
+
+        if(!usuario || usuario.senha_hash !== senhaHash) {
+            return res.status(401).json({ error: "Credenciais inválidas." })
+        }
+
+        
+        const { senha_hash, ...usuarioSemSenha } = usuario
+
+        
+        res.status(200).json(usuarioSemSenha)
+
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({ error: "Erro ao realizar login." })
+    } finally {
+        await prisma.$disconnect()
+    }
+}
