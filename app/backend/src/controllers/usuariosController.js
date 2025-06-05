@@ -63,10 +63,10 @@ export const loginUsuario = async (req, res) => {
             return res.status(401).json({ error: "Credenciais inválidas." })
         }
 
-        // Remove a senha_hash da resposta
+        
         const { senha_hash, ...usuarioSemSenha } = usuario
 
-        // Retorna apenas os dados do usuário (sem token JWT)
+        
         res.status(200).json(usuarioSemSenha)
 
     } catch (error) {
