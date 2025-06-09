@@ -1,3 +1,14 @@
+<div text-align="center">
+  <img src="https://github.com/user-attachments/assets/1b9be736-7232-40cc-970c-df50c2202028"></img>
+</div>
+
+<div align="center">
+  <img src="https://img.shields.io/badge/Swagger-85EA2D?style=flat&logo=swagger&logoColor=black" />
+
+  <img src="https://img.shields.io/badge/API-0078D4?style=flat" />
+</div>
+
+
 # 📘 Documentação da API — Mapa da Acessibilidade
 
 Este módulo tem como objetivo **documentar as rotas da API** do projeto _Mapa da Acessibilidade_ utilizando o Swagger. A documentação permitirá uma visualização clara dos endpoints e facilitará os testes e a integração com outras equipes do projeto.
@@ -187,3 +198,8 @@ Caso ocorra erro do tipo "rota não encontrada" ou a documentação Swagger não
 * Se as rotas estão exportadas corretamente (module.exports = router).
 
 * Se o servidor está executando na porta correta (3000).
+
+<div align="center"> 
+  <footer> &copy; <strong>2025 Mapa da Acessibilidade - Todos os direitos reservados</strong>
+  </footer>
+</div> 
