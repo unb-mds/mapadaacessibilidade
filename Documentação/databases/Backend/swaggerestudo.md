@@ -33,6 +33,8 @@
 - **Melhoria da manutenção**: Ajuda a manter a documentação atualizada conforme a API evolui.
 - **Popularidade e suporte**: Amplamente usado e bem suportado por diversas linguagens e frameworks (Java, Python, Node.js, etc.).
 
+### Vídeos recomendados:
+https://www.youtube.com/watch?v=4sR77vaEhy8&t=1583s
 <br>
 
 <div align="center"> 
