@@ -2,6 +2,11 @@
   <img src="https://github.com/user-attachments/assets/73366b5d-99fe-4b1c-a681-a6378fa72a59"></img>
 </div>
 
+<div align="center">
+  <img src="https://img.shields.io/badge/Swagger-85EA2D?style=flat&logo=swagger&logoColor=black" />
+  <img src="https://img.shields.io/badge/API-0078D4?style=flat" />
+</div>
+
 ---
 
 # O que é o Swagger?
