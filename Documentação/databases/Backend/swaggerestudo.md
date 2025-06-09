@@ -1,3 +1,9 @@
+<div text-align="center">
+  <img src="https://github.com/user-attachments/assets/73366b5d-99fe-4b1c-a681-a6378fa72a59"></img>
+</div>
+
+---
+
 # O que é o Swagger?
 
 **Swagger** é um conjunto de ferramentas de código aberto que ajuda no desenvolvimento, documentação e consumo de APIs RESTful. Ele permite descrever de forma padronizada e interativa como a API funciona, usando o padrão **OpenAPI Specification (OAS)**.
