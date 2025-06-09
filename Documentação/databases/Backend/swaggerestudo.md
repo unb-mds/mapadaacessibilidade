@@ -32,3 +32,10 @@
 - **Transparência**: Facilita o entendimento da API por novos desenvolvedores ou equipes externas.
 - **Melhoria da manutenção**: Ajuda a manter a documentação atualizada conforme a API evolui.
 - **Popularidade e suporte**: Amplamente usado e bem suportado por diversas linguagens e frameworks (Java, Python, Node.js, etc.).
+
+<br>
+
+<div align="center"> 
+  <footer> &copy; <strong>2025 Mapa da Acessibilidade - Todos os direitos reservados</strong>
+  </footer>
+</div> 
