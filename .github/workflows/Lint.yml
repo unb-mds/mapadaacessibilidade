@@ -22,7 +22,7 @@ jobs:
         run: |
           cd app/frontend
           npm install
-      - name: Run Prettier
+      - name: Run Prettier for frontend
         run: |
           cd app/frontend
           npx prettier --write .
