@@ -1,3 +1,95 @@
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Local:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: string
+ *           format: uuid
+ *         nome:
+ *           type: string
+ *         descricao:
+ *           type: string
+ *         tipo:
+ *           type: string
+ *         endereco:
+ *           type: string
+ *         cidade:
+ *           type: string
+ *         estado:
+ *           type: string
+ *         latitude:
+ *           type: number
+ *           format: float
+ *         longitude:
+ *           type: number
+ *           format: float
+ *         acessibilidades:
+ *           type: array
+ *           items:
+ *             $ref: '#/components/schemas/Acessibilidade'
+ *         avaliacoes:
+ *           type: array
+ *           items:
+ *             $ref: '#/components/schemas/Avaliacao'
+ * 
+ *     NovoLocal:
+ *       type: object
+ *       required:
+ *         - nome
+ *         - tipo
+ *         - cidade
+ *         - latitude
+ *         - longitude
+ *       properties:
+ *         nome:
+ *           type: string
+ *         descricao:
+ *           type: string
+ *         tipo:
+ *           type: string
+ *         endereco:
+ *           type: string
+ *         cidade:
+ *           type: string
+ *         estado:
+ *           type: string
+ *         latitude:
+ *           type: number
+ *           format: float
+ *         longitude:
+ *           type: number
+ *           format: float
+ * 
+ *     LocalCriado:
+ *       type: object
+ *       properties:
+ *         message:
+ *           type: string
+ *         local:
+ *           $ref: '#/components/schemas/Local'
+ * 
+ *     Erro:
+ *       type: object
+ *       properties:
+ *         error:
+ *           type: string
+ * 
+ *     ErroDetalhado:
+ *       type: object
+ *       properties:
+ *         error:
+ *           type: string
+ *         details:
+ *           type: string
+ */
+
+
+
+
+
 import { PrismaClient } from "@prisma/client";
 import { v4 as uuidv4 } from "uuid";
 const prisma = new PrismaClient();
