@@ -18,32 +18,28 @@ jobs:
         with:
           node-version: "16"
 
-      - name: goToFrontend
-        run: cd app/frontend
+      - name: Install app/frontend dependencies
+        run: |
+          cd app/frontend
+          npm install
+      - name: Run ESLint
+        run: |
+          cd app/frontend
+          npm run lint
+      - name: Run Prettier
+        run: |
+          cd app/frontend
+          npm run format:check
 
-      - name: Install frontend dependencies
-        run: npm install
-
-      - name: Run ESLint for frontend
-        run: npm run lint
-
-      - name: Run Prettier for frontend
-        run: npx prettier --check .
-
-      - name: exit frontend
-        run: cd ../..
-
-      - name: goToBackend
-        run: cd app/backend
-
-      - name: Install backend dependencies
-        run: npm install
-
+      - name: install app/backend dependencies
+        run: |
+          cd app/backend
+          npm install
       - name: Run ESLint for backend
-        run: npm run lint
-
+        run: |
+          cd app/backend
+          npm run lint
       - name: Run Prettier for backend
-        run: npx prettier --check .
-
-      - name: exit backend
-        run: cd ../..
+        run: |
+          cd app/backend
+          npm run format:check
