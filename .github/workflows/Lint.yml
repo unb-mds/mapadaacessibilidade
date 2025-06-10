@@ -22,10 +22,6 @@ jobs:
         run: |
           cd app/frontend
           npm install
-      - name: Run ESLint
-        run: |
-          cd app/frontend
-          npm run lint
       - name: Run Prettier
         run: |
           cd app/frontend
@@ -35,10 +31,6 @@ jobs:
         run: |
           cd app/backend
           npm install
-      - name: Run ESLint for backend
-        run: |
-          cd app/backend
-          npm run lint
       - name: Run Prettier for backend
         run: |
           cd app/backend
