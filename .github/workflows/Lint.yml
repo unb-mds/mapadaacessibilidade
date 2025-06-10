@@ -25,7 +25,7 @@ jobs:
       - name: Run Prettier
         run: |
           cd app/frontend
-          npm run format:check
+          npx prettier --check .
 
       - name: install app/backend dependencies
         run: |
@@ -34,4 +34,4 @@ jobs:
       - name: Run Prettier for backend
         run: |
           cd app/backend
-          npm run format:check
+          npx prettier --check .
