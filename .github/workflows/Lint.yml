@@ -24,6 +24,9 @@ jobs:
       - name: goToFrontend
         run: cd app/frontend
 
+      - name: Install frontend dependencies
+        run: npm install
+
       - name: Run ESLint for frontend
         run: npm run lint
 
@@ -35,6 +38,9 @@ jobs:
 
       - name: goToBackend
         run: cd app/backend
+
+      - name: Install backend dependencies
+        run: npm install
 
       - name: Run ESLint for backend
         run: npm run lint
