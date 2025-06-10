@@ -1,6 +1,6 @@
 /* Estilos globais para o formulário de cadastro */
 .font-sansS {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .bg-gray-50S {
@@ -119,7 +119,9 @@
 }
 
 .shadow-lgS {
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
 .hover-scaleS:hover {
@@ -339,11 +341,11 @@
   .mdS\:grid-cols-4 {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
-  
+
   .mdS\:flex {
     display: flex;
   }
-  
+
   .mdS\:hidden {
     display: none;
   }

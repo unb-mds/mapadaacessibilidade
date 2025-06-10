@@ -109,7 +109,7 @@ function Signup() {
       isValid = false;
       showToast(
         "Você deve aceitar os Termos de Serviço e Política de Privacidade",
-        "error"
+        "error",
       );
       return;
     }
@@ -125,7 +125,7 @@ function Signup() {
     // Simular envio do formulário
     showToast(
       "Cadastro realizado com sucesso! Redirecionando para login...",
-      "success"
+      "success",
     );
     setTimeout(() => {
       // Redirecionar para login
@@ -375,8 +375,8 @@ function Signup() {
             toast.type === "success"
               ? "bg-green-500"
               : toast.type === "error"
-              ? "bg-red-500"
-              : "bg-blue-500"
+                ? "bg-red-500"
+                : "bg-blue-500"
           } z-50 toast`}
         >
           <div className="flex items-center">
