@@ -1,0 +1,46 @@
+name: JS_Lint
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: goToFrontend
+        run: cd app/frontend
+
+      - name: Run ESLint for frontend
+        run: npm run lint
+
+      - name: Run Prettier for frontend
+        run: npx prettier --check .
+
+      - name: exit frontend
+        run: cd ../..
+
+      - name: goToBackend
+        run: cd app/backend
+
+      - name: Run ESLint for backend
+        run: npm run lint
+
+      - name: Run Prettier for backend
+        run: npx prettier --check .
+
+      - name: exit backend
+        run: cd ../..
