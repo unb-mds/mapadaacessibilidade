@@ -1,109 +1,81 @@
-@import "tailwindcss";
-
-* 
-{
+/* *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
 }
-
-.App {
-  font-family: sans-serif;
-  text-align: center;
+a{
+  text-decoration: none;
+  color: inherit;
 }
-#root
-{
-  height: 100vh;
-  background-color: #c3dbff;
-}
-
-/* tamanho do mapcontainer */
-
-.leaflet-container {
-  height: 100vh;
-}
-
-/* treco de popUp */
-
-.leaflet-popup-content {
-  margin: 12px;
-  min-width: 200px;
-}
-
-.leaflet-popup-content-wrapper {
-  border-radius: 8px;
-}
-
-/* Estilos para o drawer */
-.drawer {
-  transition: transform 0.3s ease-in-out;
-}
-
-/* Estilos para as estrelas de avaliação */
-.rating-stars {
-  position: relative;
-  display: inline-block;
-  color: #e2e8f0; /* Cor das estrelas não preenchidas */
-}
-
-.rating-stars .filled {
-  position: absolute;
-  top: 0;
-  left: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  color: #fbbf24; /* Cor das estrelas preenchidas (amarelo) */
-}
-
-/* Estilos para a barra de progresso */
-.progress-bar {
-  width: 100%;
-  height: 0.5rem;
-  background-color: #e2e8f0;
-  border-radius: 0.25rem;
-  overflow: hidden;
-}
-
-.progress-fill {
-  height: 100%;
-  background-color: #10b981; /* Cor verde */
-  transition: width 0.3s ease;
-}
-
-/* Estilos para os badges de acessibilidade */
-.accessibility-badge {
-  display: inline-flex;
+.navbar{
+  width: 100% ;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
+  padding: 15px 8%;
+}
+.navbar ul{
+  padding: 10x 30px;
+  border-radius: 30px;
+  box-shadow: 0 0 30px o rgba(0, 0, 0, 0.1 );
 }
 
-.badge-ramp {
-  background-color: #dbeafe;
-  color: #1e40af;
+.navbar ul li{
+  display: inline-block;
+  margin: 0 15px;
+  color: #000;
+} */
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+a{
+  text-decoration: none;
+  color: inherit;
+}
+.navbar{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 8%;
+}
+.navbar ul{
+  padding: 10px 30px;
+  border-radius: 30px;
+  box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.1);
+}
+.navbar ul li{
+  display: inline-block;
+  padding: 5px 10px;
+  margin: 0 10px;
+  
+}
+a.active{
+  color: red;;
 }
 
-.badge-bathroom {
-  background-color: #dcfce7;
-  color: #166534;
-}
+.navbar button{
+  background: #3b63ff;
+  color: #fff;
+  padding: 10px 20px;
+  border: 0;
+  border-radius: 30px;
+  font-size: 16px;
 
-.badge-tactile {
-  background-color: #fef9c3;
-  color: #854d0e;
 }
-
-.badge-event {
-  background-color: #f3e8ff;
-  color: #5b21b6;
+.container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 80vh;
 }
-
-/* Ajustes para mobile */
-@media (max-width: 767px) {
-  .drawer {
-    width: 100vw;
-    max-width: 100%;
-  }
+.container h1{
+  font-size: 70px;
+  font-weight: 500;
 }
