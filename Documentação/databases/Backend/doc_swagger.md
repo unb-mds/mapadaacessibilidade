@@ -15,17 +15,6 @@ Este módulo tem como objetivo **documentar as rotas da API** do projeto _Mapa d
 
 ---
 
-## PRÉ-REQUISITOS
-
-- [Node.js](https://nodejs.org/) (versão 18 ou superior recomendada)
-- [npm](https://www.npmjs.com/) (geralmente já vem com o Node.js)
-- [Git](https://git-scm.com/) (opcional, para clonar o repositório)
-- [Prisma CLI](https://www.prisma.io/docs/getting-started) (será instalada via dependências)
-
----
-
-
-
 ## ✅ PASSO 1 — Instalação dos pacotes necessários
 
 Execute os comandos abaixo no terminal:
