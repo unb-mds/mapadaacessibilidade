@@ -1,12 +1,12 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "type": "module", // Es modules
+  "type": "module", 
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "tests": "jest",
-    "start": "node --watch app/backend/src/server.js", 
+    "start": "node --watch src/server.js", 
     "swagger-gen": "node app/backend/API-SWAGGER/swaggerConfig.js"
   },
   "keywords": [],

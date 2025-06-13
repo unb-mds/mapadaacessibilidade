@@ -1,8 +1,7 @@
-
 import express from "express";
 import { PrismaClient } from "@prisma/client";
 import swaggerUi from "swagger-ui-express";
-import swaggerSpec from "../docs/swaggerConfig.js"; 
+import swaggerSpec from "../API-SWAGGER/swaggerConfig.js"; 
 
 // Rotas
 import locaisRoutes from "./routes/locaisRouter.js";
