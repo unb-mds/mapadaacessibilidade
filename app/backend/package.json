@@ -9,17 +9,12 @@
     "tests": "jest"
   },
   "dependencies": {
-    "@prisma/client": "^6.8.2",
+    "@prisma/client": "^6.9.0",
     "bcrypt": "^6.0.0",
     "express": "^5.1.0",
     "uuid": "^11.1.0"
   },
   "devDependencies": {
-    "@eslint/js": "^9.25.0",
-    "eslint": "^9.25.0",
-    "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-react-refresh": "^0.4.19",
-    "jest": "^30.0.0",
-    "prisma": "^6.8.2"
+    "prisma": "^6.9.0"
   }
 }
