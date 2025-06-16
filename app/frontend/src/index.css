@@ -1,7 +1,6 @@
 @import "tailwindcss";
 
-* 
-{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -11,8 +10,7 @@
   font-family: sans-serif;
   text-align: center;
 }
-#root
-{
+#root {
   height: 100vh;
   background-color: #c3dbff;
 }
