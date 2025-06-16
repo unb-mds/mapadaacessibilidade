@@ -593,7 +593,7 @@ function App() {
                   <span
                     key={index}
                     className={`${getFeatureClass(
-                      feature
+                      feature,
                     )} px-4 py-2 rounded-full text-lg flex items-center`}
                   >
                     {getFeatureIcon(feature)}
