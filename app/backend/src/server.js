@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import { PrismaClient } from "@prisma/client";
 import swaggerUi from "swagger-ui-express";
 import swaggerSpec from "../API-SWAGGER/swaggerConfig.js"; 
@@ -14,6 +15,13 @@ const app = express();
 const port = 3000;
 
 // Middlewares
+app.use(cors({
+  origin: ['http://localhost:3001', 'http://localhost:5173'],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 app.use(express.json());
 
 // Rotas
@@ -32,3 +40,4 @@ app.listen(port, () => {
   console.log(`Servidor Node.js ${process.version} rodando em http://localhost:${port}`);
   console.log(`Swagger UI em http://localhost:${port}/api-docs`);
 });
+

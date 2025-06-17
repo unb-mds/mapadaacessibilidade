@@ -34,6 +34,7 @@ export const cadastrarUsuario = async (req, res) => {
     await prisma.$disconnect();
   }
 };
+
 ///rota de login de usuario
 export const loginUsuario = async (req, res) => {
   const { email, senha } = req.body;
@@ -67,6 +68,29 @@ export const loginUsuario = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Erro ao realizar login." });
+  } finally {
+    await prisma.$disconnect();
+  }
+};
+
+// Listar todos os usuários
+export const listarUsuarios = async (req, res) => {
+  try {
+    const usuarios = await prisma.usuario.findMany({
+      select: {
+        id: true,
+        nome: true,
+        email: true,
+        papel: true,
+        created_at: true,
+        updated_at: true,
+      },
+    });
+
+    res.status(200).json(usuarios);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Erro ao listar usuários." });
   } finally {
     await prisma.$disconnect();
   }
