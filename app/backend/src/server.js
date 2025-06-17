@@ -1,6 +1,10 @@
 import express from "express";
 import cors from "cors";
 import { PrismaClient } from "@prisma/client";
+import swaggerUi from "swagger-ui-express";
+import swaggerSpec from "../API-SWAGGER/swaggerConfig.js"; 
+
+// Rotas
 import locaisRoutes from "./routes/locaisRouter.js";
 import usuariosRoutes from "./routes/usuariosRoutes.js";
 import acessibilidadeRouter from "./routes/acessibilidadeRouter.js";
@@ -10,7 +14,7 @@ const prisma = new PrismaClient();
 const app = express();
 const port = 3000;
 
-
+// Middlewares
 app.use(cors({
   origin: ['http://localhost:3001', 'http://localhost:5173'],
   credentials: true,
@@ -19,17 +23,21 @@ app.use(cors({
 }));
 
 app.use(express.json());
+
+// Rotas
 app.use("/locais", locaisRoutes);
 app.use("/usuarios", usuariosRoutes);
 app.use("/", acessibilidadeRouter);
 app.use("/acessibilidade-local", acessibilidadeLocalRouter);
 
-app.get("/usuarios", async (req, res) => {
-  const users = await prisma.usuario.findMany();
+// Rota Swagger UI
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-  res.status(200).json(users);
-});
+// Health Check
+app.get("/", (req, res) => res.sendStatus(200));
 
 app.listen(port, () => {
-  console.log(`Servidor funcionando http://localhost:${port}`);
+  console.log(`Servidor Node.js ${process.version} rodando em http://localhost:${port}`);
+  console.log(`Swagger UI em http://localhost:${port}/api-docs`);
 });
+
