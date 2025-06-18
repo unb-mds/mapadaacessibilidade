@@ -1,0 +1,1 @@
+# !Adaptar todos os códigos para poder um linkar ao outro.
