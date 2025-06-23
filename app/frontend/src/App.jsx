@@ -9,6 +9,7 @@ import Sobre from "./pages/Sobre.jsx";
 import Contato from "./pages/Contato.jsx";
 import FAQ from "./pages/FAQ.jsx"; 
 import Eventos from "./pages/Eventos.jsx";
+import 'leaflet/dist/leaflet.css';
 
 const App = () => {
   return (
