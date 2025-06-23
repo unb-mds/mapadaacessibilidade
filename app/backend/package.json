@@ -2,12 +2,12 @@
   "name": "app",
   "private": true,
   "version": "1.0.0",
-  "type": "module", 
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "tests": "jest",
-    "start": "node --watch src/server.js", 
+    "start": "node --watch src/server.js",
     "swagger-gen": "node app/backend/API-SWAGGER/swaggerConfig.js"
   },
   "keywords": [],
@@ -18,12 +18,13 @@
     "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
     "express": "^5.1.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0",
     "uuid": "^11.1.0",
-    "swagger-jsdoc": "^6.2.8", 
-    "swagger-ui-express": "^5.0.0", 
-    "yamljs": "^0.3.0" 
+    "yamljs": "^0.3.0"
   },
   "devDependencies": {
+    "jest": "^30.0.2",
     "prisma": "^6.9.0"
   }
 }
