@@ -31,7 +31,7 @@ app.use("/locais", locaisRoutes);
 app.use("/usuarios", usuariosRoutes);
 app.use("/", acessibilidadeRouter);
 app.use("/acessibilidade-local", acessibilidadeLocalRouter);
-app.use('/avaliacoes', avaliacaoLocalRouter);
+app.use("/avaliacoes", avaliacaoLocalRouter);
 
 
 // Rota Swagger UI
