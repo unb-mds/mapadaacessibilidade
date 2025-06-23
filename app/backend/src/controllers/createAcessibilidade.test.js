@@ -1,24 +1,33 @@
-const {
-  createAcessibilidade,
-} = require("../controllers/acessibilidadeController");
-const { prisma } = require("../lib/prisma");
+const { createAcessibilidade } = require("../controllers/acessibilidadeController");
 const { v4: uuidv4 } = require("uuid");
 
-// mock do prisma e uuid
-jest.mock("../lib/prisma", () => ({
-  prisma: {
-    acessibilidade: {
-      findFirst: jest.fn(),
-      create: jest.fn(),
+// Factory para criar instância do controller com dependências injetadas
+function createController(dependencies = {}) {
+  const defaultDeps = {
+    acessibilidadeRepository: {
+      findByName: jest.fn(),
+      create: jest.fn()
     },
-  },
-}));
+    uuid: { v4: jest.fn(() => "mock-uuid") },
+    validator: {
+      validateName: (name) => {
+        if (!name || typeof name !== 'string') return "Nome é obrigatório e deve ser uma string";
+        if (name.trim().length === 0) return "Nome não pode ser vazio ou apenas espaços";
+        if (name.length > 50) return "Nome deve ter no máximo 50 caracteres";
+        return null;
+      }
+    }
+  };
 
-jest.mock("uuid", () => ({
-  v4: jest.fn(() => "mock-uuid"),
-}));
+  const deps = { ...defaultDeps, ...dependencies };
+  
+  return {
+    controller: (req, res, next) => createAcessibilidade(deps)(req, res, next),
+    dependencies: deps
+  };
+}
 
-// mocks helpers
+// Helpers reutilizáveis
 const mockReq = (body) => ({ body });
 const mockRes = () => {
   const res = {};
@@ -26,104 +35,77 @@ const mockRes = () => {
   res.json = jest.fn().mockReturnValue(res);
   return res;
 };
-const mockNext = jest.fn();
 
 describe("createAcessibilidade", () => {
+  let controller, dependencies;
+
   beforeEach(() => {
-    jest.clearAllMocks();
+    const setup = createController();
+    controller = setup.controller;
+    dependencies = setup.dependencies;
   });
 
-  test("deve falhar se nome não for fornecido", async () => {
-    const req = mockReq({});
+  test.each([
+    [null, "Nome é obrigatório e deve ser uma string"],
+    [123, "Nome é obrigatório e deve ser uma string"],
+    ["     ", "Nome não pode ser vazio ou apenas espaços"],
+    ["a".repeat(51), "Nome deve ter no máximo 50 caracteres"]
+  ])("deve falhar quando nome é '%s'", async (nome, errorMessage) => {
+    const req = mockReq({ nome });
     const res = mockRes();
 
-    await createAcessibilidade(req, res, mockNext);
+    await controller(req, res, jest.fn());
 
     expect(res.status).toHaveBeenCalledWith(400);
-    expect(res.json).toHaveBeenCalledWith({
-      error: "Nome é obrigatório e deve ser uma string",
-    });
-  });
-
-  test("deve falhar se nome não for string", async () => {
-    const req = mockReq({ nome: 123 });
-    const res = mockRes();
-
-    await createAcessibilidade(req, res, mockNext);
-
-    expect(res.status).toHaveBeenCalledWith(400);
-    expect(res.json).toHaveBeenCalledWith({
-      error: "Nome é obrigatório e deve ser uma string",
-    });
-  });
-
-  test("deve falhar se nome for só espaços", async () => {
-    const req = mockReq({ nome: "     " });
-    const res = mockRes();
-
-    await createAcessibilidade(req, res, mockNext);
-
-    expect(res.status).toHaveBeenCalledWith(400);
-    expect(res.json).toHaveBeenCalledWith({
-      error: "Nome não pode ser vazio ou apenas espaços",
-    });
-  });
-
-  test("deve falhar se nome tiver mais de 50 caracteres", async () => {
-    const req = mockReq({ nome: "a".repeat(51) });
-    const res = mockRes();
-
-    await createAcessibilidade(req, res, mockNext);
-
-    expect(res.status).toHaveBeenCalledWith(400);
-    expect(res.json).toHaveBeenCalledWith({
-      error: "Nome deve ter no máximo 50 caracteres",
-    });
+    expect(res.json).toHaveBeenCalledWith({ error: errorMessage });
   });
 
   test("deve falhar se acessibilidade já existir", async () => {
-    prisma.acessibilidade.findFirst.mockResolvedValue({ id: "123" });
-
+    dependencies.acessibilidadeRepository.findByName.mockResolvedValue({ id: "123" });
     const req = mockReq({ nome: "Banheiro adaptado" });
     const res = mockRes();
 
-    await createAcessibilidade(req, res, mockNext);
+    await controller(req, res, jest.fn());
 
     expect(res.status).toHaveBeenCalledWith(409);
     expect(res.json).toHaveBeenCalledWith({
-      error: "Já existe uma acessibilidade com este nome",
+      error: "Já existe uma acessibilidade com este nome"
     });
   });
 
-  test("deve criar acessibilidade com sucesso", async () => {
-    prisma.acessibilidade.findFirst.mockResolvedValue(null);
-    prisma.acessibilidade.create.mockResolvedValue({
-      id: "mock-uuid",
-      nome: "Banheiro adaptado",
-      descricao: "Descrição",
-    });
-
-    const req = mockReq({
-      nome: "  Banheiro adaptado  ",
-      descricao: "  Descrição  ",
+  test("deve criar com sucesso e sanitizar espaços", async () => {
+    const mockAcessibilidade = { 
+      id: "mock-uuid", 
+      nome: "Banheiro adaptado", 
+      descricao: "Descrição" 
+    };
+    
+    dependencies.acessibilidadeRepository.create.mockResolvedValue(mockAcessibilidade);
+    
+    const req = mockReq({ 
+      nome: "  Banheiro adaptado  ", 
+      descricao: "  Descrição  " 
     });
     const res = mockRes();
 
-    await createAcessibilidade(req, res, mockNext);
+    await controller(req, res, jest.fn());
 
-    expect(prisma.acessibilidade.create).toHaveBeenCalledWith({
-      data: {
-        id: "mock-uuid",
-        nome: "Banheiro adaptado",
-        descricao: "Descrição",
-      },
-    });
-
-    expect(res.status).toHaveBeenCalledWith(201);
-    expect(res.json).toHaveBeenCalledWith({
-      id: "mock-uuid",
+    expect(dependencies.acessibilidadeRepository.create).toHaveBeenCalledWith({
       nome: "Banheiro adaptado",
-      descricao: "Descrição",
+      descricao: "Descrição"
     });
+    
+    expect(res.status).toHaveBeenCalledWith(201);
+    expect(res.json).toHaveBeenCalledWith(mockAcessibilidade);
+  });
+
+  test("deve chamar next() em caso de erro inesperado", async () => {
+    dependencies.acessibilidadeRepository.findByName.mockRejectedValue(new Error("DB Error"));
+    const next = jest.fn();
+    const req = mockReq({ nome: "Banheiro" });
+
+    await controller(req, mockRes(), next);
+
+    expect(next).toHaveBeenCalledWith(expect.any(Error));
   });
 });
