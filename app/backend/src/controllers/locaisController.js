@@ -190,3 +190,67 @@ export const createLocal = async (req, res) => {
     });
   }
 };
+export class LocalController {
+  constructor(repository, uuid) {
+    this.repository = repository;
+    this.uuid = uuid;
+  }
+
+  async buscarLocais(req, res) {
+    try {
+      const { nome, cidade, tipo, raio, latitude, longitude } = req.query;
+      const where = {};
+
+      if (nome) where.nome = { contains: nome, mode: 'insensitive' };
+      if (cidade) where.cidade = { equals: cidade, mode: 'insensitive' };
+      if (tipo) where.tipo = { equals: tipo, mode: 'insensitive' };
+
+      let locais = await this.repository.findLocais(where);
+
+      if (raio && latitude && longitude) {
+        locais = locais.filter(local => {
+          const distancia = this.repository.calcularDistancia(
+            parseFloat(latitude),
+            parseFloat(longitude),
+            local.latitude,
+            local.longitude
+          );
+          return distancia <= parseFloat(raio);
+        });
+      }
+
+      res.status(200).json(locais);
+    } catch (error) {
+      console.error("Erro na busca de locais:", error);
+      res.status(500).json({ error: "Erro ao buscar locais" });
+    }
+  }
+
+  async createLocal(req, res) {
+    try {
+      const { nome, cidade, latitude, longitude, criado_por } = req.body;
+
+      const novoLocal = await this.repository.createLocal({
+        id: this.uuid.v4(),
+        nome,
+        cidade,
+        latitude,
+        longitude,
+        status: 'aprovado',
+        criado_por,
+        ...req.body
+      });
+
+      res.status(201).json({
+        message: "Local criado com sucesso",
+        local: novoLocal
+      });
+    } catch (error) {
+      console.error("Erro ao criar local:", error);
+      res.status(500).json({
+        error: "Erro interno ao criar local",
+        details: error.message
+      });
+    }
+  }
+}

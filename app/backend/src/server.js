@@ -9,7 +9,9 @@ import locaisRoutes from "./routes/locaisRouter.js";
 import usuariosRoutes from "./routes/usuariosRoutes.js";
 import acessibilidadeRouter from "./routes/acessibilidadeRouter.js";
 import acessibilidadeLocalRouter from "./routes/acessibilidadeLocalRouter.js";
+import fotosRouter from "./routes/fotosRouter.js";
 import avaliacaoLocalRouter from './routes/avaliacaoLocalRouter.js';
+
 
 
 const prisma = new PrismaClient();
@@ -31,8 +33,8 @@ app.use("/locais", locaisRoutes);
 app.use("/usuarios", usuariosRoutes);
 app.use("/", acessibilidadeRouter);
 app.use("/acessibilidade-local", acessibilidadeLocalRouter);
+app.use("/fotos", fotosRouter);
 app.use("/avaliacoes", avaliacaoLocalRouter);
-
 
 // Rota Swagger UI
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
