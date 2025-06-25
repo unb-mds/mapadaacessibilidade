@@ -199,6 +199,88 @@ Caso ocorra erro do tipo "rota não encontrada" ou a documentação Swagger não
 
 * Se o servidor está executando na porta correta (3000).
 
+# GUIA DE USO
+
+### PRÉ-REQUISITOS
+
+- [Node.js](https://nodejs.org/) (versão 18 ou superior recomendada)
+- [npm](https://www.npmjs.com/) (geralmente já vem com o Node.js)
+- [Git](https://git-scm.com/) (opcional, para clonar o repositório)
+- [Prisma CLI](https://www.prisma.io/docs/getting-started) (será instalada via dependências)
+
+---
+
+## PASSOS
+
+### 1. Navegue até a pasta do backend (Adapte para a sua máquina local o seguinte caminho)
+
+```bash
+cd d:\Documents\estudos\MDS-UnB\mapadaacessibilidade\app\backend
+```
+
+2. Corrija o arquivo package.json
+Remova todos os comentários do arquivo, deixando-o assim:
+
+```
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tests": "jest",
+    "start": "node --watch src/server.js", 
+    "swagger-gen": "node app/backend/API-SWAGGER/swaggerConfig.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^6.8.2",
+    "bcrypt": "^6.0.0",
+    "express": "^5.1.0",
+    "uuid": "^11.1.0",
+    "swagger-jsdoc": "^6.2.8", 
+    "swagger-ui-express": "^5.0.0", 
+    "yamljs": "^0.3.0" 
+  },
+  "devDependencies": {
+    "prisma": "^6.8.2"
+  }
+}
+
+```
+
+3. Instale as dependências
+
+```
+npm install
+```
+
+4. Gere o Prisma Client
+
+```
+npx prisma generate
+```
+
+5. Verifique o caminho do import do Swagger no server.js
+No arquivo src/server.js, o import deve estar assim:
+
+```
+import swaggerSpec from "../API-SWAGGER/swaggerConfig.js";
+```
+
+6. Inicie o servidor
+```
+npm start
+```
+
+No terminal, clique em...
+
+Acesse a documentação Swagger em:
+http://localhost:3000/api-docs
+
 <div align="center"> 
   <footer> &copy; <strong>2025 Mapa da Acessibilidade - Todos os direitos reservados</strong>
   </footer>
