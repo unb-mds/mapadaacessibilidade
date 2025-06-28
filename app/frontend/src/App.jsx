@@ -10,6 +10,7 @@ import Contato from "./pages/Contato.jsx";
 import FAQ from "./pages/FAQ.jsx"; 
 import Eventos from "./pages/Eventos.jsx";
 import 'leaflet/dist/leaflet.css';
+import Local from './pages/Local.jsx';
 
 const App = () => {
   return (
@@ -22,9 +23,10 @@ const App = () => {
         <Route path='/contato' element={<Contato />} />
         <Route path='/perguntas-frequentes' element={<FAQ />} />
         <Route path='/eventos' element={<Eventos />} />
+        <Route path='/adicionar-local' element={<Local />} />
         <Route path='/cadastro' element={<Cadastro />} />
         <Route path='/Login' element={<Login />} />
-       
+               
       </Routes>
       <Footer />
       
