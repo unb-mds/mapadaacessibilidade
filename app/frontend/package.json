@@ -7,9 +7,12 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
+    "tests": "jest",
     "preview": "vite preview"
   },
   "dependencies": {
+    "babel": "^5.8.38",
+    "jest": "^30.0.3",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.515.0",
     "react": "^19.1.0",
@@ -24,10 +27,11 @@
     "@types/react-dom": "^19.1.2",
     "@vitejs/plugin-react": "^4.4.1",
     "autoprefixer": "^10.4.21",
-    "eslint": "^9.25.0",
+    "eslint": "^9.30.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^16.0.0",
+    "jest-environment-jsdom": "^30.0.2",
     "postcss": "^8.5.5",
     "tailwindcss": "^4.1.10",
     "vite": "^6.3.5"
