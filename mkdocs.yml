@@ -1,0 +1,109 @@
+site_name: MAPA DA ACESSIBILIDADE
+site_url: https://seusite.com
+repo_url: https://github.com/unb-mds/mapadaacessibilidade
+
+docs_dir: mkdocs_docs
+
+theme:
+  name: material
+  language: pt
+  logo: assets/logo_mkdocs.png
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - toc.integrate
+  palette:
+
+    # Modo automático (sistema)
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Alternar para o modo claro
+
+    # Modo claro
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: blue
+      secondary: deep-orange
+      toggle:
+        icon: material/brightness-7
+        name: Alternar para o modo escuro
+
+    # Modo escuro
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: blue
+      secondary: deep-orange
+      toggle:
+        icon: material/brightness-4
+        name: Alternar para o modo do sistema
+
+  font:
+    text: Roboto
+    code: Roboto Mono
+    accent: white
+
+markdown_extensions:
+  - toc:
+      permalink: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_div_format
+  - pymdownx.highlight
+  - pymdownx.tabbed
+  - admonition
+  - codehilite
+
+plugins:
+  - search
+  - mermaid2:
+      arguments:
+        theme: "base"
+        themeVariables:
+          primaryColor: "#e3f2fd"
+          secondaryColor: "#bbdefb"
+          tertiaryColor: "#90caf9"
+          primaryBorderColor: "#1976d2"
+          lineColor: "#0d47a1"
+          textColor: "#919dab"
+          fontSize: "20px"
+        startOnLoad: true
+        securityLevel: "loose"
+
+nav:
+  - Início: index.md
+  - Instalação: instalacao.md
+  - Estrutura: estrutura.md
+  - Contribuição: contribuicao.md
+  - Backend:
+    - Visão Geral: backend/visao_geral.md
+  - Frontend:
+    - Visão Geral: frontend/visao_geral.md
+    - Configurações: frontend/configuracoes.md
+    - Componentes: frontend/components.md
+    - Inicialização: frontend/inicializacao.md
+    - Pages: frontend/pages.md
+    - Estilos: frontend/estilos.md
+    - Hooks: frontend/hooks.md
+  - Arquitetura Técnica:
+    - Visão Geral: arquitetura/visao-geral.md
+    - Diagrama da Arquitetura: arquitetura/diagrama.md
+    - Fluxo de Dados: arquitetura/fluxo-de-dados.md
+    - Esquema do Banco de Dados: arquitetura/esquema-banco.md
+
+extra:
+  generator: false  # Isso remove "Made with Material for MkDocs"
+
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/unb-mds/mapadaacessibilidade
+      name: GitHub
+
+  footer:
+    copyright: >
+      © 2025 Mapa da Acessibilidade. Desenvolvido por [Anderson](https://seusite.com).
+
+extra_css:
+  - styles/custom.css

@@ -1,0 +1,1 @@
+![Capa da Contribuição](assets/cap_contribuicao.png)

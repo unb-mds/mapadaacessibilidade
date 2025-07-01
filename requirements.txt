@@ -1,0 +1,33 @@
+# ----------------------------
+# Requisitos do MkDocs
+# ----------------------------
+
+# MkDocs principal - gerador de site estático em Markdown
+mkdocs==1.6.1
+
+# Tema Material para MkDocs - visual moderno, responsivo e com suporte a dark mode
+mkdocs-material==9.6.14
+
+# ----------------------------
+# Extensões Markdown
+# ----------------------------
+
+# Conjunto de extensões para Markdown, usadas para:
+# - abas (tabbed)
+# - blocos de código avançados (superfences)
+# - sintaxe Mermaid embutida
+pymdown-extensions==10.8
+
+# ----------------------------
+# Plugins
+# ----------------------------
+
+# Plugin para renderizar diagramas Mermaid (fluxos, arquitetura, etc.)
+mkdocs-mermaid2-plugin==1.2.1
+
+# Plugin para minificar (compactar) o HTML gerado pelo MkDocs
+# útil para deploy em produção
+mkdocs-minify-plugin==0.7.2
+
+# Exibe no rodapé a data da última modificação de cada página
+mkdocs-git-revision-date-localized-plugin==1.2.5
