@@ -2,9 +2,16 @@
 
 # 🤝 Como Contribuir
 
-Este é um projeto **open source** e acreditamos que a colaboração é o caminho para torná-lo cada vez mais relevante para a comunidade. 
+Bem-vindo ao **Mapa da Acessibilidade**, um projeto open source construído por estudantes da UnB com o propósito de transformar o cotidiano de pessoas, estabelecendo uma mobilidade sem barreiras.
 
-Siga os passos abaixo para contribuir com código, documentação ou ideias!
+Acreditamos que **a colaboração é a força que impulsiona o impacto social**. Por isso, este projeto está aberto para contribuições — de código, documentação, ideias, feedbacks ou testes. Seja você iniciante ou experiente, há espaço para participar.
+
+Se você quer:
+- Praticar suas habilidades com React, Node.js, PostgreSQL ou MkDocs
+- Participar de um projeto real que beneficia a comunidade
+- Trabalhar em um ambiente colaborativo e com propósito
+
+... então você está no lugar certo!
 
 ---
 
@@ -42,10 +49,14 @@ Siga os passos abaixo para contribuir com código, documentação ou ideias!
    ```bash
    git checkout -b feat/nome-da-sua-funcionalidade
    ```
-5. **Implemente suas alterações** seguindo os padrões do projeto.
-6. **Escreva testes** para garantir que sua funcionalidade está funcionando (quando aplicável).
-7. **Atualize a documentação** (caso sua mudança afete alguma parte do sistema).
-8. **Faça o commit com mensagem semântica**:
+
+* **Implemente suas alterações** seguindo os padrões do projeto.
+
+* **Escreva testes** para garantir que sua funcionalidade está funcionando (quando aplicável).
+
+* **Atualize a documentação** (caso sua mudança afete alguma parte do sistema).
+
+* **Faça o commit com mensagem semântica**:
 
    ```bash
    git add .
@@ -67,6 +78,9 @@ Siga os passos abaixo para contribuir com código, documentação ou ideias!
 * [ ] Documentação atualizada (se aplicável)
 * [ ] PR vinculado a uma issue (use `Closes #número`)
 
+## Exemplo
+
+![](assets/exemplo_pull_request.png)
 ---
 
 ## 🧑‍💻 Padrões de Código
@@ -83,7 +97,7 @@ Siga os passos abaixo para contribuir com código, documentação ou ideias!
 
 ## 🧪 Configuração Local
 
-### Backend
+### 🖥️ Backend
 
 ```bash
 cd app/backend
@@ -91,13 +105,43 @@ pnpm install
 pnpm dev
 ```
 
-### Frontend
+**🔍 Entenda linha por linha:**
+
+`cd app/backend`
+
+* **cd** = change directory
+
+* Entra na pasta onde está localizado o código do backend do projeto.
+
+* Geralmente essa pasta contém o package.json, src/, routes/, controllers/, etc.
+
+---
+
+`pnpm install`
+
+* Comando que instala todas as dependências do backend, listadas no `package.json`.
+
+* O pnpm é um gerenciador de pacotes (mais rápido e eficiente que o npm ou yarn).
+
+* Ele baixa e cria os links simbólicos dos pacotes na `node_modules`.
+
+⚠️ Se a pasta `node_modules` não existir ainda, ela será **criada**.
+
+
+### 🎨 Frontend
 
 ```bash
 cd app/frontend
 pnpm install
 pnpm dev
 ```
+
+| Comando           | O que faz                                   |
+| ----------------- | ------------------------------------------- |
+| `cd app/frontend` | Entra na pasta onde está o React            |
+| `pnpm install`    | Instala bibliotecas React e ferramentas web |
+| `pnpm dev`        | Inicia o servidor de desenvolvimento local  |
+
 
 > 💡 Certifique-se de ter o PostgreSQL rodando localmente com as credenciais adequadas.
 
