@@ -79,6 +79,18 @@ nav:
   - Contribuição: contribuicao.md
   - Backend:
     - Visão Geral: backend/visao_geral.md
+    - Estrutura de Pastas: backend/estrutura.md
+    - Configuração e Execução: backend/setup.md
+    - Camadas da Aplicação:
+          - Funcionamento: backend/src/inicio_back.md
+          - Controllers: backend/src/controllers.md
+          - Middlewares: backend/src/middlewares.md
+          - Rotas: backend/src/routes.md
+    - API REST:
+        - Introdução: backend/api/overview.md
+        - Endpoints: backend/api/endpoints.md
+    - Banco de Dados:
+        - Migrations & Seed: backend/database/migrations.md
   - Frontend:
     - Visão Geral: frontend/visao_geral.md
     - Configurações: frontend/configuracoes.md
