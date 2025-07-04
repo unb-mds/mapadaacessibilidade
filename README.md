@@ -106,7 +106,7 @@ Consulte o protótipo por meio deste [LINK](unb-mds.github.io/mapadaacessibilida
     <td align="center">
       <a href="https://github.com/oalbertocavalcante">
         <img src="https://github.com/user-attachments/assets/21c9aabc-e0d7-4efc-b0cd-9b39ccc61ded" width="100px;" alt="Felipe Cruz"/><br />
-        <sub><b>Alberto Cortês</b></sub> 
+        <sub><b>Alberto Cortês</b></sub>
       </a>
     </td>
     <td align="center">
@@ -130,7 +130,7 @@ Consulte o protótipo por meio deste [LINK](unb-mds.github.io/mapadaacessibilida
     <td align="center">
       <a href="https://github.com/Dexmachi">
         <img src="https://github.com/user-attachments/assets/04f0f7f6-fc37-42fe-b4de-300011c9a690" width="100px;" alt="Claudomiro Xavier"/><br />
-        <sub><b>Caio Rocha</b></sub>
+        <sub><b>Caio Rocha.</b></sub>
       </a>
     </td>
   </tr>
