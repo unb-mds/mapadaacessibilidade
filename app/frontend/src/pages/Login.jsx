@@ -1,9 +1,17 @@
-
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Mail, Lock, LogIn, Eye, EyeOff, Facebook, Chrome, Apple } from 'lucide-react';
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  Mail,
+  Lock,
+  LogIn,
+  Eye,
+  EyeOff,
+  Facebook,
+  Chrome,
+  Apple,
+} from "lucide-react";
 import { useToast } from "../hooks/use-toast";
-import './Login.css';
+import "./Login.css";
 
 export default function Login() {
   const { toast } = useToast();
@@ -23,7 +31,7 @@ export default function Login() {
         title: "Login bem-sucedido!",
         description: "Redirecionando para a página inicial.",
       });
-      navigate('/');
+      navigate("/");
     }, 1500);
   };
 
@@ -36,10 +44,13 @@ export default function Login() {
           </div>
           <h1 className="login-title">Acesse sua conta</h1>
           <p className="login-subtitle">
-            Ou <Link to="/cadastro" className="login-link">cadastre-se agora</Link>
+            Ou{" "}
+            <Link to="/cadastro" className="login-link">
+              cadastre-se agora
+            </Link>
           </p>
         </div>
-        
+
         <form onSubmit={handleSubmit} className="login-form">
           <div className="form-group">
             <div className="input-wrapper">
@@ -52,8 +63,7 @@ export default function Login() {
                 required
                 className="form-input"
               />
-              <div className="input-flag">                
-              </div>
+              <div className="input-flag"></div>
             </div>
           </div>
 
@@ -85,7 +95,9 @@ export default function Login() {
                 Lembrar de mim
               </label>
             </div>
-            <Link to="#" className="forgot-password">Esqueceu sua senha?</Link>
+            <Link to="#" className="forgot-password">
+              Esqueceu sua senha?
+            </Link>
           </div>
 
           <button type="submit" className="login-button">

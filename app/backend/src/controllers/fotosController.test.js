@@ -59,7 +59,7 @@ describe("fotosController", () => {
             { id: "f1", ...req.body[0] },
             { id: "f2", ...req.body[1] },
           ],
-        })
+        }),
       );
     });
 

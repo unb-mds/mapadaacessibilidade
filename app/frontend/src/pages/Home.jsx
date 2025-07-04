@@ -91,7 +91,7 @@ const iconeCustom = new Icon({
   iconSize: [25, 41],
   iconAnchor: [12, 41],
   popupAnchor: [1, -34],
-  shadowSize: [41, 41]
+  shadowSize: [41, 41],
 });
 
 function Home() {
@@ -195,13 +195,12 @@ function Home() {
 
   function FiltersSidebar() {
     return (
-      <aside className={`filters-sidebar ${filtersOpen ? 'filters-open' : 'filters-closed'}`}>
+      <aside
+        className={`filters-sidebar ${filtersOpen ? "filters-open" : "filters-closed"}`}
+      >
         <div className="filters-header">
           <h2 className="filters-title">Filtrar Locais</h2>
-          <button
-            onClick={toggleFilters}
-            className="filters-toggle"
-          >
+          <button onClick={toggleFilters} className="filters-toggle">
             <Menu size={24} />
           </button>
         </div>
@@ -212,7 +211,7 @@ function Home() {
               <Accessibility size={20} />
               Filtros de Acessibilidade
             </h3>
-            
+
             <div className="filter-item">
               <input
                 type="checkbox"
@@ -425,7 +424,9 @@ function Home() {
       <div className="main-content">
         <FiltersSidebar />
 
-        <div className={`map-container ${filtersOpen && !isMobile ? 'map-with-sidebar' : ''}`}>
+        <div
+          className={`map-container ${filtersOpen && !isMobile ? "map-with-sidebar" : ""}`}
+        >
           <div className="search-container">
             <div className="search-bar">
               <Search className="search-icon" size={20} />
@@ -465,14 +466,13 @@ function Home() {
         </div>
 
         {selectedMarker && (
-          <div className={`info-drawer ${drawerOpen ? 'drawer-open' : 'drawer-closed'}`}>
+          <div
+            className={`info-drawer ${drawerOpen ? "drawer-open" : "drawer-closed"}`}
+          >
             <div className="drawer-content">
               <div className="drawer-header">
                 <h3 className="drawer-title">{selectedMarker.name}</h3>
-                <button
-                  onClick={closeDrawer}
-                  className="drawer-close-btn"
-                >
+                <button onClick={closeDrawer} className="drawer-close-btn">
                   <X size={28} />
                 </button>
               </div>
@@ -505,7 +505,9 @@ function Home() {
               <div className="accessibility-score">
                 <div className="accessibility-header">
                   <span>Acessibilidade</span>
-                  <span className="score">{selectedMarker.accessibility}/10</span>
+                  <span className="score">
+                    {selectedMarker.accessibility}/10
+                  </span>
                 </div>
                 <div className="accessibility-bar">
                   <div
@@ -556,8 +558,12 @@ function Home() {
                   </div>
                   <div className="info-text">
                     <p className="info-title">Contato</p>
-                    <p className="info-subtitle">{selectedMarker.contact.phone}</p>
-                    <p className="info-subtitle">{selectedMarker.contact.email}</p>
+                    <p className="info-subtitle">
+                      {selectedMarker.contact.phone}
+                    </p>
+                    <p className="info-subtitle">
+                      {selectedMarker.contact.email}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -574,7 +580,7 @@ function Home() {
                     <div key={index} className="photo-item">
                       <img
                         src={photo}
-                        alt={`Foto ${index +1} do ${selectedMarker.name}`}
+                        alt={`Foto ${index + 1} do ${selectedMarker.name}`}
                         className="photo-image"
                       />
                     </div>

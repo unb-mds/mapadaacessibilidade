@@ -123,4 +123,3 @@ export default router;
  *             schema:
  *               $ref: '#/components/schemas/ErroDetalhado'
  */
-

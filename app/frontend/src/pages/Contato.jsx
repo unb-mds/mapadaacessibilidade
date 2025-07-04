@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Send, MessageCircle, Clock } from 'lucide-react';
-import './Contato.css';
+import React, { useState } from "react";
+import { Mail, Phone, MapPin, Send, MessageCircle, Clock } from "lucide-react";
+import "./Contato.css";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
   });
 
   const contactInfo = [
@@ -15,50 +15,51 @@ export default function Contact() {
       icon: Mail,
       title: "Email",
       description: "contato@acessibilidade.com",
-      action: "mailto:contato@acessibilidade.com"
+      action: "mailto:contato@acessibilidade.com",
     },
     {
       icon: Phone,
       title: "Telefone",
       description: "(11) 1234-5678",
-      action: "tel:+551112345678"
+      action: "tel:+551112345678",
     },
     {
       icon: MapPin,
       title: "Endereço",
-      description: "Universidade de Brasília - UnB\nCampus Darcy Ribeiro, Brasília - DF",
-      action: null
+      description:
+        "Universidade de Brasília - UnB\nCampus Darcy Ribeiro, Brasília - DF",
+      action: null,
     },
     {
       icon: Clock,
       title: "Horário de Atendimento",
       description: "Segunda a Sexta: 9h às 18h\nSábado: 9h às 12h",
-      action: null
-    }
+      action: null,
+    },
   ];
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     if (!formData.name || !formData.email || !formData.message) {
-      alert('Por favor, preencha todos os campos obrigatórios.');
+      alert("Por favor, preencha todos os campos obrigatórios.");
       return;
     }
-    
-    alert('Mensagem enviada com sucesso! Responderemos em breve.');
+
+    alert("Mensagem enviada com sucesso! Responderemos em breve.");
     setFormData({
-      name: '',
-      email: '',
-      subject: '',
-      message: ''
+      name: "",
+      email: "",
+      subject: "",
+      message: "",
     });
   };
 
@@ -72,16 +73,15 @@ export default function Contact() {
               <h2 className="contact-title">Contato</h2>
             </div>
             <p className="contact-subtitle">
-              Entre em contato conosco! Estamos aqui para ajudar e ouvir suas sugestões
+              Entre em contato conosco! Estamos aqui para ajudar e ouvir suas
+              sugestões
             </p>
           </div>
 
           <div className="contact-content">
             <div className="contact-info-section">
-              <h3 className="contact-info-title">
-                Informações de Contato
-              </h3>
-              
+              <h3 className="contact-info-title">Informações de Contato</h3>
+
               <div className="contact-info-grid">
                 {contactInfo.map((info, index) => {
                   const IconComponent = info.icon;
@@ -96,10 +96,7 @@ export default function Contact() {
                             {info.title}
                           </h4>
                           {info.action ? (
-                            <a 
-                              href={info.action}
-                              className="contact-info-link"
-                            >
+                            <a href={info.action} className="contact-info-link">
                               {info.description}
                             </a>
                           ) : (
@@ -118,11 +115,10 @@ export default function Contact() {
             <div className="contact-form-section">
               <div className="contact-form-card">
                 <div className="contact-form-header">
-                  <h3 className="contact-form-title">
-                    Envie sua Mensagem
-                  </h3>
+                  <h3 className="contact-form-title">Envie sua Mensagem</h3>
                   <p className="contact-form-description">
-                    Preencha o formulário abaixo e entraremos em contato o mais breve possível.
+                    Preencha o formulário abaixo e entraremos em contato o mais
+                    breve possível.
                   </p>
                 </div>
                 <div className="contact-form-content">
@@ -191,10 +187,7 @@ export default function Contact() {
                       />
                     </div>
 
-                    <button 
-                      type="submit"
-                      className="form-submit-button"
-                    >
+                    <button type="submit" className="form-submit-button">
                       <Send className="submit-icon" />
                       Enviar Mensagem
                     </button>
