@@ -11,3 +11,5 @@ jobs:
 
       - name: Roda Gitleaks
         uses: gitleaks/gitleaks-action@v2
+        env:
+          GITLEAKS_TOKEN: ${{ secrets.GITLEAKS_TOKEN }}
