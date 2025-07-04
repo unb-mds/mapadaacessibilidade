@@ -130,7 +130,7 @@ Consulte o protótipo por meio deste [LINK](unb-mds.github.io/mapadaacessibilida
     <td align="center">
       <a href="https://github.com/Dexmachi">
         <img src="https://github.com/user-attachments/assets/04f0f7f6-fc37-42fe-b4de-300011c9a690" width="100px;" alt="Claudomiro Xavier"/><br />
-        <sub><b>Caio Rocha.</b></sub>
+        <sub><b>Caio Rocha</b></sub>
       </a>
     </td>
   </tr>
