@@ -1,12 +1,13 @@
 import express from "express";
 const router = express.Router();
 import {
-    criarAvaliacaoLocal,
-    listarAvaliacoesLocal,
-    obterAvaliacaoUsuarioLocal,
-    atualizarAvaliacaoLocal,
-    removerAvaliacaoLocal,
-    avaliacaoLocalErrorHandler
+  criarAvaliacaoLocal,
+  listarAvaliacoesLocal,
+  obterAvaliacaoUsuarioLocal,
+  atualizarAvaliacaoLocal,
+  removerAvaliacaoLocal,
+  avaliacaoLocalErrorHandler,
+  listarAvaliacoesFiltradas,
 } from "../controllers/avaliacaoLocalController.js";
 
 // Criar avaliação para um local
@@ -23,6 +24,9 @@ router.put("/usuario/:usuario_id/local/:local_id", atualizarAvaliacaoLocal);
 
 // Remover avaliação de um usuário em um local
 router.delete("/usuario/:usuario_id/local/:local_id", removerAvaliacaoLocal);
+
+//  rota para busca filtrada
+router.get("/filtros", listarAvaliacoesFiltradas);
 
 // Middleware de tratamento de erros
 router.use(avaliacaoLocalErrorHandler);
