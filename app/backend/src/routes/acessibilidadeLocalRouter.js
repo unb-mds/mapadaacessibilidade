@@ -9,22 +9,47 @@ import {
     acessibilidadeLocalErrorHandler
 } from "../controllers/acessibilidadeLocalController.js";
 
-// adicionar acessibilidade a um local
-router.post("/", adicionarAcessibilidadeLocal);
+import {
+    validarDadosAcessibilidadeLocal,
+    verificarLocalEAcessibilidade,
+    verificarLocal,
+    verificarAcessibilidade,
+    verificarAssociacaoNaoExiste,
+    verificarAssociacaoExistente,
+    autenticarUsuario,
+    verificarLocalAcessibilidadeEAssociacao
+} from "../middlewares/acessibilidadeLocalMiddleware.js";
 
-// listar todas as acessibilidades de um local específico
-router.get("/local/:local_id", listarAcessibilidadesLocal);
+router.post("/", 
+    autenticarUsuario,
+    validarDadosAcessibilidadeLocal,
+    verificarLocalEAcessibilidade,
+    verificarAssociacaoNaoExiste,
+    adicionarAcessibilidadeLocal
+);
 
-// listar todos os locais que possuem uma acessibilidade específica
-router.get("/acessibilidade/:acessibilidade_id", listarLocaisAcessibilidade);
+router.get("/local/:local_id", 
+    verificarLocal,
+    listarAcessibilidadesLocal
+);
 
-// atualizar status de acessibilidade em um local
-router.put("/local/:local_id/acessibilidade/:acessibilidade_id", atualizarAcessibilidadeLocal);
+router.get("/acessibilidade/:acessibilidade_id", 
+    verificarAcessibilidade,
+    listarLocaisAcessibilidade
+);
 
-// remover acessibilidade de um local
-router.delete("/local/:local_id/acessibilidade/:acessibilidade_id", removerAcessibilidadeLocal);
+router.put("/local/:local_id/acessibilidade/:acessibilidade_id", 
+    autenticarUsuario,
+    verificarLocalAcessibilidadeEAssociacao,
+    atualizarAcessibilidadeLocal
+);
 
-// middleware de tratamento de erros
+router.delete("/local/:local_id/acessibilidade/:acessibilidade_id", 
+    autenticarUsuario,
+    verificarLocalAcessibilidadeEAssociacao,
+    removerAcessibilidadeLocal
+);
+
 router.use(acessibilidadeLocalErrorHandler);
 
 export default router;
@@ -42,6 +67,8 @@ export default router;
  *   post:
  *     summary: Adiciona uma acessibilidade a um local
  *     tags: [AcessibilidadeLocal]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -55,14 +82,31 @@ export default router;
  *               local_id:
  *                 type: string
  *                 format: uuid
+ *                 description: ID do local
  *               acessibilidade_id:
  *                 type: string
  *                 format: uuid
+ *                 description: ID da acessibilidade
  *     responses:
  *       201:
  *         description: Acessibilidade adicionada com sucesso ao local
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 data:
+ *                   $ref: '#/components/schemas/AcessibilidadeLocal'
  *       400:
- *         description: Requisição inválida
+ *         description: Requisição inválida - dados obrigatórios ausentes
+ *       401:
+ *         description: Não autorizado
+ *       404:
+ *         description: Local ou acessibilidade não encontrados
+ *       409:
+ *         description: Associação já existe
  *       500:
  *         description: Erro no servidor
  */
@@ -83,13 +127,18 @@ export default router;
  *         description: ID do local
  *     responses:
  *       200:
- *         description: Lista de acessibilidades
+ *         description: Lista de acessibilidades do local
  *         content:
  *           application/json:
  *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Acessibilidade'
+ *               type: object
+ *               properties:
+ *                 local:
+ *                   $ref: '#/components/schemas/Local'
+ *                 acessibilidades:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Acessibilidade'
  *       404:
  *         description: Local não encontrado
  *       500:
@@ -112,13 +161,18 @@ export default router;
  *         description: ID da acessibilidade
  *     responses:
  *       200:
- *         description: Lista de locais
+ *         description: Lista de locais com a acessibilidade
  *         content:
  *           application/json:
  *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Local'
+ *               type: object
+ *               properties:
+ *                 acessibilidade:
+ *                   $ref: '#/components/schemas/Acessibilidade'
+ *                 locais:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Local'
  *       404:
  *         description: Acessibilidade não encontrada
  *       500:
@@ -131,6 +185,8 @@ export default router;
  *   put:
  *     summary: Atualiza a associação de acessibilidade a um local
  *     tags: [AcessibilidadeLocal]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: local_id
@@ -155,14 +211,29 @@ export default router;
  *             properties:
  *               status:
  *                 type: string
+ *                 enum: [ativo, inativo, em_manutencao]
  *                 description: Novo status da acessibilidade no local
+ *               observacoes:
+ *                 type: string
+ *                 description: Observações sobre a acessibilidade
  *     responses:
  *       200:
  *         description: Associação atualizada com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 data:
+ *                   $ref: '#/components/schemas/AcessibilidadeLocal'
  *       400:
  *         description: Requisição inválida
+ *       401:
+ *         description: Não autorizado
  *       404:
- *         description: Associação não encontrada
+ *         description: Local, acessibilidade ou associação não encontrados
  *       500:
  *         description: Erro no servidor
  */
@@ -173,6 +244,8 @@ export default router;
  *   delete:
  *     summary: Remove a associação de acessibilidade de um local
  *     tags: [AcessibilidadeLocal]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: local_id
@@ -191,8 +264,41 @@ export default router;
  *     responses:
  *       204:
  *         description: Associação removida com sucesso
+ *       401:
+ *         description: Não autorizado
  *       404:
- *         description: Associação não encontrada
+ *         description: Local, acessibilidade ou associação não encontrados
  *       500:
  *         description: Erro no servidor
+ */
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     AcessibilidadeLocal:
+ *       type: object
+ *       properties:
+ *         local_id:
+ *           type: string
+ *           format: uuid
+ *         acessibilidade_id:
+ *           type: string
+ *           format: uuid
+ *         status:
+ *           type: string
+ *           enum: [ativo, inativo, em_manutencao]
+ *         observacoes:
+ *           type: string
+ *         created_at:
+ *           type: string
+ *           format: date-time
+ *         updated_at:
+ *           type: string
+ *           format: date-time
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
  */

@@ -18,7 +18,6 @@ const prisma = new PrismaClient();
 const app = express();
 const port = 3000;
 
-// Middlewares
 app.use(cors({
   origin: ['http://localhost:3001', 'http://localhost:5173'],
   credentials: true,
