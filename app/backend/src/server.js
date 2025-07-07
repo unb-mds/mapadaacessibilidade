@@ -11,8 +11,7 @@ import acessibilidadeRouter from "./routes/acessibilidadeRouter.js";
 import acessibilidadeLocalRouter from "./routes/acessibilidadeLocalRouter.js";
 import fotosRouter from "./routes/fotosRouter.js";
 import avaliacaoLocalRouter from './routes/avaliacaoLocalRouter.js';
-
-
+import eventosRoutes from "./routes/eventosRouter.js";
 
 const prisma = new PrismaClient();
 const app = express();
@@ -35,6 +34,7 @@ app.use("/", acessibilidadeRouter);
 app.use("/acessibilidade-local", acessibilidadeLocalRouter);
 app.use("/fotos", fotosRouter);
 app.use("/avaliacoes", avaliacaoLocalRouter);
+app.use("/eventos", eventosRoutes);
 
 // Rota Swagger UI
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
@@ -46,4 +46,3 @@ app.listen(port, () => {
   console.log(`Servidor Node.js ${process.version} rodando em http://localhost:${port}`);
   console.log(`Swagger UI em http://localhost:${port}/api-docs`);
 });
-
