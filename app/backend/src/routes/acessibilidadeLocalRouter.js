@@ -9,46 +9,16 @@ import {
     acessibilidadeLocalErrorHandler
 } from "../controllers/acessibilidadeLocalController.js";
 
-import {
-    validarDadosAcessibilidadeLocal,
-    verificarLocalEAcessibilidade,
-    verificarLocal,
-    verificarAcessibilidade,
-    verificarAssociacaoNaoExiste,
-    verificarAssociacaoExistente,
-    autenticarUsuario,
-    verificarLocalAcessibilidadeEAssociacao
-} from "../middlewares/acessibilidadeLocalMiddleware.js";
+// Rotas sem middlewares de validação
+router.post("/", adicionarAcessibilidadeLocal);
 
-router.post("/", 
-    autenticarUsuario,
-    validarDadosAcessibilidadeLocal,
-    verificarLocalEAcessibilidade,
-    verificarAssociacaoNaoExiste,
-    adicionarAcessibilidadeLocal
-);
+router.get("/local/:local_id", listarAcessibilidadesLocal);
 
-router.get("/local/:local_id", 
-    verificarLocal,
-    listarAcessibilidadesLocal
-);
+router.get("/acessibilidade/:acessibilidade_id", listarLocaisAcessibilidade);
 
-router.get("/acessibilidade/:acessibilidade_id", 
-    verificarAcessibilidade,
-    listarLocaisAcessibilidade
-);
+router.put("/local/:local_id/acessibilidade/:acessibilidade_id", atualizarAcessibilidadeLocal);
 
-router.put("/local/:local_id/acessibilidade/:acessibilidade_id", 
-    autenticarUsuario,
-    verificarLocalAcessibilidadeEAssociacao,
-    atualizarAcessibilidadeLocal
-);
-
-router.delete("/local/:local_id/acessibilidade/:acessibilidade_id", 
-    autenticarUsuario,
-    verificarLocalAcessibilidadeEAssociacao,
-    removerAcessibilidadeLocal
-);
+router.delete("/local/:local_id/acessibilidade/:acessibilidade_id", removerAcessibilidadeLocal);
 
 router.use(acessibilidadeLocalErrorHandler);
 
