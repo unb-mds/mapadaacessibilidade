@@ -11,7 +11,7 @@ export const logCompleto = (req, res, next) => {
     console.log(
       `[${new Date().toISOString()}] ${req.method} ${req.path} - ` +
         `Status: ${res.statusCode} - ` +
-        `Duração: ${duration}ms`
+        `Duração: ${duration}ms`,
     );
   });
 

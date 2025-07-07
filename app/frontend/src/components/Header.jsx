@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { MapPin, Menu, X, Plus } from "lucide-react";

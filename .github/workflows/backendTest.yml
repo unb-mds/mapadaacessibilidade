@@ -10,7 +10,7 @@ jobs:
   teste:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: faz checkout do código
         uses: actions/checkout@v2
 
       - name: Set up Node.js
@@ -18,10 +18,10 @@ jobs:
         with:
           node-version: "24"
 
-      - name: Install app/backend dependencies
+      - name: Instalar app/backend de forma limpa
         run: |
           cd app/backend
-          npm install
+          npm ci
 
       - name: Run tests
         run: |
