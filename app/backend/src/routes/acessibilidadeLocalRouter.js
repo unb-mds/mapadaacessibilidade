@@ -1,12 +1,12 @@
 import express from "express";
 const router = express.Router();
 import {
-    adicionarAcessibilidadeLocal,
-    removerAcessibilidadeLocal,
-    atualizarAcessibilidadeLocal,
-    listarAcessibilidadesLocal,
-    listarLocaisAcessibilidade,
-    acessibilidadeLocalErrorHandler
+  adicionarAcessibilidadeLocal,
+  removerAcessibilidadeLocal,
+  atualizarAcessibilidadeLocal,
+  listarAcessibilidadesLocal,
+  listarLocaisAcessibilidade,
+  acessibilidadeLocalErrorHandler,
 } from "../controllers/acessibilidadeLocalController.js";
 
 // Rotas sem middlewares de validação

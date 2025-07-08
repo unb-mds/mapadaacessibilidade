@@ -9,7 +9,6 @@ router.use(acessibilidadeController.acessibilidadeErrorHandler);
 
 export default router;
 
-
 /**
  * @swagger
  * tags:
