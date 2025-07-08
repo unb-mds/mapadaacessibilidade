@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "build": "npm run install-all && npm run generate && npm run dev-all",
+    "buildTest": "npm run install-all && cd app/backend && npx prisma generate",
     "install-all": "npm --prefix app/backend install && npm --prefix app/frontend install",
-    "generate": "cd app/backend && npx prisma generate && npx prisma studio &",
+    "generate": "cd app/backend && npx prisma generate && npx prisma studio",
     "dev-all": "concurrently \"npm run backend\" \"npm run frontend\"",
     "backend": "cd app/backend && node src/server.js",
     "frontend": "cd app/frontend && npm run dev"
