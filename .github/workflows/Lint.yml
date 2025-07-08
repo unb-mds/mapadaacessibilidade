@@ -34,4 +34,4 @@ jobs:
       - name: Run Prettier for backend
         run: |
           cd app/backend
-          npx prettier --write .
+          npx prettier --check .

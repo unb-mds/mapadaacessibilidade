@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Mail,
@@ -13,10 +13,22 @@ import {
 import { useToast } from "../hooks/use-toast";
 import "./Login.css";
 
+import api from "../services/api";
+
 export default function Login() {
   const { toast } = useToast();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+
+  const inputEmail = useRef(null);
+  const inputSenha = useRef(null);
+
+  async function logUsr() {
+    await api.post("/usuarios/login", {
+      email: inputEmail.current.value,
+      senha: inputSenha.current.value,
+    });
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -62,6 +74,7 @@ export default function Login() {
                 placeholder="E-mail"
                 required
                 className="form-input"
+                ref={inputEmail}
               />
               <div className="input-flag"></div>
             </div>
@@ -77,6 +90,7 @@ export default function Login() {
                 placeholder="Senha"
                 required
                 className="form-input"
+                ref={inputSenha}
               />
               <button
                 type="button"
@@ -100,7 +114,7 @@ export default function Login() {
             </Link>
           </div>
 
-          <button type="submit" className="login-button">
+          <button type="submit" className="login-button" onClick={logUsr}>
             <LogIn />
             Entrar
           </button>

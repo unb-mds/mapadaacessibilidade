@@ -24,7 +24,6 @@
   },
   "homepage": "https://github.com/unb-mds/mapadaacessibilidade#readme",
   "dependencies": {
-    "concurrent": "^0.3.2",
     "concurrently": "^9.2.0"
   }
 }

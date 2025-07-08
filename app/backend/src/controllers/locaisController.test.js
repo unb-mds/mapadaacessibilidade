@@ -1,117 +1,143 @@
-import { LocalController } from "../controllers/locaisController.js";
+/**
+ * @jest-environment node
+ */
+
 import { jest } from "@jest/globals";
 
-// Mock do repositório
-const mockRepository = {
-  findLocais: jest.fn(),
-  createLocal: jest.fn(),
-  calcularDistancia: jest.fn(),
-};
+jest.mock("@prisma/client", () => {
+  const mLocal = {
+    findMany: jest.fn(),
+    create: jest.fn(),
+    findUnique: jest.fn(),
+  };
+  const mPrisma = { local: mLocal, $disconnect: jest.fn() };
+  return { PrismaClient: jest.fn(() => mPrisma) };
+});
 
-// Mock do UUID
-const mockUuid = {
-  v4: jest.fn(() => "mocked-uuid"),
-};
+import { listarLocais, criarLocal } from "../controllers/locaisController.js";
+import { PrismaClient } from "@prisma/client";
 
-// Configuração do controller para teste
-const setupController = () => {
-  const controller = new LocalController(mockRepository, mockUuid);
-
-  const mockReq = (query = {}, body = {}) => ({ query, body });
-
-  const mockRes = () => {
+describe("locaisController", () => {
+  let prisma;
+  const makeReq = (query = {}, body = {}) => ({ query, body });
+  const makeRes = () => {
     const res = {};
     res.status = jest.fn(() => res);
     res.json = jest.fn(() => res);
     return res;
   };
 
-  const mockNext = jest.fn();
+  beforeAll(() => {
+    prisma = new PrismaClient();
+  });
 
-  return { controller, mockReq, mockRes, mockNext };
-};
-
-describe("LocalController", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  describe("buscarLocais", () => {
-    it("deve retornar locais filtrados por nome", async () => {
-      const { controller, mockReq, mockRes } = setupController();
-      mockRepository.findLocais.mockResolvedValue([
-        { id: "1", nome: "Parque Ibirapuera", cidade: "São Paulo" },
-      ]);
+  describe("listarLocais", () => {
+    it("deve filtrar por nome quando passado nome no query", async () => {
+      const fakeLocal = { id: "1", nome: "Parque Teste", cidade: "Cidade X" };
+      prisma.local.findMany.mockResolvedValue([fakeLocal]);
 
-      const req = mockReq({ nome: "Parque" });
-      const res = mockRes();
+      const req = makeReq({ nome: "Parque" });
+      const res = makeRes();
 
-      await controller.buscarLocais(req, res);
+      await listarLocais(req, res);
 
-      expect(mockRepository.findLocais).toHaveBeenCalledWith({
-        nome: { contains: "Parque", mode: "insensitive" },
-      });
+      expect(prisma.local.findMany).toHaveBeenCalledWith(
+        expect.objectContaining({
+          where: { nome: { contains: "Parque", mode: "insensitive" } },
+          take: expect.any(Number),
+        }),
+      );
       expect(res.status).toHaveBeenCalledWith(200);
-      expect(res.json).toHaveBeenCalledWith([
-        { id: "1", nome: "Parque Ibirapuera", cidade: "São Paulo" },
-      ]);
+      expect(res.json).toHaveBeenCalledWith(
+        expect.objectContaining({ success: true, data: [fakeLocal] }),
+      );
     });
 
-    it("deve filtrar por proximidade quando coordenadas são fornecidas", async () => {
-      const { controller, mockReq, mockRes } = setupController();
-      mockRepository.findLocais.mockResolvedValue([
-        { id: "1", nome: "Local 1", latitude: -23.55, longitude: -46.63 },
-      ]);
-      mockRepository.calcularDistancia.mockReturnValue(1.5);
-
-      const req = mockReq({
+    it("deve filtrar por proximidade quando latitude, longitude e raio são fornecidos", async () => {
+      const item = {
+        id: "2",
+        nome: "Local Perto",
         latitude: "-23.55",
         longitude: "-46.63",
-        raio: "5",
+      };
+      prisma.local.findMany.mockResolvedValue([item]);
+
+      const req = makeReq({
+        latitude: "-23.55",
+        longitude: "-46.63",
+        raio: "1000",
       });
-      const res = mockRes();
+      const res = makeRes();
 
-      await controller.buscarLocais(req, res);
+      await listarLocais(req, res);
 
-      expect(mockRepository.calcularDistancia).toHaveBeenCalled();
+      // verifica que findMany foi chamado com include e take
+      expect(prisma.local.findMany).toHaveBeenCalled();
+      // status 200 e json com distância
       expect(res.status).toHaveBeenCalledWith(200);
+      const jsonArg = res.json.mock.calls[0][0];
+      expect(jsonArg).toMatchObject({
+        success: true,
+        data: expect.arrayContaining([
+          expect.objectContaining({ id: "2", distancia: expect.any(Number) }),
+        ]),
+      });
     });
   });
 
-  describe("createLocal", () => {
-    it("deve criar um novo local com dados válidos", async () => {
-      const { controller, mockReq, mockRes } = setupController();
-      const mockLocal = {
-        id: "mocked-uuid",
-        nome: "Novo Local",
-        cidade: "São Paulo",
-      };
-      mockRepository.createLocal.mockResolvedValue(mockLocal);
-
-      const req = mockReq(
-        {},
-        {
-          nome: "Novo Local",
-          cidade: "São Paulo",
-          latitude: -23.55,
-          longitude: -46.63,
-          criado_por: "user-123",
-        },
+  describe("criarLocal", () => {
+    it("deve retornar 400 se faltar campo obrigatório", async () => {
+      const req = makeReq({}, { nome: "Sem Lat/Long" });
+      const res = makeRes();
+      await criarLocal(req, res);
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.json).toHaveBeenCalledWith(
+        expect.objectContaining({
+          success: false,
+          campos_obrigatorios: expect.any(Array),
+        }),
       );
-      const res = mockRes();
+    });
 
-      await controller.createLocal(req, res);
-
-      expect(mockRepository.createLocal).toHaveBeenCalledWith({
-        id: "mocked-uuid",
+    it("deve criar novo local com dados válidos (status 201)", async () => {
+      const input = {
         nome: "Novo Local",
-        cidade: "São Paulo",
-        latitude: -23.55,
-        longitude: -46.63,
-        status: "aprovado",
-        criado_por: "user-123",
-      });
+        descricao: "Desc",
+        tipo: "Tipo",
+        endereco: "Rua X",
+        cidade: "Y",
+        bairro: "Z",
+        estado: "E",
+        latitude: -23.5,
+        longitude: -46.6,
+        criado_por: "user-1",
+      };
+      const fakeCreated = { ...input, id: "uuid-123", status: "aprovado" };
+      prisma.local.create.mockResolvedValue(fakeCreated);
+
+      const req = makeReq({}, input);
+      const res = makeRes();
+
+      await criarLocal(req, res);
+
+      expect(prisma.local.create).toHaveBeenCalledWith(
+        expect.objectContaining({
+          data: expect.objectContaining({
+            nome: "Novo Local",
+            cidade: "Y",
+            status: "aprovado",
+            criado_por: "user-1",
+          }),
+        }),
+      );
       expect(res.status).toHaveBeenCalledWith(201);
+      expect(res.json).toHaveBeenCalledWith(
+        expect.objectContaining({ success: true, data: fakeCreated }),
+      );
     });
   });
 });

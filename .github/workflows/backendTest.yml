@@ -19,7 +19,6 @@ jobs:
           node-version: "24"
 
       - name: Instalar app/backend de forma limpa
-
         run: |
           cd app/backend
           npm ci
