@@ -14,23 +14,19 @@ import {
 import { useToast } from "../hooks/use-toast";
 import "./Cadastro.css";
 
+import api from "../services/api";
+
 export default function Register() {
   const inputNome = useRef();
   const inputEmail = useRef();
   const inputSenhaUsr = useRef();
 
   async function createUsr() {
-    await fetch("http://localhost:3000/usuarios", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: inputNome.current.value,
-        email: inputEmail.current.value,
-        password: inputSenhaUsr.current.value,
-        papel: "usuario",
-      }),
+    await api.post("/usuarios", {
+      nome: inputNome.current.value,
+      email: inputEmail.current.value,
+      senha: inputSenhaUsr.current.value,
+      papel: "usuario",
     });
   }
 
@@ -49,7 +45,7 @@ export default function Register() {
       toast({
         title: "Erro",
         description: "As senhas não coincidem!",
-        variant: "destructive",
+        variant: "error",
       });
       return;
     }
