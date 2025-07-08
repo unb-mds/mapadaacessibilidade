@@ -27,55 +27,53 @@ a{
   color: #000;
 } */
 
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
 }
-a{
+a {
   text-decoration: none;
   color: inherit;
 }
-.navbar{
+.navbar {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 15px 8%;
 }
-.navbar ul{
+.navbar ul {
   padding: 10px 30px;
   border-radius: 30px;
   box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.1);
 }
-.navbar ul li{
+.navbar ul li {
   display: inline-block;
   padding: 5px 10px;
   margin: 0 10px;
-  
 }
-a.active{
-  color: red;;
+a.active {
+  color: red;
 }
 
-.navbar button{
+.navbar button {
   background: #3b63ff;
   color: #fff;
   padding: 10px 20px;
   border: 0;
   border-radius: 30px;
   font-size: 16px;
-
 }
-.container{
+.container {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 80vh;
 }
-.container h1{
+.container h1 {
   font-size: 70px;
   font-weight: 500;
 }

@@ -25,7 +25,7 @@ jobs:
       - name: Run Prettier for frontend
         run: |
           cd app/frontend
-          npx prettier --write .
+          npx prettier --check .
 
       - name: install app/backend dependencies
         run: |

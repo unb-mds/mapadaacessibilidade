@@ -34,7 +34,7 @@
  *           type: array
  *           items:
  *             $ref: '#/components/schemas/Avaliacao'
- * 
+ *
  *     NovoLocal:
  *       type: object
  *       required:
@@ -62,7 +62,7 @@
  *         longitude:
  *           type: number
  *           format: float
- * 
+ *
  *     LocalCriado:
  *       type: object
  *       properties:
@@ -70,13 +70,13 @@
  *           type: string
  *         local:
  *           $ref: '#/components/schemas/Local'
- * 
+ *
  *     Erro:
  *       type: object
  *       properties:
  *         error:
  *           type: string
- * 
+ *
  *     ErroDetalhado:
  *       type: object
  *       properties:
@@ -85,10 +85,6 @@
  *         details:
  *           type: string
  */
-
-
-
-
 
 import { PrismaClient } from "@prisma/client";
 import { v4 as uuidv4 } from "uuid";
@@ -122,7 +118,7 @@ export const buscarLocais = async (req, res) => {
             parseFloat(latitude),
             parseFloat(longitude),
             local.latitude,
-            local.longitude
+            local.longitude,
           );
           return distancia <= parseFloat(raio);
         })
@@ -201,19 +197,19 @@ export class LocalController {
       const { nome, cidade, tipo, raio, latitude, longitude } = req.query;
       const where = {};
 
-      if (nome) where.nome = { contains: nome, mode: 'insensitive' };
-      if (cidade) where.cidade = { equals: cidade, mode: 'insensitive' };
-      if (tipo) where.tipo = { equals: tipo, mode: 'insensitive' };
+      if (nome) where.nome = { contains: nome, mode: "insensitive" };
+      if (cidade) where.cidade = { equals: cidade, mode: "insensitive" };
+      if (tipo) where.tipo = { equals: tipo, mode: "insensitive" };
 
       let locais = await this.repository.findLocais(where);
 
       if (raio && latitude && longitude) {
-        locais = locais.filter(local => {
+        locais = locais.filter((local) => {
           const distancia = this.repository.calcularDistancia(
             parseFloat(latitude),
             parseFloat(longitude),
             local.latitude,
-            local.longitude
+            local.longitude,
           );
           return distancia <= parseFloat(raio);
         });
@@ -236,20 +232,20 @@ export class LocalController {
         cidade,
         latitude,
         longitude,
-        status: 'aprovado',
+        status: "aprovado",
         criado_por,
-        ...req.body
+        ...req.body,
       });
 
       res.status(201).json({
         message: "Local criado com sucesso",
-        local: novoLocal
+        local: novoLocal,
       });
     } catch (error) {
       console.error("Erro ao criar local:", error);
       res.status(500).json({
         error: "Erro interno ao criar local",
-        details: error.message
+        details: error.message,
       });
     }
   }

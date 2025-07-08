@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Plus, ArrowLeft, MapPin } from 'lucide-react';
-import './Local.css';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Plus, ArrowLeft, MapPin } from "lucide-react";
+import "./Local.css";
 
 const categories = [
   { value: "restaurante", label: "Restaurante e Café" },
@@ -26,52 +26,51 @@ const accessibilityItems = [
 export default function AddPlace() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    placeName: '',
-    category: '',
-    address: '',
-    wheelchairAccess: '',
-    accessibilityFeatures: []
+    placeName: "",
+    category: "",
+    address: "",
+    wheelchairAccess: "",
+    accessibilityFeatures: [],
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert('Local adicionado com sucesso! Obrigado pela sua contribuição para um mapa mais acessível.');
+    alert(
+      "Local adicionado com sucesso! Obrigado pela sua contribuição para um mapa mais acessível.",
+    );
     setTimeout(() => {
-      navigate('/');
+      navigate("/");
     }, 1500);
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleCheckboxChange = (e) => {
     const { name, checked } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      accessibilityFeatures: checked 
+      accessibilityFeatures: checked
         ? [...prev.accessibilityFeatures, name]
-        : prev.accessibilityFeatures.filter(item => item !== name)
+        : prev.accessibilityFeatures.filter((item) => item !== name),
     }));
   };
 
   const handleRadioChange = (e) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      wheelchairAccess: e.target.value
+      wheelchairAccess: e.target.value,
     }));
   };
 
   return (
     <main className="add-place-container">
-      <button 
-        className="back-button"
-        onClick={() => navigate('/')}
-      >
+      <button className="back-button" onClick={() => navigate("/")}>
         <ArrowLeft size={16} />
         Voltar para o mapa
       </button>
@@ -81,25 +80,27 @@ export default function AddPlace() {
           <div className="card">
             <div className="card-header">
               <h2>Informações Gerais</h2>
-              <p className="card-description">Nos diga o nome e o tipo do local.</p>
+              <p className="card-description">
+                Nos diga o nome e o tipo do local.
+              </p>
             </div>
             <div className="card-content">
               <div className="form-group">
                 <label htmlFor="place-name">Nome do Local</label>
-                <input 
-                  id="place-name" 
+                <input
+                  id="place-name"
                   name="placeName"
                   type="text"
-                  placeholder="Ex: Café Central" 
+                  placeholder="Ex: Café Central"
                   value={formData.placeName}
                   onChange={handleInputChange}
-                  required 
+                  required
                 />
               </div>
               <div className="form-group">
                 <label htmlFor="category">Categoria</label>
-                <select 
-                  id="category" 
+                <select
+                  id="category"
                   name="category"
                   value={formData.category}
                   onChange={handleInputChange}
@@ -107,7 +108,9 @@ export default function AddPlace() {
                 >
                   <option value="">Selecione uma categoria</option>
                   {categories.map((cat) => (
-                    <option key={cat.value} value={cat.value}>{cat.label}</option>
+                    <option key={cat.value} value={cat.value}>
+                      {cat.label}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -124,14 +127,14 @@ export default function AddPlace() {
                 <label htmlFor="address">Endereço Completo</label>
                 <div className="input-with-icon">
                   <MapPin className="input-icon" size={16} />
-                  <input 
-                    id="address" 
+                  <input
+                    id="address"
                     name="address"
                     type="text"
-                    placeholder="Rua, número, bairro, cidade..." 
+                    placeholder="Rua, número, bairro, cidade..."
                     value={formData.address}
                     onChange={handleInputChange}
-                    required 
+                    required
                   />
                 </div>
               </div>
@@ -141,37 +144,39 @@ export default function AddPlace() {
           <div className="card">
             <div className="card-header">
               <h2>Acessibilidade</h2>
-              <p className="card-description">Informe sobre as características de acessibilidade do local.</p>
+              <p className="card-description">
+                Informe sobre as características de acessibilidade do local.
+              </p>
             </div>
             <div className="card-content">
               <div className="form-group">
                 <label>O local é acessível para cadeira de rodas?</label>
                 <div className="radio-group">
                   <div className="radio-item">
-                    <input 
-                      type="radio" 
-                      id="wc-yes" 
-                      name="wheelchairAccess" 
+                    <input
+                      type="radio"
+                      id="wc-yes"
+                      name="wheelchairAccess"
                       value="yes"
                       onChange={handleRadioChange}
                     />
                     <label htmlFor="wc-yes">Sim, totalmente acessível</label>
                   </div>
                   <div className="radio-item">
-                    <input 
-                      type="radio" 
-                      id="wc-partial" 
-                      name="wheelchairAccess" 
+                    <input
+                      type="radio"
+                      id="wc-partial"
+                      name="wheelchairAccess"
                       value="partial"
                       onChange={handleRadioChange}
                     />
                     <label htmlFor="wc-partial">Parcialmente acessível</label>
                   </div>
                   <div className="radio-item">
-                    <input 
-                      type="radio" 
-                      id="wc-no" 
-                      name="wheelchairAccess" 
+                    <input
+                      type="radio"
+                      id="wc-no"
+                      name="wheelchairAccess"
                       value="no"
                       onChange={handleRadioChange}
                     />
@@ -184,9 +189,9 @@ export default function AddPlace() {
                 <div className="checkbox-grid">
                   {accessibilityItems.map((item) => (
                     <div key={item.id} className="checkbox-item">
-                      <input 
-                        type="checkbox" 
-                        id={item.id} 
+                      <input
+                        type="checkbox"
+                        id={item.id}
                         name={item.id}
                         onChange={handleCheckboxChange}
                       />
@@ -197,7 +202,7 @@ export default function AddPlace() {
               </div>
             </div>
           </div>
-          
+
           <div className="form-actions">
             <button type="submit" className="submit-button">
               <Plus size={20} />

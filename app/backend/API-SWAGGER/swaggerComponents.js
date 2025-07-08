@@ -141,4 +141,3 @@
  *       allOf:
  *         - $ref: '#/components/schemas/Acessibilidade'
  */
-
