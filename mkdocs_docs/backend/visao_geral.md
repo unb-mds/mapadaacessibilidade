@@ -22,30 +22,41 @@ O backend está organizado em camadas bem definidas, facilitando a leitura, manu
 
 ---
 
-```mermaid
-flowchart TD
-    %% Fluxo 100% linear - uma etapa abaixo da outra
-    Start["📥 Requisição HTTP"] --> 
-    Routes["📂 Rotas"] --> 
-    R1["🔀 acessibilidadeRouter.js"] --> 
-    R2["🔀 acessibilidadeLocalRouter.js"] --> 
-    R3["🔀 avaliacaoLocalRouter.js"] --> 
-    R4["🔀 fotosRouter.js"] --> 
-    R5["🔀 locaisRouter.js"] --> 
-    R6["🔀 usuariosRoutes.js"] --> 
-    Middlewares["🛡️ Middlewares"] --> 
-    M1["✅ authMiddleware.js"] --> 
-    M2["🚫 errorMiddleware.js"] --> 
-    M3["🔐 loginMiddleware.js"] --> 
-    M4["🧾 validationMiddleware.js"] --> 
-    Controllers["🧠 Controllers"] --> 
-    C1["🧠 acessibilidadeController.js"] --> 
-    C2["🧠 acessibilidadeLocalController.js"] --> 
-    C3["🧠 avaliacaoLocalController.js"] --> 
-    C4["🧠 fotosController.js"] --> 
-    C5["🧠 locaisController.js"] --> 
-    C6["🧠 usuariosController.js"] --> 
-    Database["🗄️ Banco de Dados\n(Prisma + PostgreSQL)"]
-```
+## 📋 Fluxo Principal da Aplicação
 
----
+```
+📥 Requisição HTTP
+         |
+         v
+    🔀 Roteamento
+         |
+         v
+┌────────────────────────────────────────────────────────────────┐
+│                    📂 ROTAS INDEPENDENTES                      │
+├────────────────────────────────────────────────────────────────┤
+│  🔀 acessibilidadeRouter.js     🔀 acessibilidadeLocalRouter.js │
+│  🔀 avaliacaoLocalRouter.js     🔀 fotosRouter.js              │
+│  🔀 locaisRouter.js            🔀 usuariosRoutes.js            │
+└────────────────────────────────────────────────────────────────┘
+         |
+         v
+┌────────────────────────────────────────────────────────────────┐
+│                  🛡️ MIDDLEWARES (Aplicados conforme necessário)│
+├────────────────────────────────────────────────────────────────┤
+│  ✅ authMiddleware.js        🚫 errorMiddleware.js             │
+│  🔐 loginMiddleware.js       🧾 validationMiddleware.js        │
+└────────────────────────────────────────────────────────────────┘
+         |
+         v
+┌────────────────────────────────────────────────────────────────┐
+│                    🧠 CONTROLLERS INDEPENDENTES                │
+├────────────────────────────────────────────────────────────────┤
+│  🧠 acessibilidadeController.js     🧠 acessibilidadeLocalController.js │
+│  🧠 avaliacaoLocalController.js     🧠 fotosController.js      │
+│  🧠 locaisController.js            🧠 usuariosController.js    │
+└────────────────────────────────────────────────────────────────┘
+         |
+         v
+    🗄️ Banco de Dados
+   (Prisma + PostgreSQL)
+```
