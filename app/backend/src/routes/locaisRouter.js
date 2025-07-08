@@ -1,7 +1,20 @@
-import express from "express";
 const router = express.Router();
-import { buscarLocais, createLocal } from "../controllers/locaisController.js";
+import {
+  listarLocais,
+  criarLocal,
+  buscarLocalPorId
+} from "../controllers/localController.js";
 
+// Rota para listar locais (com filtros via query params)
+router.get("/", listarLocais);
+
+// Rota para criar um novo local
+router.post("/", criarLocal);
+
+// Rota para buscar local por ID
+router.get("/:id", buscarLocalPorId);
+
+export default router;
 /**
  * @swagger
  * tags:
@@ -65,7 +78,7 @@ import { buscarLocais, createLocal } from "../controllers/locaisController.js";
  *             schema:
  *               $ref: '#/components/schemas/Erro'
  */
-router.get("/", buscarLocais);
+
 
 /**
  * @swagger
@@ -93,6 +106,4 @@ router.get("/", buscarLocais);
  *             schema:
  *               $ref: '#/components/schemas/ErroDetalhado'
  */
-router.post("/", createLocal);
 
-export default router;
