@@ -1,9 +1,13 @@
-
-
-import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from "react-leaflet";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+  useMapEvents,
+} from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import api from '../services/api.jsx'; // Your Axios instance
-import L from 'leaflet';
+import api from "../services/api.jsx"; // Your Axios instance
+import L from "leaflet";
 import { Icon } from "leaflet";
 import { useState, useEffect } from "react";
 import {
@@ -30,9 +34,10 @@ import "./Home.css"; // Ensure your CSS is correctly linked
 // Fixes for default Leaflet icons to appear correctly
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
-  iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
-  iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
-  shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
+  iconRetinaUrl:
+    "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png",
+  iconUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png",
+  shadowUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png",
 });
 
 // Custom icon using Leaflet's default
@@ -59,13 +64,13 @@ function Home() {
   const [showAddForm, setShowAddForm] = useState(false); // Controls visibility of the add-marker form popup
 
   // --- New Marker Form States (matching your Prisma schema fields) ---
-  const [newPointTitle, setNewPointTitle] = useState('');
-  const [newPointDescription, setNewPointDescription] = useState('');
-  const [newPointType, setNewPointType] = useState('');
-  const [newPointAddress, setNewPointAddress] = useState('');
-  const [newPointCity, setNewPointCity] = useState('');
-  const [newPointNeighborhood, setNewPointNeighborhood] = useState('');
-  const [newPointState, setNewPointState] = useState('');
+  const [newPointTitle, setNewPointTitle] = useState("");
+  const [newPointDescription, setNewPointDescription] = useState("");
+  const [newPointType, setNewPointType] = useState("");
+  const [newPointAddress, setNewPointAddress] = useState("");
+  const [newPointCity, setNewPointCity] = useState("");
+  const [newPointNeighborhood, setNewPointNeighborhood] = useState("");
+  const [newPointState, setNewPointState] = useState("");
 
   // --- User ID for filtering and creating ---
   // IMPORTANT: This ID should come from your authentication system (e.g., user context, token).
@@ -85,39 +90,48 @@ function Home() {
 
         // Make GET request to your backend's /locais endpoint,
         // sending `criado_por` as a query parameter.
-        const response = await api.get('/locais', {
+        const response = await api.get("/locais", {
           params: {
-            criado_por: USER_CREATOR_ID // <--- NEW: Sending user ID as query parameter
-          }
+            criado_por: USER_CREATOR_ID, // <--- NEW: Sending user ID as query parameter
+          },
         });
 
         // Map API response data to the format your frontend expects for markers
         // Your API's GET response for /locais looks like { success: true, data: [...] }
-        const loadedMarkers = response.data.data.map(item => ({
+        const loadedMarkers = response.data.data.map((item) => ({
           id: item.id,
           geocode: [parseFloat(item.latitude), parseFloat(item.longitude)],
           name: item.nome,
-          description: item.descricao || '',
-          popUp: item.descricao || '',
-          type: item.tipo || '',
-          address: item.endereco || '',
-          city: item.cidade || '',
-          neighborhood: item.bairro || '',
-          state: item.estado || '',
-          rating: item.avaliacao && item.avaliacao.length > 0 ?
-                  (item.avaliacao.reduce((sum, current) => sum + current.nota, 0) / item.avaliacao.length).toFixed(1) : 0,
+          description: item.descricao || "",
+          popUp: item.descricao || "",
+          type: item.tipo || "",
+          address: item.endereco || "",
+          city: item.cidade || "",
+          neighborhood: item.bairro || "",
+          state: item.estado || "",
+          rating:
+            item.avaliacao && item.avaliacao.length > 0
+              ? (
+                  item.avaliacao.reduce(
+                    (sum, current) => sum + current.nota,
+                    0,
+                  ) / item.avaliacao.length
+                ).toFixed(1)
+              : 0,
           reviews: item.avaliacao ? item.avaliacao.length : 0,
           accessibility: 0, // This might need custom logic based on localacessibilidade
-          hours: { weekdays: 'N/A', weekend: 'N/A' },
-          contact: { phone: 'N/A', email: 'N/A' },
+          hours: { weekdays: "N/A", weekend: "N/A" },
+          contact: { phone: "N/A", email: "N/A" },
           features: [], // You might map this from item.localacessibilidade
           photos: [], // Map from your `foto` model if applicable
         }));
         setMarkers(loadedMarkers);
-
       } catch (err) {
         console.error("Erro ao buscar pontos do banco de dados:", err);
-        const errorMessage = err.response?.data?.message || err.message || "Não foi possível carregar os pontos do mapa. Tente novamente.";
+        const errorMessage =
+          err.response?.data?.message ||
+          err.message ||
+          "Não foi possível carregar os pontos do mapa. Tente novamente.";
         setError(errorMessage);
       } finally {
         setIsLoading(false);
@@ -126,10 +140,10 @@ function Home() {
 
     // Only fetch if USER_CREATOR_ID is available (e.g., after login)
     if (USER_CREATOR_ID) {
-        fetchExistingMarkers();
+      fetchExistingMarkers();
     } else {
-        setIsLoading(false); // If no user ID, stop loading and show no markers
-        setError("User ID not available to load locations.");
+      setIsLoading(false); // If no user ID, stop loading and show no markers
+      setError("User ID not available to load locations.");
     }
 
     // --- Effect Hook: Check screen size for mobile responsiveness (existing logic) ---
@@ -144,7 +158,7 @@ function Home() {
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
   }, [USER_CREATOR_ID]); // <--- NEW: Add USER_CREATOR_ID to dependency array
-                        // This ensures re-fetch if the user ID somehow changes
+  // This ensures re-fetch if the user ID somehow changes
 
   // --- Internal component to handle map click events for adding new markers ---
   function MapClickHandler() {
@@ -153,13 +167,13 @@ function Home() {
         setNewMarkerPos(e.latlng);
         setShowAddForm(true);
         // Clear form fields for new entry
-        setNewPointTitle('');
-        setNewPointDescription('');
-        setNewPointType('');
-        setNewPointAddress('');
-        setNewPointCity('');
-        setNewPointNeighborhood('');
-        setNewPointState('');
+        setNewPointTitle("");
+        setNewPointDescription("");
+        setNewPointType("");
+        setNewPointAddress("");
+        setNewPointCity("");
+        setNewPointNeighborhood("");
+        setNewPointState("");
 
         setSelectedMarker(null); // Close info drawer if open
         setDrawerOpen(false);
@@ -172,18 +186,27 @@ function Home() {
   const handleAddPointSubmit = async (e) => {
     e.preventDefault();
 
-    if (!newMarkerPos || !newPointTitle || !newPointAddress || !newPointCity || !newPointState || !USER_CREATOR_ID) {
-      alert('Por favor, preencha todos os campos obrigatórios (Título, Endereço, Cidade, Estado) e certifique-se de estar logado.');
+    if (
+      !newMarkerPos ||
+      !newPointTitle ||
+      !newPointAddress ||
+      !newPointCity ||
+      !newPointState ||
+      !USER_CREATOR_ID
+    ) {
+      alert(
+        "Por favor, preencha todos os campos obrigatórios (Título, Endereço, Cidade, Estado) e certifique-se de estar logado.",
+      );
       return;
     }
 
     const dataToSendToAPI = {
       nome: newPointTitle,
       descricao: newPointDescription,
-      tipo: newPointType === '' ? null : newPointType,
+      tipo: newPointType === "" ? null : newPointType,
       endereco: newPointAddress,
       cidade: newPointCity,
-      bairro: newPointNeighborhood === '' ? null : newPointNeighborhood,
+      bairro: newPointNeighborhood === "" ? null : newPointNeighborhood,
       estado: newPointState,
       latitude: newMarkerPos.lat.toString(),
       longitude: newMarkerPos.lng.toString(),
@@ -194,7 +217,7 @@ function Home() {
     console.log("JSON to send to API:", dataToSendToAPI);
 
     try {
-      const response = await api.post('/locais', dataToSendToAPI);
+      const response = await api.post("/locais", dataToSendToAPI);
 
       // Accessing the created local from `response.data.data` (as per your `criarLocal` controller)
       const newLocalFromAPI = response.data.data; // <--- Corrected access for your specific backend response structure
@@ -202,40 +225,51 @@ function Home() {
       // Clear any previous error messages on success
       setError(null);
 
-      console.log('Local salvo na API:', newLocalFromAPI);
-      alert('Local cadastrado com sucesso!');
+      console.log("Local salvo na API:", newLocalFromAPI);
+      alert("Local cadastrado com sucesso!");
 
       // Map the newly created local object to the frontend marker format and add to state
       const addedMarker = {
         id: newLocalFromAPI.id,
-        geocode: [parseFloat(newLocalFromAPI.latitude), parseFloat(newLocalFromAPI.longitude)],
+        geocode: [
+          parseFloat(newLocalFromAPI.latitude),
+          parseFloat(newLocalFromAPI.longitude),
+        ],
         name: newLocalFromAPI.nome,
-        description: newLocalFromAPI.descricao || '',
-        popUp: newLocalFromAPI.descricao || '',
-        type: newLocalFromAPI.tipo || '',
-        address: newLocalFromAPI.endereco || '',
-        city: newLocalFromAPI.cidade || '',
-        neighborhood: newLocalFromAPI.bairro || '',
-        state: newLocalFromAPI.estado || '',
+        description: newLocalFromAPI.descricao || "",
+        popUp: newLocalFromAPI.descricao || "",
+        type: newLocalFromAPI.tipo || "",
+        address: newLocalFromAPI.endereco || "",
+        city: newLocalFromAPI.cidade || "",
+        neighborhood: newLocalFromAPI.bairro || "",
+        state: newLocalFromAPI.estado || "",
         // Add default values for optional fields not returned by API POST if needed
-        rating: 0, reviews: 0, accessibility: 0, hours: { weekdays: 'N/A', weekend: 'N/A' }, contact: { phone: 'N/A', email: 'N/A' }, features: [], photos: [],
+        rating: 0,
+        reviews: 0,
+        accessibility: 0,
+        hours: { weekdays: "N/A", weekend: "N/A" },
+        contact: { phone: "N/A", email: "N/A" },
+        features: [],
+        photos: [],
       };
-      setMarkers(prevMarkers => [...prevMarkers, addedMarker]);
+      setMarkers((prevMarkers) => [...prevMarkers, addedMarker]);
 
       // Clear form and close popup
       setShowAddForm(false);
       setNewMarkerPos(null);
-      setNewPointTitle('');
-      setNewPointDescription('');
-      setNewPointType('');
-      setNewPointAddress('');
-      setNewPointCity('');
-      setNewPointNeighborhood('');
-      setNewPointState('');
-
+      setNewPointTitle("");
+      setNewPointDescription("");
+      setNewPointType("");
+      setNewPointAddress("");
+      setNewPointCity("");
+      setNewPointNeighborhood("");
+      setNewPointState("");
     } catch (error) {
-      console.error('Erro ao enviar local para a API:', error);
-      const errorMessage = error.response?.data?.message || error.message || 'Erro desconhecido ao cadastrar local.';
+      console.error("Erro ao enviar local para a API:", error);
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "Erro desconhecido ao cadastrar local.";
       setError(`Erro ao cadastrar: ${errorMessage}`);
       alert(`Erro ao cadastrar local: ${errorMessage}`);
     }
@@ -263,40 +297,64 @@ function Home() {
   // Helper functions for feature icons and labels (kept as is)
   const getFeatureIcon = (feature) => {
     switch (feature) {
-      case "ramp": return <Accessibility className="feature-icon" />;
-      case "bathroom": return <WashingMachine className="feature-icon" />;
-      case "tactile": return <Eye className="feature-icon" />;
-      case "elevator": return <Building className="feature-icon" />;
-      case "wheelchair": return <Accessibility className="feature-icon" />;
-      case "audio": return <Volume2 className="feature-icon" />;
-      case "braille": return <Eye className="feature-icon" />;
-      default: return null;
+      case "ramp":
+        return <Accessibility className="feature-icon" />;
+      case "bathroom":
+        return <WashingMachine className="feature-icon" />;
+      case "tactile":
+        return <Eye className="feature-icon" />;
+      case "elevator":
+        return <Building className="feature-icon" />;
+      case "wheelchair":
+        return <Accessibility className="feature-icon" />;
+      case "audio":
+        return <Volume2 className="feature-icon" />;
+      case "braille":
+        return <Eye className="feature-icon" />;
+      default:
+        return null;
     }
   };
 
   const getFeatureClass = (feature) => {
     switch (feature) {
-      case "ramp": return "feature-tag feature-ramp";
-      case "bathroom": return "feature-tag feature-bathroom";
-      case "tactile": return "feature-tag feature-tactile";
-      case "elevator": return "feature-tag feature-elevator";
-      case "wheelchair": return "feature-tag feature-wheelchair";
-      case "audio": return "feature-tag feature-audio";
-      case "braille": return "feature-tag feature-braille";
-      default: return "feature-tag feature-default";
+      case "ramp":
+        return "feature-tag feature-ramp";
+      case "bathroom":
+        return "feature-tag feature-bathroom";
+      case "tactile":
+        return "feature-tag feature-tactile";
+      case "elevator":
+        return "feature-tag feature-elevator";
+      case "wheelchair":
+        return "feature-tag feature-wheelchair";
+      case "audio":
+        return "feature-tag feature-audio";
+      case "braille":
+        return "feature-tag feature-braille";
+      default:
+        return "feature-tag feature-default";
     }
   };
 
   const getFeatureLabel = (feature) => {
     switch (feature) {
-      case "ramp": return "Rampas";
-      case "bathroom": return "Banheiros";
-      case "tactile": return "Pisos táteis";
-      case "elevator": return "Elevadores";
-      case "wheelchair": return "Acesso Cadeirante";
-      case "audio": return "Sinalização Sonora";
-      case "braille": return "Braile";
-      default: return feature;
+      case "ramp":
+        return "Rampas";
+      case "bathroom":
+        return "Banheiros";
+      case "tactile":
+        return "Pisos táteis";
+      case "elevator":
+        return "Elevadores";
+      case "wheelchair":
+        return "Acesso Cadeirante";
+      case "audio":
+        return "Sinalização Sonora";
+      case "braille":
+        return "Braile";
+      default:
+        return feature;
     }
   };
 
@@ -581,10 +639,10 @@ function Home() {
             {newMarkerPos && showAddForm && (
               <Marker position={newMarkerPos} icon={customIcon}>
                 <Popup position={newMarkerPos} autoClose={false}>
-                  <div style={{ padding: '10px' }}>
+                  <div style={{ padding: "10px" }}>
                     <h3>Cadastrar Novo Local</h3>
                     <form onSubmit={handleAddPointSubmit}>
-                      <div style={{ marginBottom: '10px' }}>
+                      <div style={{ marginBottom: "10px" }}>
                         <label htmlFor="newPointTitle">Título (Nome):</label>
                         <input
                           type="text"
@@ -592,31 +650,33 @@ function Home() {
                           value={newPointTitle}
                           onChange={(e) => setNewPointTitle(e.target.value)}
                           required
-                          style={{ width: '100%', padding: '5px' }}
+                          style={{ width: "100%", padding: "5px" }}
                         />
                       </div>
-                      <div style={{ marginBottom: '10px' }}>
+                      <div style={{ marginBottom: "10px" }}>
                         <label htmlFor="newPointDescription">Descrição:</label>
                         <textarea
                           id="newPointDescription"
                           value={newPointDescription}
-                          onChange={(e) => setNewPointDescription(e.target.value)}
+                          onChange={(e) =>
+                            setNewPointDescription(e.target.value)
+                          }
                           rows="3"
-                          style={{ width: '100%', padding: '5px' }}
+                          style={{ width: "100%", padding: "5px" }}
                         />
                       </div>
-                      <div style={{ marginBottom: '10px' }}>
+                      <div style={{ marginBottom: "10px" }}>
                         <label htmlFor="newPointType">Tipo:</label>
                         <input
                           type="text"
                           id="newPointType"
                           value={newPointType}
                           onChange={(e) => setNewPointType(e.target.value)}
-                          style={{ width: '100%', padding: '5px' }}
+                          style={{ width: "100%", padding: "5px" }}
                           placeholder="Ex: Shopping, Restaurante, Parque"
                         />
                       </div>
-                      <div style={{ marginBottom: '10px' }}>
+                      <div style={{ marginBottom: "10px" }}>
                         <label htmlFor="newPointAddress">Endereço:</label>
                         <input
                           type="text"
@@ -624,10 +684,10 @@ function Home() {
                           value={newPointAddress}
                           onChange={(e) => setNewPointAddress(e.target.value)}
                           required
-                          style={{ width: '100%', padding: '5px' }}
+                          style={{ width: "100%", padding: "5px" }}
                         />
                       </div>
-                      <div style={{ marginBottom: '10px' }}>
+                      <div style={{ marginBottom: "10px" }}>
                         <label htmlFor="newPointCity">Cidade:</label>
                         <input
                           type="text"
@@ -635,20 +695,22 @@ function Home() {
                           value={newPointCity}
                           onChange={(e) => setNewPointCity(e.target.value)}
                           required
-                          style={{ width: '100%', padding: '5px' }}
+                          style={{ width: "100%", padding: "5px" }}
                         />
                       </div>
-                      <div style={{ marginBottom: '10px' }}>
+                      <div style={{ marginBottom: "10px" }}>
                         <label htmlFor="newPointNeighborhood">Bairro:</label>
                         <input
                           type="text"
                           id="newPointNeighborhood"
                           value={newPointNeighborhood}
-                          onChange={(e) => setNewPointNeighborhood(e.target.value)}
-                          style={{ width: '100%', padding: '5px' }}
+                          onChange={(e) =>
+                            setNewPointNeighborhood(e.target.value)
+                          }
+                          style={{ width: "100%", padding: "5px" }}
                         />
                       </div>
-                      <div style={{ marginBottom: '10px' }}>
+                      <div style={{ marginBottom: "10px" }}>
                         <label htmlFor="newPointState">Estado (UF):</label>
                         <input
                           type="text"
@@ -657,19 +719,19 @@ function Home() {
                           onChange={(e) => setNewPointState(e.target.value)}
                           required
                           maxLength="2"
-                          style={{ width: '100%', padding: '5px' }}
+                          style={{ width: "100%", padding: "5px" }}
                         />
                       </div>
 
                       <button
                         type="submit"
                         style={{
-                          padding: '8px 15px',
-                          backgroundColor: '#007bff',
-                          color: 'white',
-                          border: 'none',
-                          borderRadius: '5px',
-                          cursor: 'pointer',
+                          padding: "8px 15px",
+                          backgroundColor: "#007bff",
+                          color: "white",
+                          border: "none",
+                          borderRadius: "5px",
+                          cursor: "pointer",
                         }}
                       >
                         Salvar Local
@@ -681,13 +743,13 @@ function Home() {
                           setNewMarkerPos(null);
                         }}
                         style={{
-                          padding: '8px 15px',
-                          backgroundColor: '#dc3545',
-                          color: 'white',
-                          border: 'none',
-                          borderRadius: '5px',
-                          cursor: 'pointer',
-                          marginLeft: '10px'
+                          padding: "8px 15px",
+                          backgroundColor: "#dc3545",
+                          color: "white",
+                          border: "none",
+                          borderRadius: "5px",
+                          cursor: "pointer",
+                          marginLeft: "10px",
                         }}
                       >
                         Cancelar
