@@ -1,0 +1,30 @@
+{
+  "name": "mapadaacessibilidade",
+  "version": "1.0.0",
+  "description": "<div align=\"center\">     <img src=\"https://github.com/user-attachments/assets/d12c18bc-5b57-40e0-adce-199a1d9dc5c8\" width=500px> </div>",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm run install-all && npm run generate && npm run dev-all",
+    "buildTest": "npm run install-all && cd app/backend && npx prisma generate",
+    "install-all": "npm --prefix app/backend install && npm --prefix app/frontend install",
+    "generate": "cd app/backend && npx prisma generate && npx prisma studio",
+    "dev-all": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "backend": "cd app/backend && node src/server.js",
+    "frontend": "cd app/frontend && npm run dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unb-mds/mapadaacessibilidade.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/unb-mds/mapadaacessibilidade/issues"
+  },
+  "homepage": "https://github.com/unb-mds/mapadaacessibilidade#readme",
+  "dependencies": {
+    "concurrently": "^9.2.0"
+  }
+}

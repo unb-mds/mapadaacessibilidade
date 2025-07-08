@@ -1,5 +1,13 @@
-import { MapContainer, TileLayer, Marker } from "react-leaflet";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+  useMapEvents,
+} from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import api from "../services/api.jsx"; // Your Axios instance
+import L from "leaflet";
 import { Icon } from "leaflet";
 import { useState, useEffect } from "react";
 import {
@@ -20,88 +28,125 @@ import {
   Users,
   Volume2,
 } from "lucide-react";
-import "./Home.css";
+import "./Home.css"; // Ensure your CSS is correctly linked
 
-// Configurações dos marcadores
-const markers = [
-  {
-    id: 1,
-    geocode: [-15.7942, -47.8822],
-    name: "Shopping Brasília",
-    description: "Shopping Center",
-    popUp:
-      "Shopping com excelente acessibilidade, contando com rampas em todas as entradas, banheiros adaptados em todos os pisos, piso tátil em áreas comuns e elevadores com sinalização em braile.",
-    image:
-      "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
-    rating: 4.5,
-    reviews: 23,
-    accessibility: 9,
-    address: "SHTN Trecho 1, Conjunto 1B - Asa Norte",
-    city: "Brasília - DF",
-    hours: {
-      weekdays: "10h às 22h",
-      weekend: "11h às 21h",
-    },
-    contact: {
-      phone: "(61) 1234-5678",
-      email: "contato@shoppingbrasilia.com.br",
-    },
-    features: ["ramp", "bathroom", "tactile", "elevator"],
-    photos: [
-      "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
-      "https://images.unsplash.com/photo-1581092921461-39b2f2a85979?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
-      "https://images.unsplash.com/photo-1559839732-f8a0a1d2d8b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
-    ],
-  },
-  {
-    id: 2,
-    geocode: [-15.7801, -47.9292],
-    name: "Centro Cultural Banco do Brasil",
-    description: "Centro Cultural",
-    popUp:
-      "Centro cultural totalmente acessível com entrada principal adaptada, elevadores, banheiros especiais e programação cultural inclusiva.",
-    image:
-      "https://images.unsplash.com/photo-1518021833641-d8e8d8e9f6bb?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
-    rating: 4.2,
-    reviews: 18,
-    accessibility: 8,
-    address: "SCES Trecho 2, Lote 22",
-    city: "Brasília - DF",
-    hours: {
-      weekdays: "9h às 21h",
-      weekend: "9h às 21h",
-    },
-    contact: {
-      phone: "(61) 3108-7600",
-      email: "ccbb.brasilia@bb.com.br",
-    },
-    features: ["ramp", "bathroom", "elevator"],
-    photos: [
-      "https://images.unsplash.com/photo-1518021833641-d8e8d8e9f6bb?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
-      "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
-      "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
-    ],
-  },
-];
+// --- Leaflet Icon Configuration ---
+// Fixes for default Leaflet icons to appear correctly
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl:
+    "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png",
+  iconUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png",
+  shadowUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png",
+});
 
-// Ícone customizado (usando um ícone padrão do Leaflet)
-const iconeCustom = new Icon({
+// Custom icon using Leaflet's default
+const customIcon = new Icon({
   iconUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png",
   shadowUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png",
   iconSize: [25, 41],
   iconAnchor: [12, 41],
   popupAnchor: [1, -34],
-  shadowSize: [41, 41]
+  shadowSize: [41, 41],
 });
 
 function Home() {
+  // --- UI States ---
   const [filtersOpen, setFiltersOpen] = useState(true);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
+  // --- Map Marker Data States ---
+  const [markers, setMarkers] = useState([]); // This will hold all markers: loaded from API + newly added
+  const [newMarkerPos, setNewMarkerPos] = useState(null); // Temp position for a new marker from map click
+  const [showAddForm, setShowAddForm] = useState(false); // Controls visibility of the add-marker form popup
+
+  // --- New Marker Form States (matching your Prisma schema fields) ---
+  const [newPointTitle, setNewPointTitle] = useState("");
+  const [newPointDescription, setNewPointDescription] = useState("");
+  const [newPointType, setNewPointType] = useState("");
+  const [newPointAddress, setNewPointAddress] = useState("");
+  const [newPointCity, setNewPointCity] = useState("");
+  const [newPointNeighborhood, setNewPointNeighborhood] = useState("");
+  const [newPointState, setNewPointState] = useState("");
+
+  // --- User ID for filtering and creating ---
+  // IMPORTANT: This ID should come from your authentication system (e.g., user context, token).
+  // Using a hardcoded ID for now based on your request.
+  const USER_CREATOR_ID = "699714b3-6124-4829-9282-b98131b317d8";
+
+  // --- API Loading and Error States ---
+  const [isLoading, setIsLoading] = useState(true); // Starts true to show loading on initial fetch
+  const [error, setError] = useState(null);
+
+  // --- Effect Hook: Load existing markers from API for the specific user on component mount ---
   useEffect(() => {
+    const fetchExistingMarkers = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
+
+        // Make GET request to your backend's /locais endpoint,
+        // sending `criado_por` as a query parameter.
+        const response = await api.get("/locais", {
+          params: {
+            criado_por: USER_CREATOR_ID, // <--- NEW: Sending user ID as query parameter
+          },
+        });
+
+        // Map API response data to the format your frontend expects for markers
+        // Your API's GET response for /locais looks like { success: true, data: [...] }
+        const loadedMarkers = response.data.data.map((item) => ({
+          id: item.id,
+          geocode: [parseFloat(item.latitude), parseFloat(item.longitude)],
+          name: item.nome,
+          description: item.descricao || "",
+          popUp: item.descricao || "",
+          type: item.tipo || "",
+          address: item.endereco || "",
+          city: item.cidade || "",
+          neighborhood: item.bairro || "",
+          state: item.estado || "",
+          rating:
+            item.avaliacao && item.avaliacao.length > 0
+              ? (
+                  item.avaliacao.reduce(
+                    (sum, current) => sum + current.nota,
+                    0,
+                  ) / item.avaliacao.length
+                ).toFixed(1)
+              : 0,
+          reviews: item.avaliacao ? item.avaliacao.length : 0,
+          accessibility: 0, // This might need custom logic based on localacessibilidade
+          hours: { weekdays: "N/A", weekend: "N/A" },
+          contact: { phone: "N/A", email: "N/A" },
+          features: [], // You might map this from item.localacessibilidade
+          photos: [], // Map from your `foto` model if applicable
+        }));
+        setMarkers(loadedMarkers);
+      } catch (err) {
+        console.error("Erro ao buscar pontos do banco de dados:", err);
+        const errorMessage =
+          err.response?.data?.message ||
+          err.message ||
+          "Não foi possível carregar os pontos do mapa. Tente novamente.";
+        setError(errorMessage);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    // Only fetch if USER_CREATOR_ID is available (e.g., after login)
+    if (USER_CREATOR_ID) {
+      fetchExistingMarkers();
+    } else {
+      setIsLoading(false); // If no user ID, stop loading and show no markers
+      setError("User ID not available to load locations.");
+    }
+
+    // --- Effect Hook: Check screen size for mobile responsiveness (existing logic) ---
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
       if (window.innerWidth >= 768) {
@@ -112,14 +157,133 @@ function Home() {
     checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+  }, [USER_CREATOR_ID]); // <--- NEW: Add USER_CREATOR_ID to dependency array
+  // This ensures re-fetch if the user ID somehow changes
 
+  // --- Internal component to handle map click events for adding new markers ---
+  function MapClickHandler() {
+    useMapEvents({
+      click: (e) => {
+        setNewMarkerPos(e.latlng);
+        setShowAddForm(true);
+        // Clear form fields for new entry
+        setNewPointTitle("");
+        setNewPointDescription("");
+        setNewPointType("");
+        setNewPointAddress("");
+        setNewPointCity("");
+        setNewPointNeighborhood("");
+        setNewPointState("");
+
+        setSelectedMarker(null); // Close info drawer if open
+        setDrawerOpen(false);
+      },
+    });
+    return null;
+  }
+
+  // --- Function to handle submission of the new marker form to the API ---
+  const handleAddPointSubmit = async (e) => {
+    e.preventDefault();
+
+    if (
+      !newMarkerPos ||
+      !newPointTitle ||
+      !newPointAddress ||
+      !newPointCity ||
+      !newPointState ||
+      !USER_CREATOR_ID
+    ) {
+      alert(
+        "Por favor, preencha todos os campos obrigatórios (Título, Endereço, Cidade, Estado) e certifique-se de estar logado.",
+      );
+      return;
+    }
+
+    const dataToSendToAPI = {
+      nome: newPointTitle,
+      descricao: newPointDescription,
+      tipo: newPointType === "" ? null : newPointType,
+      endereco: newPointAddress,
+      cidade: newPointCity,
+      bairro: newPointNeighborhood === "" ? null : newPointNeighborhood,
+      estado: newPointState,
+      latitude: newMarkerPos.lat.toString(),
+      longitude: newMarkerPos.lng.toString(),
+      status: "pendente", // Default status, adjust as per your backend logic
+      criado_por: USER_CREATOR_ID, // Sending the user ID for creation
+    };
+
+    console.log("JSON to send to API:", dataToSendToAPI);
+
+    try {
+      const response = await api.post("/locais", dataToSendToAPI);
+
+      // Accessing the created local from `response.data.data` (as per your `criarLocal` controller)
+      const newLocalFromAPI = response.data.data; // <--- Corrected access for your specific backend response structure
+
+      // Clear any previous error messages on success
+      setError(null);
+
+      console.log("Local salvo na API:", newLocalFromAPI);
+      alert("Local cadastrado com sucesso!");
+
+      // Map the newly created local object to the frontend marker format and add to state
+      const addedMarker = {
+        id: newLocalFromAPI.id,
+        geocode: [
+          parseFloat(newLocalFromAPI.latitude),
+          parseFloat(newLocalFromAPI.longitude),
+        ],
+        name: newLocalFromAPI.nome,
+        description: newLocalFromAPI.descricao || "",
+        popUp: newLocalFromAPI.descricao || "",
+        type: newLocalFromAPI.tipo || "",
+        address: newLocalFromAPI.endereco || "",
+        city: newLocalFromAPI.cidade || "",
+        neighborhood: newLocalFromAPI.bairro || "",
+        state: newLocalFromAPI.estado || "",
+        // Add default values for optional fields not returned by API POST if needed
+        rating: 0,
+        reviews: 0,
+        accessibility: 0,
+        hours: { weekdays: "N/A", weekend: "N/A" },
+        contact: { phone: "N/A", email: "N/A" },
+        features: [],
+        photos: [],
+      };
+      setMarkers((prevMarkers) => [...prevMarkers, addedMarker]);
+
+      // Clear form and close popup
+      setShowAddForm(false);
+      setNewMarkerPos(null);
+      setNewPointTitle("");
+      setNewPointDescription("");
+      setNewPointType("");
+      setNewPointAddress("");
+      setNewPointCity("");
+      setNewPointNeighborhood("");
+      setNewPointState("");
+    } catch (error) {
+      console.error("Erro ao enviar local para a API:", error);
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "Erro desconhecido ao cadastrar local.";
+      setError(`Erro ao cadastrar: ${errorMessage}`);
+      alert(`Erro ao cadastrar local: ${errorMessage}`);
+    }
+  };
+
+  // --- Functions for Drawer and Filter Sidebar (kept as is) ---
   const handleMarkerClick = (marker) => {
     setSelectedMarker(marker);
     setDrawerOpen(true);
     if (isMobile) {
       setFiltersOpen(false);
     }
+    setShowAddForm(false);
+    setNewMarkerPos(null);
   };
 
   const closeDrawer = () => {
@@ -130,6 +294,7 @@ function Home() {
     setFiltersOpen(!filtersOpen);
   };
 
+  // Helper functions for feature icons and labels (kept as is)
   const getFeatureIcon = (feature) => {
     switch (feature) {
       case "ramp":
@@ -193,15 +358,15 @@ function Home() {
     }
   };
 
+  // --- Filters Sidebar Component (kept as is) ---
   function FiltersSidebar() {
     return (
-      <aside className={`filters-sidebar ${filtersOpen ? 'filters-open' : 'filters-closed'}`}>
+      <aside
+        className={`filters-sidebar ${filtersOpen ? "filters-open" : "filters-closed"}`}
+      >
         <div className="filters-header">
           <h2 className="filters-title">Filtrar Locais</h2>
-          <button
-            onClick={toggleFilters}
-            className="filters-toggle"
-          >
+          <button onClick={toggleFilters} className="filters-toggle">
             <Menu size={24} />
           </button>
         </div>
@@ -212,7 +377,7 @@ function Home() {
               <Accessibility size={20} />
               Filtros de Acessibilidade
             </h3>
-            
+
             <div className="filter-item">
               <input
                 type="checkbox"
@@ -400,8 +565,8 @@ function Home() {
                       <Star className="star star-filled" />
                       <Star className="star star-filled" />
                       <Star className="star star-filled" />
-                      <Star className="star star-empty" />
-                      <Star className="star star-empty" />
+                      <Star className="star empty" />
+                      <Star className="star empty" />
                     </div>
                     <span>Acima de 3</span>
                   </label>
@@ -425,7 +590,9 @@ function Home() {
       <div className="main-content">
         <FiltersSidebar />
 
-        <div className={`map-container ${filtersOpen && !isMobile ? 'map-with-sidebar' : ''}`}>
+        <div
+          className={`map-container ${filtersOpen && !isMobile ? "map-with-sidebar" : ""}`}
+        >
           <div className="search-container">
             <div className="search-bar">
               <Search className="search-icon" size={20} />
@@ -451,28 +618,158 @@ function Home() {
               attribution="Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012"
               url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
             />
+            <MapClickHandler />
+
             {markers.map((marker) => (
               <Marker
                 key={marker.id}
                 position={marker.geocode}
-                icon={iconeCustom}
+                icon={customIcon}
                 eventHandlers={{
                   click: () => handleMarkerClick(marker),
                 }}
-              />
+              >
+                <Popup>
+                  <strong>{marker.name}</strong>
+                  {marker.description && <p>{marker.description}</p>}
+                </Popup>
+              </Marker>
             ))}
+
+            {newMarkerPos && showAddForm && (
+              <Marker position={newMarkerPos} icon={customIcon}>
+                <Popup position={newMarkerPos} autoClose={false}>
+                  <div style={{ padding: "10px" }}>
+                    <h3>Cadastrar Novo Local</h3>
+                    <form onSubmit={handleAddPointSubmit}>
+                      <div style={{ marginBottom: "10px" }}>
+                        <label htmlFor="newPointTitle">Título (Nome):</label>
+                        <input
+                          type="text"
+                          id="newPointTitle"
+                          value={newPointTitle}
+                          onChange={(e) => setNewPointTitle(e.target.value)}
+                          required
+                          style={{ width: "100%", padding: "5px" }}
+                        />
+                      </div>
+                      <div style={{ marginBottom: "10px" }}>
+                        <label htmlFor="newPointDescription">Descrição:</label>
+                        <textarea
+                          id="newPointDescription"
+                          value={newPointDescription}
+                          onChange={(e) =>
+                            setNewPointDescription(e.target.value)
+                          }
+                          rows="3"
+                          style={{ width: "100%", padding: "5px" }}
+                        />
+                      </div>
+                      <div style={{ marginBottom: "10px" }}>
+                        <label htmlFor="newPointType">Tipo:</label>
+                        <input
+                          type="text"
+                          id="newPointType"
+                          value={newPointType}
+                          onChange={(e) => setNewPointType(e.target.value)}
+                          style={{ width: "100%", padding: "5px" }}
+                          placeholder="Ex: Shopping, Restaurante, Parque"
+                        />
+                      </div>
+                      <div style={{ marginBottom: "10px" }}>
+                        <label htmlFor="newPointAddress">Endereço:</label>
+                        <input
+                          type="text"
+                          id="newPointAddress"
+                          value={newPointAddress}
+                          onChange={(e) => setNewPointAddress(e.target.value)}
+                          required
+                          style={{ width: "100%", padding: "5px" }}
+                        />
+                      </div>
+                      <div style={{ marginBottom: "10px" }}>
+                        <label htmlFor="newPointCity">Cidade:</label>
+                        <input
+                          type="text"
+                          id="newPointCity"
+                          value={newPointCity}
+                          onChange={(e) => setNewPointCity(e.target.value)}
+                          required
+                          style={{ width: "100%", padding: "5px" }}
+                        />
+                      </div>
+                      <div style={{ marginBottom: "10px" }}>
+                        <label htmlFor="newPointNeighborhood">Bairro:</label>
+                        <input
+                          type="text"
+                          id="newPointNeighborhood"
+                          value={newPointNeighborhood}
+                          onChange={(e) =>
+                            setNewPointNeighborhood(e.target.value)
+                          }
+                          style={{ width: "100%", padding: "5px" }}
+                        />
+                      </div>
+                      <div style={{ marginBottom: "10px" }}>
+                        <label htmlFor="newPointState">Estado (UF):</label>
+                        <input
+                          type="text"
+                          id="newPointState"
+                          value={newPointState}
+                          onChange={(e) => setNewPointState(e.target.value)}
+                          required
+                          maxLength="2"
+                          style={{ width: "100%", padding: "5px" }}
+                        />
+                      </div>
+
+                      <button
+                        type="submit"
+                        style={{
+                          padding: "8px 15px",
+                          backgroundColor: "#007bff",
+                          color: "white",
+                          border: "none",
+                          borderRadius: "5px",
+                          cursor: "pointer",
+                        }}
+                      >
+                        Salvar Local
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setShowAddForm(false);
+                          setNewMarkerPos(null);
+                        }}
+                        style={{
+                          padding: "8px 15px",
+                          backgroundColor: "#dc3545",
+                          color: "white",
+                          border: "none",
+                          borderRadius: "5px",
+                          cursor: "pointer",
+                          marginLeft: "10px",
+                        }}
+                      >
+                        Cancelar
+                      </button>
+                    </form>
+                  </div>
+                </Popup>
+              </Marker>
+            )}
           </MapContainer>
         </div>
 
         {selectedMarker && (
-          <div className={`info-drawer ${drawerOpen ? 'drawer-open' : 'drawer-closed'}`}>
+          <div
+            className={`info-drawer ${drawerOpen ? "drawer-open" : "drawer-closed"}`}
+          >
             <div className="drawer-content">
               <div className="drawer-header">
                 <h3 className="drawer-title">{selectedMarker.name}</h3>
-                <button
-                  onClick={closeDrawer}
-                  className="drawer-close-btn"
-                >
+                <button onClick={closeDrawer} className="drawer-close-btn">
                   <X size={28} />
                 </button>
               </div>
@@ -505,7 +802,9 @@ function Home() {
               <div className="accessibility-score">
                 <div className="accessibility-header">
                   <span>Acessibilidade</span>
-                  <span className="score">{selectedMarker.accessibility}/10</span>
+                  <span className="score">
+                    {selectedMarker.accessibility}/10
+                  </span>
                 </div>
                 <div className="accessibility-bar">
                   <div
@@ -556,8 +855,12 @@ function Home() {
                   </div>
                   <div className="info-text">
                     <p className="info-title">Contato</p>
-                    <p className="info-subtitle">{selectedMarker.contact.phone}</p>
-                    <p className="info-subtitle">{selectedMarker.contact.email}</p>
+                    <p className="info-subtitle">
+                      {selectedMarker.contact.phone}
+                    </p>
+                    <p className="info-subtitle">
+                      {selectedMarker.contact.email}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -574,7 +877,7 @@ function Home() {
                     <div key={index} className="photo-item">
                       <img
                         src={photo}
-                        alt={`Foto ${index +1} do ${selectedMarker.name}`}
+                        alt={`Foto ${index + 1} do ${selectedMarker.name}`}
                         className="photo-image"
                       />
                     </div>

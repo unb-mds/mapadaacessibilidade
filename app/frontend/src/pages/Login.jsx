@@ -1,14 +1,34 @@
-
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Mail, Lock, LogIn, Eye, EyeOff, Facebook, Chrome, Apple } from 'lucide-react';
+import { useState, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  Mail,
+  Lock,
+  LogIn,
+  Eye,
+  EyeOff,
+  Facebook,
+  Chrome,
+  Apple,
+} from "lucide-react";
 import { useToast } from "../hooks/use-toast";
-import './Login.css';
+import "./Login.css";
+
+import api from "../services/api";
 
 export default function Login() {
   const { toast } = useToast();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+
+  const inputEmail = useRef(null);
+  const inputSenha = useRef(null);
+
+  async function logUsr() {
+    await api.post("/usuarios/login", {
+      email: inputEmail.current.value,
+      senha: inputSenha.current.value,
+    });
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,7 +43,7 @@ export default function Login() {
         title: "Login bem-sucedido!",
         description: "Redirecionando para a página inicial.",
       });
-      navigate('/');
+      navigate("/");
     }, 1500);
   };
 
@@ -36,10 +56,13 @@ export default function Login() {
           </div>
           <h1 className="login-title">Acesse sua conta</h1>
           <p className="login-subtitle">
-            Ou <Link to="/cadastro" className="login-link">cadastre-se agora</Link>
+            Ou{" "}
+            <Link to="/cadastro" className="login-link">
+              cadastre-se agora
+            </Link>
           </p>
         </div>
-        
+
         <form onSubmit={handleSubmit} className="login-form">
           <div className="form-group">
             <div className="input-wrapper">
@@ -51,9 +74,9 @@ export default function Login() {
                 placeholder="E-mail"
                 required
                 className="form-input"
+                ref={inputEmail}
               />
-              <div className="input-flag">                
-              </div>
+              <div className="input-flag"></div>
             </div>
           </div>
 
@@ -67,6 +90,7 @@ export default function Login() {
                 placeholder="Senha"
                 required
                 className="form-input"
+                ref={inputSenha}
               />
               <button
                 type="button"
@@ -85,10 +109,12 @@ export default function Login() {
                 Lembrar de mim
               </label>
             </div>
-            <Link to="#" className="forgot-password">Esqueceu sua senha?</Link>
+            <Link to="#" className="forgot-password">
+              Esqueceu sua senha?
+            </Link>
           </div>
 
-          <button type="submit" className="login-button">
+          <button type="submit" className="login-button" onClick={logUsr}>
             <LogIn />
             Entrar
           </button>

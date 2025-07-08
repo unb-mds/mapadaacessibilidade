@@ -1,4 +1,3 @@
-
 /* Container and spacing adjustments */
 .about-container {
   max-width: 1200px;
@@ -50,9 +49,15 @@
 }
 
 @keyframes gradient-shift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .hero-description {
@@ -213,7 +218,7 @@
 }
 
 .member-avatar::before {
-  content: '';
+  content: "";
   position: absolute;
   top: -2px;
   left: -2px;
@@ -226,8 +231,12 @@
 }
 
 @keyframes rotate {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .member-initials {
@@ -331,15 +340,15 @@
     grid-template-columns: 1fr;
     gap: 2rem;
   }
-  
+
   .carousel-item {
     flex: 0 0 50%;
   }
-  
+
   .carousel-prev {
     left: -2rem;
   }
-  
+
   .carousel-next {
     right: -2rem;
   }
@@ -350,23 +359,23 @@
     padding: 1rem;
     gap: 2rem;
   }
-  
+
   .hero-title {
     font-size: 2rem;
   }
-  
+
   .features-section {
     grid-template-columns: 1fr;
   }
-  
+
   .carousel-item {
     flex: 0 0 100%;
   }
-  
+
   .carousel-prev {
     left: -1rem;
   }
-  
+
   .carousel-next {
     right: -1rem;
   }
@@ -376,20 +385,20 @@
   .about-container {
     padding: 0.5rem;
   }
-  
+
   .documentation-section {
     padding: 1.5rem;
   }
-  
+
   .carousel-btn {
     width: 1.5rem;
     height: 1.5rem;
   }
-  
+
   .carousel-prev {
     left: -0.5rem;
   }
-  
+
   .carousel-next {
     right: -0.5rem;
   }
