@@ -81,6 +81,9 @@ nav:
     - Visão Geral: backend/visao_geral.md
     - Estrutura de Pastas: backend/estrutura.md
     - API: backend/api/overview.md
+    - Middlewares: backend/middlewares.md
+    - Controllers: backend/controllers.md
+    
  
   - Frontend:
     - Visão Geral: frontend/visao_geral.md
