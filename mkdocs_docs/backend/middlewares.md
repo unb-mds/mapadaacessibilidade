@@ -290,3 +290,295 @@ Esses middlewares facilitam o monitoramento e o diagnóstico de requisições no
 * ✅ Identificação de problemas de performance (tempos de resposta)
 * ✅ Rastreamento completo do fluxo de acessos
 * ✅ Suporte a troubleshooting com timestamps precisos
+
+---
+
+# ValidationMiddleware.js
+
+## Visão Geral
+
+Esta documentação descreve os middlewares de validação utilizados no backend do projeto "Mapa da Acessibilidade". Os middlewares de validação são responsáveis por garantir que os dados de entrada estejam corretos antes de serem processados pelos controllers.
+
+## Estrutura de Middlewares
+
+### Diretório Middlewares
+
+```
+src/middlewares/
+├── authMiddleware.js
+├── errorMiddleware.js
+├── loginMiddleware.js
+└── validationMiddleware.js
+```
+
+## Validation Middlewares
+
+### validationMiddleware.js
+
+Middleware específico para validação de dados de entrada.
+
+**Localização:** `src/middlewares/validationMiddleware.js`
+
+**Função:** Responsável pela validação de dados de usuários e requisições de login.
+
+#### Funcionalidades Implementadas
+
+##### validarCadastroUsuario
+
+Middleware para validação de dados de cadastro de usuários.
+
+```javascript
+export const validarCadastroUsuario = (req, res, next) => {
+  const { nome, email, senha, papel } = req.body;
+
+  if (!nome || nome.length < 3) {
+    return res
+      .status(400)
+      .json({ error: "Nome inválido (mínimo 3 caracteres)" });
+  }
+
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return res.status(400).json({ error: "Email inválido" });
+  }
+
+  if (!senha || senha.length < 6) {
+    return res
+      .status(400)
+      .json({ error: "Senha deve ter pelo menos 6 caracteres" });
+  }
+
+  if (!["usuario", "admin"].includes(papel)) {
+    return res.status(400).json({ error: "Papel inválido" });
+  }
+
+  next();
+};
+```
+
+**Validações Implementadas:**
+- **Nome**: Obrigatório, mínimo de 3 caracteres
+- **Email**: Obrigatório, formato válido usando regex
+- **Senha**: Obrigatória, mínimo de 6 caracteres
+- **Papel**: Deve ser "usuario" ou "admin"
+
+**Códigos de Erro:**
+- **400**: Dados inválidos ou ausentes
+
+##### validarLogin
+
+Middleware para validação de dados de login.
+
+```javascript
+export const validarLogin = (req, res, next) => {
+  const { email, senha } = req.body;
+
+  if (!email || !senha) {
+    return res.status(400).json({ error: "Email e senha são obrigatórios" });
+  }
+
+  next();
+};
+```
+
+**Validações Implementadas:**
+- **Email**: Obrigatório
+- **Senha**: Obrigatória
+
+**Códigos de Erro:**
+- **400**: Campos obrigatórios ausentes
+
+## Regras de Validação
+
+### Cadastro de Usuários
+
+#### Campo Nome
+- **Obrigatório**: Sim
+- **Tamanho mínimo**: 3 caracteres
+- **Mensagem de erro**: "Nome inválido (mínimo 3 caracteres)"
+
+#### Campo Email
+- **Obrigatório**: Sim
+- **Formato**: Deve seguir padrão de email válido
+- **Regex**: `/^[^\s@]+@[^\s@]+\.[^\s@]+$/`
+- **Mensagem de erro**: "Email inválido"
+
+#### Campo Senha
+- **Obrigatório**: Sim
+- **Tamanho mínimo**: 6 caracteres
+- **Mensagem de erro**: "Senha deve ter pelo menos 6 caracteres"
+
+#### Campo Papel
+- **Obrigatório**: Sim
+- **Valores aceitos**: "usuario" ou "admin"
+- **Mensagem de erro**: "Papel inválido"
+
+### Login
+
+#### Campos Email e Senha
+- **Obrigatórios**: Sim
+- **Mensagem de erro**: "Email e senha são obrigatórios"
+
+## Estrutura de Implementação
+
+### Padrão de Middlewares
+
+Os middlewares seguem o padrão Node.js/Express com ES6 modules:
+
+```javascript
+// Estrutura padrão de middleware de validação
+export const validar[Funcionalidade] = (req, res, next) => {
+    // Extração de dados do body
+    const { campo1, campo2 } = req.body;
+    
+    // Validações
+    if (!campo1) {
+        return res.status(400).json({ error: "Mensagem de erro" });
+    }
+    
+    // Continua processamento
+    next();
+};
+```
+
+### Padrão de Resposta de Erro
+
+Todas as validações retornam erros no formato:
+
+```json
+{
+  "error": "Mensagem descritiva do erro"
+}
+```
+
+## Funcionalidades
+
+### Validation Middleware
+
+O `validationMiddleware.js` é responsável por:
+
+- Validação de dados de cadastro de usuários
+- Validação de dados de login
+- Retorno de mensagens de erro padronizadas
+- Verificação de formatos e tamanhos de campos
+
+### Tipos de Validação
+
+#### Validação de Presença
+- Verifica se campos obrigatórios estão presentes
+- Exemplo: `if (!email || !senha)`
+
+#### Validação de Formato
+- Verifica se dados seguem formato esperado
+- Exemplo: Regex para email
+
+#### Validação de Tamanho
+- Verifica tamanho mínimo/máximo de campos
+- Exemplo: Nome com mínimo 3 caracteres
+
+#### Validação de Valores
+- Verifica se valores estão dentro de opções permitidas
+- Exemplo: Papel deve ser "usuario" ou "admin"
+
+## Organização do Código
+
+### Localização dos Arquivos
+
+Todos os middlewares estão organizados na pasta:
+
+```
+src/middlewares/
+```
+
+### Nomenclatura
+
+- Arquivos seguem o padrão `[funcionalidade]Middleware.js`
+- Funções exportadas como `export const validar[Funcionalidade]`
+- Separação clara de responsabilidades
+
+## Fluxo de Processamento
+
+### Sequência de Middlewares
+
+1. **Validation Middleware**: Valida dados de entrada
+2. **Auth Middleware**: Processa autenticação (se necessário)
+3. **Controller**: Executa lógica de negócio
+4. **Error Middleware**: Trata erros (se necessário)
+
+### Integração com Rotas
+
+Os middlewares de validação são utilizados nas rotas:
+
+```javascript
+// Exemplo de uso nas rotas
+router.post('/cadastro', validarCadastroUsuario, controller.cadastrar);
+router.post('/login', validarLogin, controller.login);
+```
+
+## Middlewares Relacionados
+
+### authMiddleware.js
+
+Middleware de autenticação do sistema.
+
+**Localização:** `src/middlewares/authMiddleware.js`
+
+**Função:** Gerencia a autenticação de usuários nas requisições.
+
+### loginMiddleware.js
+
+Middleware de login e logging.
+
+**Localização:** `src/middlewares/loginMiddleware.js`
+
+**Função:** Processa requisições de login e logging do sistema.
+
+### errorMiddleware.js
+
+Middleware de tratamento de erros.
+
+**Localização:** `src/middlewares/errorMiddleware.js`
+
+**Função:** Gerencia o tratamento de erros da aplicação.
+
+## Observações Técnicas
+
+### Dependências
+
+Os middlewares fazem parte do sistema de roteamento e são utilizados nas rotas definidas em:
+
+```
+src/routes/
+```
+
+### Configuração
+
+A configuração dos middlewares está integrada com:
+
+- Sistema de rotas da aplicação
+- Controllers de usuários
+- Sistema de autenticação geral do projeto
+
+### Status Codes
+
+- **400 Bad Request**: Dados inválidos ou ausentes
+- **next()**: Continua para o próximo middleware quando dados válidos
+
+### Exemplos de Uso
+
+#### Cadastro Válido
+```json
+{
+  "nome": "João Silva",
+  "email": "joao@email.com",
+  "senha": "123456",
+  "papel": "usuario"
+}
+```
+
+#### Login Válido
+```json
+{
+  "email": "joao@email.com",
+  "senha": "123456"
+}
+```

@@ -71,6 +71,7 @@ plugins:
           fontSize: "20px"
         startOnLoad: true
         securityLevel: "loose"
+  
 
 nav:
   - Início: index.md
@@ -79,17 +80,11 @@ nav:
   - Backend:
     - Visão Geral: backend/visao_geral.md
     - Estrutura de Pastas: backend/estrutura.md
-    - Configuração e Execução: backend/setup.md
-    - Camadas da Aplicação:
-          - Funcionamento: backend/src/inicio_back.md
-          - Controllers: backend/src/controllers.md
-          - Middlewares: backend/src/middlewares.md
-          - Rotas: backend/src/routes.md
-    - API REST:
-        - Introdução: backend/api/overview.md
-        - Endpoints: backend/api/endpoints.md
-    - Banco de Dados:
-        - Migrations & Seed: backend/database/migrations.md
+    - API: backend/api/overview.md
+    - Middlewares: backend/middlewares.md
+    - Controllers: backend/controllers.md
+    
+ 
   - Frontend:
     - Visão Geral: frontend/visao_geral.md
     - Configurações: frontend/configuracoes.md
