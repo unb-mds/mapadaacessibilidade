@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Mail,
@@ -14,7 +14,22 @@ import {
 import { useToast } from "../hooks/use-toast";
 import "./Cadastro.css";
 
+import api from "../services/api";
+
 export default function Register() {
+  const inputNome = useRef();
+  const inputEmail = useRef();
+  const inputSenhaUsr = useRef();
+
+  async function createUsr() {
+    await api.post("/usuarios", {
+      nome: inputNome.current.value,
+      email: inputEmail.current.value,
+      senha: inputSenhaUsr.current.value,
+      papel: "usuario",
+    });
+  }
+
   const { toast } = useToast();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
@@ -30,7 +45,7 @@ export default function Register() {
       toast({
         title: "Erro",
         description: "As senhas não coincidem!",
-        variant: "destructive",
+        variant: "error",
       });
       return;
     }
@@ -76,6 +91,7 @@ export default function Register() {
                 placeholder="Nome Completo"
                 required
                 className="form-input"
+                ref={inputNome}
               />
             </div>
           </div>
@@ -90,6 +106,7 @@ export default function Register() {
                 placeholder="E-mail"
                 required
                 className="form-input"
+                ref={inputEmail}
               />
               <div className="input-flag"></div>
             </div>
@@ -105,6 +122,7 @@ export default function Register() {
                 placeholder="Senha"
                 required
                 className="form-input"
+                ref={inputSenhaUsr}
               />
               <button
                 type="button"
@@ -153,7 +171,7 @@ export default function Register() {
             </div>
           </div>
 
-          <button type="submit" className="register-button">
+          <button type="submit" className="register-button" onClick={createUsr}>
             <UserPlus />
             Cadastrar
           </button>
