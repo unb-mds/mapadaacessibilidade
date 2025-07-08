@@ -74,7 +74,6 @@ plugins:
 
 nav:
   - Início: index.md
-  - Instalação: instalacao.md
   - Estrutura: estrutura.md
   - Contribuição: contribuicao.md
   - Backend:

@@ -1,1 +1,0 @@
-![Instalação](assets/cap_instalacao.png)
