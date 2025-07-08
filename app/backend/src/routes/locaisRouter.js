@@ -1,10 +1,7 @@
-const router = express.Router();
-import {
-  listarLocais,
-  criarLocal,
-  buscarLocalPorId
-} from "../controllers/localController.js";
+import express from "express";
+import { listarLocais, criarLocal, buscarLocalPorId } from "../controllers/locaisController.js";
 
+const router = express.Router();
 // Rota para listar locais (com filtros via query params)
 router.get("/", listarLocais);
 

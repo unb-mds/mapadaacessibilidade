@@ -4,77 +4,56 @@ import { v4 as uuidv4 } from "uuid";
 const prisma = new PrismaClient();
 
 function calcularDistancia(lat1, lon1, lat2, lon2) {
-  const R = 6371000; // Raio da Terra em metros
+  const R = 6371000;
   const dLat = (lat2 - lat1) * Math.PI / 180;
   const dLon = (lon2 - lon1) * Math.PI / 180;
-  const a = 
-    Math.sin(dLat/2) * Math.sin(dLat/2) +
-    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
-    Math.sin(dLon/2) * Math.sin(dLon/2);
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+    Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   return R * c;
 }
 
-// Função para listar locais com filtros
 export const listarLocais = async (req, res) => {
   try {
     const { nome, cidade, tipo, raio, latitude, longitude, limite = 50 } = req.query;
-
     const where = {};
 
     if (nome) {
-      where.nome = { 
-        contains: nome, 
-        mode: "insensitive" 
-      };
+      where.nome = { contains: nome, mode: "insensitive" };
     }
-
     if (cidade) {
-      where.cidade = { 
-        equals: cidade, 
-        mode: "insensitive" 
-      };
+      where.cidade = { equals: cidade, mode: "insensitive" };
     }
-
     if (tipo) {
-      where.tipo = { 
-        equals: tipo, 
-        mode: "insensitive" 
-      };
+      where.tipo = { equals: tipo, mode: "insensitive" };
     }
 
-    const locais = await prisma.local.findMany({
-      where,
-      include: {
-        acessibilidades: true,
-        avaliacoes: {
-          select: {
-            id: true,
-            nota: true,
-            comentario: true,
-            criado_em: true
-          }
-        }
-      },
-      take: parseInt(limite)
-    });
-
-    if (raio && latitude && longitude) {
+    if (latitude && longitude && raio) {
       const lat = parseFloat(latitude);
       const lon = parseFloat(longitude);
-      const raioMetros = parseFloat(raio);
+      const raioMetros = parseInt(raio, 10);
+
+      const locais = await prisma.local.findMany({
+        where,
+        include: {
+          localacessibilidade: true,
+          avaliacao: {
+            select: {
+              id: true,
+              nota: true,
+              comentario: true,
+              created_at: true
+            }
+          }
+        },
+        take: parseInt(limite, 10)
+      });
 
       const locaisComDistancia = locais.map(local => {
-        const distancia = calcularDistancia(
-          lat,
-          lon,
-          local.latitude,
-          local.longitude
-        );
-        return {
-          ...local,
-          distancia: Math.round(distancia) // Distância em metros
-        };
+        const distancia = calcularDistancia(lat, lon, Number(local.latitude), Number(local.longitude));
+        return { ...local, distancia: Math.round(distancia) };
       });
 
       const locaisFiltrados = locaisComDistancia
@@ -95,23 +74,32 @@ export const listarLocais = async (req, res) => {
       });
     }
 
-    res.status(200).json({
-      success: true,
-      data: locais,
-      total: locais.length,
-      filtros: {
-        nome: nome || null,
-        cidade: cidade || null,
-        tipo: tipo || null
-      }
+    const locais = await prisma.local.findMany({
+      where,
+      include: {
+        localacessibilidade: true,
+        avaliacao: {
+          select: {
+            id: true,
+            nota: true,
+            comentario: true,
+            created_at: true
+          }
+        }
+      },
+      take: parseInt(limite, 10)
     });
 
+    res.status(200).json({
+      success: true,
+      data: locais
+    });
   } catch (error) {
-    console.error("Erro ao listar locais:", error);
-    res.status(500).json({ 
+    console.error(error);
+    res.status(500).json({
       success: false,
       error: "Erro interno do servidor ao listar locais",
-      message: error.message 
+      message: error.message
     });
   } finally {
     await prisma.$disconnect();
@@ -155,11 +143,11 @@ export const criarLocal = async (req, res) => {
         latitude: parseFloat(latitude),
         status: "aprovado",
         criado_por,
-        criado_em: new Date()
+        created_at: new Date()
       },
       include: {
-        acessibilidades: true,
-        avaliacoes: true
+        localacessibilidade: true,
+        avaliacao: true
       }
     });
 
@@ -168,9 +156,8 @@ export const criarLocal = async (req, res) => {
       message: "Local criado com sucesso",
       data: novoLocal
     });
-
   } catch (error) {
-    console.error("Erro ao criar local:", error);
+    console.error(error);
     res.status(500).json({
       success: false,
       error: "Erro interno do servidor ao criar local",
@@ -188,37 +175,28 @@ export const buscarLocalPorId = async (req, res) => {
     const local = await prisma.local.findUnique({
       where: { id },
       include: {
-        acessibilidades: true,
-        avaliacoes: {
+        localacessibilidade: true,
+        avaliacao: {
           include: {
             usuario: {
-              select: {
-                id: true,
-                nome: true
-              }
+              select: { id: true, nome: true }
             }
           },
-          orderBy: {
-            criado_em: 'desc'
-          }
+          orderBy: { created_at: "desc" }
         }
       }
     });
 
     if (!local) {
-      return res.status(404).json({
-        success: false,
-        error: "Local não encontrado"
-      });
+      return res.status(404).json({ success: false, error: "Local não encontrado" });
     }
 
     res.status(200).json({
       success: true,
       data: local
     });
-
   } catch (error) {
-    console.error("Erro ao buscar local:", error);
+    console.error(error);
     res.status(500).json({
       success: false,
       error: "Erro interno do servidor ao buscar local",
