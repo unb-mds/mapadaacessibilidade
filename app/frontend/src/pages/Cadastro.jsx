@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Mail,
@@ -15,6 +15,25 @@ import { useToast } from "../hooks/use-toast";
 import "./Cadastro.css";
 
 export default function Register() {
+  const inputNome = useRef();
+  const inputEmail = useRef();
+  const inputSenhaUsr = useRef();
+
+  async function createUsr() {
+    await fetch("http://localhost:3000/usuarios", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: inputNome.current.value,
+        email: inputEmail.current.value,
+        password: inputSenhaUsr.current.value,
+        papel: "usuario",
+      }),
+    });
+  }
+
   const { toast } = useToast();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
@@ -76,6 +95,7 @@ export default function Register() {
                 placeholder="Nome Completo"
                 required
                 className="form-input"
+                ref={inputNome}
               />
             </div>
           </div>
@@ -90,6 +110,7 @@ export default function Register() {
                 placeholder="E-mail"
                 required
                 className="form-input"
+                ref={inputEmail}
               />
               <div className="input-flag"></div>
             </div>
@@ -105,6 +126,7 @@ export default function Register() {
                 placeholder="Senha"
                 required
                 className="form-input"
+                ref={inputSenhaUsr}
               />
               <button
                 type="button"
@@ -153,7 +175,7 @@ export default function Register() {
             </div>
           </div>
 
-          <button type="submit" className="register-button">
+          <button type="submit" className="register-button" onClick={createUsr}>
             <UserPlus />
             Cadastrar
           </button>
