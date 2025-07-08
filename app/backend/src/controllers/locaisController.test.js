@@ -1,117 +1,88 @@
-import { LocalController } from "../controllers/locaisController.js";
-import { jest } from "@jest/globals";
+import { LocalController } from '../controllers/locaisController.js'
+import { jest } from '@jest/globals'
 
-// Mock do repositório
 const mockRepository = {
   findLocais: jest.fn(),
   createLocal: jest.fn(),
-  calcularDistancia: jest.fn(),
-};
+  calcularDistancia: jest.fn()
+}
 
-// Mock do UUID
-const mockUuid = {
-  v4: jest.fn(() => "mocked-uuid"),
-};
+const mockUuid = { v4: jest.fn(() => 'mocked-uuid') }
 
-// Configuração do controller para teste
-const setupController = () => {
-  const controller = new LocalController(mockRepository, mockUuid);
+const setup = () => {
+  const controller = new LocalController(mockRepository, mockUuid)
+  const req = (query = {}, body = {}) => ({ query, body })
+  const res = () => {
+    const r = {}
+    r.status = jest.fn(() => r)
+    r.json = jest.fn(() => r)
+    return r
+  }
+  return { controller, req, res }
+}
 
-  const mockReq = (query = {}, body = {}) => ({ query, body });
+describe('LocalController', () => {
+  beforeEach(() => jest.clearAllMocks())
 
-  const mockRes = () => {
-    const res = {};
-    res.status = jest.fn(() => res);
-    res.json = jest.fn(() => res);
-    return res;
-  };
+  describe('buscarLocais', () => {
+    it('retorna locais filtrados por nome', async () => {
+      const { controller, req, res } = setup()
+      const response = res()
 
-  const mockNext = jest.fn();
+      mockRepository.findLocais.mockResolvedValue([{ id: '1', nome: 'Parque Ibirapuera', cidade: 'São Paulo' }])
 
-  return { controller, mockReq, mockRes, mockNext };
-};
+      await controller.buscarLocais(req({ nome: 'Parque' }), response)
 
-describe("LocalController", () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
+      expect(mockRepository.findLocais).toHaveBeenCalledWith({ nome: { contains: 'Parque', mode: 'insensitive' } })
+      expect(response.status).toHaveBeenCalledWith(200)
+      expect(response.json).toHaveBeenCalledWith([{ id: '1', nome: 'Parque Ibirapuera', cidade: 'São Paulo' }])
+    })
 
-  describe("buscarLocais", () => {
-    it("deve retornar locais filtrados por nome", async () => {
-      const { controller, mockReq, mockRes } = setupController();
-      mockRepository.findLocais.mockResolvedValue([
-        { id: "1", nome: "Parque Ibirapuera", cidade: "São Paulo" },
-      ]);
+    it('filtra por proximidade quando coordenadas são fornecidas', async () => {
+      const { controller, req, res } = setup()
+      const response = res()
 
-      const req = mockReq({ nome: "Parque" });
-      const res = mockRes();
+      mockRepository.findLocais.mockResolvedValue([{ id: '1', nome: 'Local 1', latitude: -23.55, longitude: -46.63 }])
+      mockRepository.calcularDistancia.mockReturnValue(1.5)
 
-      await controller.buscarLocais(req, res);
+      await controller.buscarLocais(req({ latitude: '-23.55', longitude: '-46.63', raio: '5' }), response)
 
-      expect(mockRepository.findLocais).toHaveBeenCalledWith({
-        nome: { contains: "Parque", mode: "insensitive" },
-      });
-      expect(res.status).toHaveBeenCalledWith(200);
-      expect(res.json).toHaveBeenCalledWith([
-        { id: "1", nome: "Parque Ibirapuera", cidade: "São Paulo" },
-      ]);
-    });
+      expect(mockRepository.calcularDistancia).toHaveBeenCalled()
+      expect(response.status).toHaveBeenCalledWith(200)
+      expect(response.json).toHaveBeenCalled()
+    })
+  })
 
-    it("deve filtrar por proximidade quando coordenadas são fornecidas", async () => {
-      const { controller, mockReq, mockRes } = setupController();
-      mockRepository.findLocais.mockResolvedValue([
-        { id: "1", nome: "Local 1", latitude: -23.55, longitude: -46.63 },
-      ]);
-      mockRepository.calcularDistancia.mockReturnValue(1.5);
+  describe('createLocal', () => {
+    it('cria um novo local com dados válidos', async () => {
+      const { controller, req, res } = setup()
+      const response = res()
+      const mockLocal = { id: 'mocked-uuid', nome: 'Novo Local', cidade: 'São Paulo' }
 
-      const req = mockReq({
-        latitude: "-23.55",
-        longitude: "-46.63",
-        raio: "5",
-      });
-      const res = mockRes();
+      mockRepository.createLocal.mockResolvedValue(mockLocal)
 
-      await controller.buscarLocais(req, res);
-
-      expect(mockRepository.calcularDistancia).toHaveBeenCalled();
-      expect(res.status).toHaveBeenCalledWith(200);
-    });
-  });
-
-  describe("createLocal", () => {
-    it("deve criar um novo local com dados válidos", async () => {
-      const { controller, mockReq, mockRes } = setupController();
-      const mockLocal = {
-        id: "mocked-uuid",
-        nome: "Novo Local",
-        cidade: "São Paulo",
-      };
-      mockRepository.createLocal.mockResolvedValue(mockLocal);
-
-      const req = mockReq(
-        {},
-        {
-          nome: "Novo Local",
-          cidade: "São Paulo",
+      await controller.createLocal(
+        req({}, {
+          nome: 'Novo Local',
+          cidade: 'São Paulo',
           latitude: -23.55,
           longitude: -46.63,
-          criado_por: "user-123",
-        },
-      );
-      const res = mockRes();
-
-      await controller.createLocal(req, res);
+          criado_por: 'user-123'
+        }),
+        response
+      )
 
       expect(mockRepository.createLocal).toHaveBeenCalledWith({
-        id: "mocked-uuid",
-        nome: "Novo Local",
-        cidade: "São Paulo",
+        id: 'mocked-uuid',
+        nome: 'Novo Local',
+        cidade: 'São Paulo',
         latitude: -23.55,
         longitude: -46.63,
-        status: "aprovado",
-        criado_por: "user-123",
-      });
-      expect(res.status).toHaveBeenCalledWith(201);
-    });
-  });
-});
+        status: 'aprovado',
+        criado_por: 'user-123'
+      })
+      expect(response.status).toHaveBeenCalledWith(201)
+      expect(response.json).toHaveBeenCalledWith(mockLocal)
+    })
+  })
+})
