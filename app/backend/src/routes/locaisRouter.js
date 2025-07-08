@@ -1,5 +1,9 @@
 import express from "express";
-import { listarLocais, criarLocal, buscarLocalPorId } from "../controllers/locaisController.js";
+import {
+  listarLocais,
+  criarLocal,
+  buscarLocalPorId,
+} from "../controllers/locaisController.js";
 
 const router = express.Router();
 // Rota para listar locais (com filtros via query params)
@@ -76,7 +80,6 @@ export default router;
  *               $ref: '#/components/schemas/Erro'
  */
 
-
 /**
  * @swagger
  * /locais:
@@ -103,4 +106,3 @@ export default router;
  *             schema:
  *               $ref: '#/components/schemas/ErroDetalhado'
  */
-
