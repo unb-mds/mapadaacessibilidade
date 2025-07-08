@@ -80,7 +80,9 @@ nav:
   - Backend:
     - Visão Geral: backend/visao_geral.md
     - Estrutura de Pastas: backend/estrutura.md
-    - API: backend/api/overview.md
+    - API: 
+        - Visão Geral: backend/api/overview.md
+        - Documentação SwaggerHub: "https://app.swaggerhub.com/apis/mapadaacessibilidade/MapadaAcessibilidade/1.0.0"
     - Middlewares: backend/middlewares.md
     - Controllers: backend/controllers.md
     

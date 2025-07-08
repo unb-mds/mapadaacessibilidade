@@ -1,12 +1,18 @@
-<div style="height: 500px; border: 1px solid #eee; border-radius: 8px; overflow: hidden;">
-  <iframe 
-    src="https://app.swaggerhub.com/apis-docs/mapadaacessibilidade/MapadaAcessibilidade/1.0.0" 
-    width="100%" 
-    height="100%" 
-    frameborder="0"
-    allowfullscreen>
-  </iframe>
+<div class="swagger-link">
+  <a href="https://app.swaggerhub.com/apis/mapadaacessibilidade/MapadaAcessibilidade/1.0.0" target="_blank" class="md-button md-button--primary">
+    <span class="twemoji">
+      
+    </span>
+    Documentação Interativa da API
+  </a>
 </div>
+
+<style>
+.swagger-link {
+  margin: 2rem 0;
+  text-align: center;
+}
+</style>
 
 ## Visão Geral
 
