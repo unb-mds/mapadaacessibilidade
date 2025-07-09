@@ -15,7 +15,7 @@
 
 # 🧭 Mapeamento com Acessibilidade para Atividade Comunitária
 
-É Uma [plataforma](https://github.com/unb-mds/mapadaacessibilidade) colaborativa de mapeamento criada para apoiar atividades comunitárias com foco em acessibilidade. A ideia é permitir que qualquer pessoa possa cadastrar e encontrar lugares acessíveis para pessoas com deficiência ou mobilidade reduzida — como centros culturais, feiras, praças e outros espaços públicos.
+É Uma [plataforma](https://mapadaacessibilidade-six.vercel.app/) colaborativa de mapeamento criada para apoiar atividades comunitárias com foco em acessibilidade. A ideia é permitir que qualquer pessoa possa cadastrar e encontrar lugares acessíveis para pessoas com deficiência ou mobilidade reduzida — como centros culturais, feiras, praças e outros espaços públicos.
 
 Nossas decisões de arquitetura podem ser acessadas aqui: [Quadro de Overview no Canva](https://www.canva.com/design/DAGkRnxFbno/UzQqYdR57qFCH5p5HUuFVw/edit?utm_content=DAGkRnxFbno&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 
@@ -75,9 +75,9 @@ Este projeto está sendo desenvolvido por estudantes universitários com apoio d
 
 ---
 
-## 📍 Status do Projeto
+## 📍 Versão do Projeto v1.0.1
 
-🟢 Em implementação – Concluímos as fases de estudo e design, definição de arquitetura, engenharia de requisitos e storymapping. Agora estamos na fase de desenvolvimento do código.
+A plataforma está totalmente funcional e disponível para uso público em [site](https://mapadaacessibilidade2.vercel.app/).
 
 ---
 
