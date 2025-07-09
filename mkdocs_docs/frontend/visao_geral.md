@@ -1,52 +1,50 @@
 ![capa front end](../assets/cap_frontend.png)
 
-# Visão Geral do Frontend
+# ⚙️ Frontend - Funcionalidades do Sistema
 
-O frontend do projeto **Mapa da Acessibilidade** está localizado na pasta `app/frontend` e foi desenvolvido para fornecer uma interface moderna, acessível e responsiva, facilitando o acesso e a colaboração de usuários na busca e cadastro de locais acessíveis.
+## 🖥️ Visão Geral
 
-## Principais Características
+O frontend do **Mapa da Acessibilidade** é uma aplicação web desenvolvida em React.js que oferece uma interface intuitiva e acessível para mapear e compartilhar informações sobre locais acessíveis para pessoas com mobilidade reduzida. A plataforma foi projetada com foco na experiência do usuário e na colaboração comunitária.
 
-- **Tecnologias Utilizadas:**  
-  O frontend utiliza React (com Vite), Tailwind CSS para estilização, e bibliotecas modernas para mapas e componentes interativos.
+## Arquitetura Frontend
 
-- **Funcionalidades:**  
-  - Visualização de locais acessíveis em um mapa interativo.
-  - Busca e filtragem de locais por região e tipo.
-  - Cadastro de novos locais e avaliações de acessibilidade.
-  - Interface adaptada para diferentes dispositivos (responsiva).
- 
-- **Organização dos Arquivos:**  
-  - `src/`: Código-fonte principal do frontend (componentes, páginas, estilos).
-  - `public/`: Arquivos estáticos e imagens.
-  - `images/`: Imagens utilizadas na interface.
-  - Arquivos de configuração para ferramentas como Babel, ESLint, Vite e Jest.
+### Tecnologias Utilizadas
+- **React.js**: Framework principal para desenvolvimento da interface
+- **Leaflet API**: Integração de mapas interativos
+- **CSS/SCSS**: Estilização responsiva e acessível
+- **JavaScript ES6+**: Lógica de interação e manipulação de dados
 
-- **Experiência do Usuário:**  
-  O frontend foi projetado para ser intuitivo, com navegação simples, informações claras e foco em acessibilidade digital, alinhado ao propósito do projeto.
+### Estrutura de Páginas
 
-- **Integração com o Backend:**  
-  Toda a comunicação com a API é feita via requisições HTTP, consumindo os endpoints documentados no Swagger do backend.
-
-## 🏗️ Estrutura de Pastas
-```plaintext
-frontend/
-├── public/          # Arquivos estáticos (HTML, imagens públicas)
-├── src/
-│   ├── assets/      # Recursos estáticos (SVGs, fonts, imagens internas)
-│   ├── components/  # Componentes reutilizáveis
-│   ├── pages/       # Páginas principais da aplicação
-│   ├── views/       # Subpáginas/contextos específicos
-│   ├── index.css    # Estilos globais
-│   └── main.jsx     # Ponto de entrada da aplicação
-├── vite.config.js   # Configuração do Vite
-└── jest.config.js   # Configuração de testes
+```
+src/
+├── pages/
+│   ├── Home.css          # Página inicial
+│   ├── Home.jsx
+│   ├── Cadastro.css      # Cadastro de usuários
+│   ├── Cadastro.jsx
+│   ├── Login.css         # Autenticação
+│   ├── Login.jsx
+│   ├── Contato.css       # Contato com equipe
+│   ├── Contato.jsx
+│   ├── Eventos.css       # Eventos de acessibilidade
+│   ├── Eventos.jsx
+│   ├── FAQ.css           # Perguntas frequentes
+│   ├── FAQ.jsx
+│   ├── Local.css         # Detalhes dos locais
+│   ├── Local.jsx
+│   └── Sobre.css         # Sobre o projeto
+│       Sobre.jsx
 ```
 
-**Resumo**
+## 🔧  Manutenibilidade
 
-Estes arquivos garantem que todo o código do frontend, incluindo componentes React escritos em JSX e recursos modernos do JavaScript, seja corretamente convertido para funcionar em qualquer navegador, tornando o desenvolvimento mais produtivo e o sistema bem formulado.
+### Padrões de Código
+- **Componentes Reutilizáveis**: Estrutura modular
+- **Separação de Responsabilidades**: CSS e JavaScript organizados
+- **Documentação**: Comentários e README por componente
+- **Testes**: Cobertura de funcionalidades críticas
 
+### 🙋 Contribuição
+O projeto é **open source** e aceita contribuições da comunidade. Consulte o guia de contribuição para mais informações sobre como colaborar com o desenvolvimento frontend.
 
----
-
-Esta seção do MkDocs apresenta uma visão geral do frontend, suas tecnologias, estrutura e principais funcionalidades, servindo como ponto de partida para desenvolvedores e colaboradores do projeto.

@@ -1,5 +1,5 @@
 <div class="swagger-link">
-  <a href="https://app.swaggerhub.com/apis/mapadaacessibilidade/MapadaAcessibilidade/1.0.0" target="_blank" class="md-button md-button--primary">
+  <a href="https://app.swaggerhub.com/apis-docs/mapadaacessibilidade/MapadaAcessibilidade/1.0.0" target="_blank" class="md-button md-button--primary">
     <span class="twemoji">
       
     </span>

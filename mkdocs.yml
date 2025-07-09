@@ -75,6 +75,7 @@ plugins:
 
 nav:
   - Início: index.md
+  - Funcionalidades: funcionalidades.md
   - Estrutura: estrutura.md
   - Contribuição: contribuicao.md
   - Backend:
@@ -85,8 +86,7 @@ nav:
         - Documentação SwaggerHub: "https://app.swaggerhub.com/apis/mapadaacessibilidade/MapadaAcessibilidade/1.0.0"
     - Middlewares: backend/middlewares.md
     - Controllers: backend/controllers.md
-    
- 
+
   - Frontend:
     - Visão Geral: frontend/visao_geral.md
     - Configurações: frontend/configuracoes.md
@@ -95,6 +95,7 @@ nav:
     - Pages: frontend/pages.md
     - Estilos: frontend/estilos.md
     - Hooks: frontend/hooks.md
+  - Devops: devops.md
   - Arquitetura Técnica:
     - Visão Geral: arquitetura/visao-geral.md
     - Diagrama da Arquitetura: arquitetura/diagrama.md
