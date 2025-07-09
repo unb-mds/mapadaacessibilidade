@@ -3,7 +3,9 @@ name: Deploy MkDocs to GitHub Pages
 on:
   push:
     branches:
+      - main
       - develop
+      - master  # (opcional, caso use também)
 
 permissions:
   contents: write
@@ -38,3 +40,4 @@ jobs:
 
       - name: Deploy MkDocs
         run: mkdocs gh-deploy --force
+

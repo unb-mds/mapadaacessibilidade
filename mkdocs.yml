@@ -101,6 +101,8 @@ nav:
     - Esquema do Banco de Dados: arquitetura/esquema-banco.md
 
 extra:
+  include:
+    - '.nojekyll'
   generator: false  # Isso remove "Made with Material for MkDocs"
 
   social:
