@@ -2,8 +2,6 @@ site_name: MAPA DA ACESSIBILIDADE
 site_url: https://seusite.com
 repo_url: https://github.com/unb-mds/mapadaacessibilidade
 
-docs_dir: mkdocs_docs
-
 theme:
   name: material
   language: pt

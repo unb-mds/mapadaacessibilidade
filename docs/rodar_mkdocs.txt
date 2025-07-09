@@ -23,7 +23,7 @@ Isso criará uma pasta chamada "venv" com os arquivos do ambiente virtual.
 2. Ativar o ambiente virtual:
 -----------------------------
 
-Windows (PowerShell):
+Windows:
 
     .\venv\Scripts\Activate
 
