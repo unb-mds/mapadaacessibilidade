@@ -89,7 +89,7 @@ Este projeto está sob a licença MIT. Consulte o arquivo [LICENSE](https://gith
 
 ## 📂 Documentação
 
-Consulte a documentação por meio deste [LINK](https://oalbertocavalcante.github.io/documentacao-mapa-daacessibilidade/).
+Consulte a documentação por meio deste [LINK](https://unb-mds.github.io/mapadaacessibilidade/).
 
 ---
 
