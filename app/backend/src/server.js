@@ -24,6 +24,7 @@ app.use(
       "http://localhost:5173",
       "http://localhost:3000",
       "https://mapadaacessibilidade2-git-main-dexmachinas-projects.vercel.app/",
+      process.env.FRONTEND,
     ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
