@@ -1,118 +1,54 @@
-import express from 'express'
-import { PrismaClient } from '@prisma/client'
-import  localRoutes from './routes/localRoutes.js'
-import usuariosRoutes from './routes/usuariosRoutes.js'
+import express from "express";
+import cors from "cors";
+import { PrismaClient } from "@prisma/client";
+import swaggerUi from "swagger-ui-express";
+import swaggerSpec from "../API-SWAGGER/swaggerConfig.js";
 
+// Rotas
+import locaisRoutes from "./routes/locaisRouter.js";
+import usuariosRoutes from "./routes/usuariosRoutes.js";
+import acessibilidadeRouter from "./routes/acessibilidadeRouter.js";
+import acessibilidadeLocalRouter from "./routes/acessibilidadeLocalRouter.js";
+import fotosRouter from "./routes/fotosRouter.js";
+import avaliacaoLocalRouter from "./routes/avaliacaoLocalRouter.js";
 
-
-
-const prisma = new PrismaClient()
-const app = express()
+const prisma = new PrismaClient();
+const app = express();
 const port = 3000;
 
+// Middlewares
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3001",
+      "http://localhost:5173",
+      "http://localhost:3000",
+    ],
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  }),
+);
 
-app.use(express.json())
-app.use(localRoutes)
-app.use('/usuarios', usuariosRoutes)
+app.use(express.json());
 
+// Rotas
+app.use("/locais", locaisRoutes);
+app.use("/usuarios", usuariosRoutes);
+app.use("/", acessibilidadeRouter);
+app.use("/acessibilidade-local", acessibilidadeLocalRouter);
+app.use("/fotos", fotosRouter);
+app.use("/avaliacoes", avaliacaoLocalRouter);
 
+// Rota Swagger UI
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-
-app.get('/usuarios', async(req, res) => {
-  const users = await prisma.usuario.findMany()
-
-  res.status(200).json(users)
-
-})
-
-
-
-app.get('/locais', async (req, res) => {
-  const { nome, cidade, tipo, raio, latitude, longitude } = req.query;
-
-  try {
-    
-    const where = {};
-    
-    if (nome) {
-      where.nome = { contains: nome, mode: 'insensitive' };
-    }
-    
-    if (cidade) {
-      where.cidade = { equals: cidade, mode: 'insensitive' };
-    }
-    
-    if (tipo) {
-      where.tipo = { equals: tipo, mode: 'insensitive' };
-    }
-
-    
-    if (raio && latitude && longitude) {
-      const radiusInMeters = parseFloat(raio);
-      const lat = parseFloat(latitude);
-      const lng = parseFloat(longitude);
-
-      
-      where.geolocalizacao = {
-        not: null,
-        
-      };
-    }
-
-    const locais = await prisma.local.findMany({
-      where,
-      include: {
-        acessibilidades: true,
-        avaliacoes: true
-      },
-      orderBy: {
-        nome: 'asc' 
-      }
-    });
-
-    
-    if (raio && latitude && longitude) {
-      const locaisComDistancia = locais.map(local => {
-
-        const distancia = calcularDistancia(
-          lat, lng,
-          local.latitude, local.longitude
-        );
-        return { ...local, distancia };
-      }).filter(local => local.distancia <= radiusInMeters)
-        .sort((a, b) => a.distancia - b.distancia);
-
-      return res.status(200).json(locaisComDistancia);
-    }
-
-    res.status(200).json(locais);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Erro ao buscar locais.' });
-  }
-});
-
-function calcularDistancia(lat1, lon1, lat2, lon2) {
-  
-  const R = 6371e3; 
-  const φ1 = lat1 * Math.PI/180;
-  const φ2 = lat2 * Math.PI/180;
-  const Δφ = (lat2-lat1) * Math.PI/180;
-  const Δλ = (lon2-lon1) * Math.PI/180;
-
-  const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
-            Math.cos(φ1) * Math.cos(φ2) *
-            Math.sin(Δλ/2) * Math.sin(Δλ/2);
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-
-  return R * c; 
-}
-
-
-
-
-
+// Health Check
+app.get("/", (req, res) => res.sendStatus(200));
 
 app.listen(port, () => {
-  console.log(`Servidor funcionando http://localhost:${port}`)
-})
+  console.log(
+    `Servidor Node.js ${process.version} rodando em http://localhost:${port}`,
+  );
+  console.log(`Swagger UI em http://localhost:${port}/api-docs`);
+});

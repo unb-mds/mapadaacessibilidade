@@ -1,0 +1,255 @@
+/* Header */
+
+.header {
+  background: #fff;
+  box-shadow: 0 2px 0 #edeef1;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  width: 100%;
+}
+.header-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  padding: 0 2rem;
+  gap: 1rem;
+}
+
+/* LOGO AREA */
+.header-logo-area {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  min-width: 220px;
+}
+.header-logo-icon {
+  color: #2563eb;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+.header-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #23272a;
+  margin-bottom: 0;
+}
+.header-subtitle {
+  font-size: 0.95rem;
+  color: #2563eb;
+  margin-top: -2px;
+  margin-bottom: 0;
+  font-weight: 500;
+}
+
+/* NAVIGATION (ESQUERDA) */
+.header-nav {
+  display: flex;
+  gap: 2rem;
+  flex: 1 1 auto;
+  align-items: center;
+  min-width: 450px;
+  justify-content: flex-end;
+}
+.header-link {
+  font-size: 1rem;
+  color: #23272a;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.header-link:hover {
+  color: #2563eb;
+}
+.header-add-btn {
+  display: flex;
+  align-items: center;
+  border: 1.5px solid #2563eb;
+  background: #fff;
+  color: #2563eb;
+  border-radius: 8px;
+  padding: 6px 18px;
+  font-weight: 500;
+  font-size: 1rem;
+  text-decoration: none;
+  transition:
+    background 0.18s,
+    color 0.18s,
+    box-shadow 0.15s;
+  margin-left: 16px;
+}
+.header-add-btn:hover {
+  background: #2563eb;
+  color: #fff;
+  box-shadow: 0 2px 8px 1px rgb(37 99 235 / 7%);
+}
+
+.header-actions {
+  display: flex;
+  gap: 0.65rem;
+}
+.header-btn {
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 6px 22px;
+  text-decoration: none;
+  border: none;
+  outline: none;
+  text-align: center;
+  transition:
+    background 0.18s,
+    color 0.18s;
+}
+
+.header-btn-outline {
+  background: transparent;
+  border: 1.5px solid #2563eb;
+  color: #2563eb;
+}
+.header-btn-outline:hover {
+  background: #2563eb;
+  color: #fff;
+}
+.header-btn-primary {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+}
+.header-btn-primary:hover {
+  background: #1d4ed8;
+  color: #fff;
+}
+
+/* BURGER */
+.header-burger {
+  display: none;
+  background: none;
+  border: none;
+  margin-left: 1rem;
+  color: #23272a;
+  cursor: pointer;
+  transition: color 0.18s;
+  border-radius: 6px;
+  padding: 4px;
+}
+.header-burger:hover {
+  color: #2563eb;
+}
+
+/* MOBILE MENU */
+.header-mobile-menu {
+  max-height: 0;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 2px 6px 0 #eef1fa;
+  transition: max-height 0.28s cubic-bezier(0.48, 1.03, 0.53, 1.24);
+}
+.header-mobile-menu.open {
+  max-height: 400px;
+  transition: max-height 0.32s cubic-bezier(0.22, 1.03, 0.53, 1);
+  border-top: 1.5px solid #e5e7eb;
+}
+.header-mobile-menu nav {
+  padding: 0.6rem 1rem 0.8rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.header-mobile-link {
+  padding: 8px 0;
+  color: #23272a;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: color 0.2s;
+}
+.header-mobile-link:hover {
+  color: #2563eb;
+  background: #f1f8ff;
+}
+.header-mobile-add-btn {
+  width: 100%;
+  margin: 10px 0 4px 0;
+  justify-content: center;
+}
+
+/* MOBILE AUTH BUTTONS */
+.header-mobile-auth {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}
+
+@media (max-width: 1100px) {
+  .header-inner {
+    padding: 0 1.5rem;
+  }
+  .header-nav {
+    min-width: 320px;
+    gap: 1.15rem;
+  }
+  .header-logo-area {
+    min-width: 170px;
+  }
+}
+@media (max-width: 900px) {
+  .header-inner {
+    padding: 0 0.4rem;
+  }
+  .header-nav {
+    gap: 1rem;
+  }
+}
+@media (max-width: 768px) {
+  .header-inner {
+    height: 56px;
+    gap: 0.2rem;
+  }
+  .header-nav,
+  .header-actions {
+    display: none;
+  }
+  .header-burger {
+    display: block;
+    margin-left: auto;
+  }
+  .header-logo-area {
+    gap: 0.5rem;
+    min-width: 0;
+  }
+  .header-mobile-menu {
+    max-width: 100vw;
+    width: 100vw;
+    min-width: 0;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    z-index: 80;
+    border-radius: 0 0 6px 6px;
+  }
+}
+
+@media (max-width: 430px) {
+  .header-title {
+    font-size: 1rem;
+  }
+  .header-subtitle {
+    font-size: 0.88rem;
+  }
+  .header-logo-icon {
+    width: 25px;
+    height: 25px;
+  }
+  .header-btn,
+  .header-add-btn {
+    font-size: 0.98rem;
+    padding: 5px 7px;
+  }
+}

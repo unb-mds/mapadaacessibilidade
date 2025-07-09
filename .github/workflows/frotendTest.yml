@@ -1,0 +1,28 @@
+name: frontendTest
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  teste:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fazer o Setup do Repo
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "24"
+
+      - name: Instalar app/frontend de forma limpa
+        run: |
+          cd app/frontend
+          npm ci
+
+      - name: Run tests
+        run: |
+          cd app/frontend
+          npm run tests

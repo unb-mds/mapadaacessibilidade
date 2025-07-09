@@ -1,12 +1,12 @@
 # Este será meu caderno de estudos para o Projeto de MDS.
 
 Estudos iniciais para o dia 29/03/2025:
-   - Organização de Software.
-   - Git.
-   - Arquiteturas de software (inicialmente MVC).
 
-   ! Este caderno está sendo escrito utilizando a IDE PyCharm Professional da empresa JetBrains.
-   
+- Organização de Software.
+- Git.
+- Arquiteturas de software (inicialmente MVC).
+
+! Este caderno está sendo escrito utilizando a IDE PyCharm Professional da empresa JetBrains.
 
 # Arquitetura de Software MVC:
 

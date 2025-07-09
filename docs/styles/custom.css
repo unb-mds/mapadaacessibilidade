@@ -1,0 +1,130 @@
+/* Importacao da Fonte */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* ===== ESTILOS MINIMALISTAS ===== */
+
+/* Estiliza a imagem dentro de parágrafos com a classe "capa" */
+.capa-container {
+    width: 900px;
+    height: 350px;
+    overflow: hidden;
+}
+.capa-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Fonte e texto */
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: hsl(0, 3%, 12%);
+}
+
+/* Cabeçalho */
+.md-header {
+    background: #ffffff;
+    background-color: #0E1821;
+}
+
+/* Links */
+a {
+    color: #ffffff;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+/* links do conteúdo */
+.md-typeset a {
+    color: #1e8fffd0; /* Azul vibrante */
+    text-decoration: none;
+    border-bottom: #1e90ff; /* Estilo visual */
+}
+.md-typeset a:hover {
+    color: #1e8fff;
+    text-decoration: underline;
+}
+
+/* links de navegacao lateral */
+
+/* Links padrão na navegação lateral */
+.md-nav__link {
+    color: #333333; /* Cor padrão do texto */
+    font-weight: normal;
+}
+
+/* Quando o link está ativo */
+.md-nav__link--active {
+    color: #ff6600; /* Altere essa cor para o desejado (laranja nesse exemplo) */
+    font-weight: bold;
+}
+
+/* Links ao passar o mouse */
+.md-nav__link:hover {
+    color: #1e90ff; /* Azul ao passar o mouse */
+}
+
+.md-tabs {
+    background-color: #1360F3;
+}
+
+/* Navegação */
+.md-nav__link--active {
+    font-weight: bold;
+    color: #e74c3c;
+}
+
+/* Blocos de código */
+pre code {
+    background: #f8f9fa;
+    border-radius: 4px;
+    padding: 1em;
+}
+
+/* Tabelas */
+.md-typeset table {
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Redimensionar a logo no cabeçalho */
+.md-header__button.md-logo img {
+    height: 45px;   /* Altere conforme necessário */
+    width: auto;    /* Mantém proporção */
+    margin-right: 8px;
+}
+
+/* source venv/bin/activate */
+/* mkdocs serve */
+
+/* ===== ESTILOS PARA O MODO ESCURO ===== */
+
+/* Força a cor branca para textos no modo escuro */
+[data-md-color-scheme="slate"] {
+  --md-default-fg-color: #ffffff;              /* texto padrão */
+  --md-default-fg-color--light: #e0e0e0;       /* texto mais claro */
+  --md-default-fg-color--lighter: #cccccc;     /* links inativos, descrições */
+  --md-typeset-color: #ffffff;                 /* conteúdo principal */
+}
+
+/* Exemplo de personalização para links */
+[data-md-color-scheme="slate"] a {
+  color: #90caf9;
+}
+
+/* Força os textos principais do conteúdo a ficarem brancos no modo escuro */
+[data-md-color-scheme="slate"] .md-typeset {
+  color: #ffffff;
+}
+
+/* Centraliza os ícones sociais no rodapé */
+.md-footer-meta__inner {
+  justify-content: center !important;
+}
+
+.md-footer-social {
+  margin: 0 auto;
+}

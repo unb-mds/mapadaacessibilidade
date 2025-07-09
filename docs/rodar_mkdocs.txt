@@ -1,0 +1,54 @@
+Documentação MkDocs - Ambiente Virtual
+======================================
+
+Este projeto utiliza o MkDocs para gerar documentação estática.
+
+Abaixo estão os comandos essenciais para configurar o ambiente virtual
+e instalar as dependências.
+
+Pré-requisitos:
+---------------
+- Python instalado e adicionado ao PATH do sistema.
+- O arquivo "requirements.txt" deve estar na raiz do projeto.
+
+1. Criar o ambiente virtual:
+----------------------------
+
+Abra o terminal na raiz do projeto e execute:
+
+    python -m venv venv
+
+Isso criará uma pasta chamada "venv" com os arquivos do ambiente virtual.
+
+2. Ativar o ambiente virtual:
+-----------------------------
+
+Windows:
+
+    .\venv\Scripts\Activate
+
+Linux / Mac (bash/zsh):
+
+    source venv/bin/activate
+
+Após ativar, o terminal deve exibir algo como:
+
+    (venv) C:\seu\projeto>
+
+3. Instalar as dependências:
+----------------------------
+
+Com o ambiente virtual ativado, instale os pacotes com:
+
+    pip install -r requirements.txt
+
+4. Rodar o MkDocs localmente:
+-----------------------------
+
+Após instalar as dependências, execute:
+
+    mkdocs serve
+
+Depois, abra o navegador e acesse:
+
+    http://127.0.0.1:8000
