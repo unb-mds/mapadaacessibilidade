@@ -5,7 +5,7 @@
 **Canal:** Discord, Sala de Estudo 1
 
 **Participantes:**
-- Caio Rocha (Product Owner)  
+- Caio Rocha (Product Owner/ Desenvolvedor)  
 - Caio Soares (Desenvolvedor / Scrum Master)  
 - Alberto Côrtes Cavalcante (Desenvolvedor )  
 - Anderson Fernandes da Silva (Desenvolvedor)  
