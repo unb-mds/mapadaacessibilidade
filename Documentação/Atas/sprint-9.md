@@ -6,9 +6,9 @@
 **Canal:** Discord, Sala de Estudo 1
 
 **Participantes:**
-- Caio Rocha (Product Owner / Scrum Master)  
+- Caio Rocha (Product Owner )  
 - Caio Soares (Desenvolvedor / Scrum Master)  
-- Alberto Côrtes Cavalcante (Desenvolvedor / Scrum Master)  
+- Alberto Côrtes Cavalcante (Desenvolvedor)  
 - Anderson Fernandes da Silva (Desenvolvedor)  
 - Lucas Machado Peres Ricarte (Desenvolvedor)  
 - Maria Laura Regis Cabral Dias (Desenvolvedora)  
